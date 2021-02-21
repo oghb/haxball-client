@@ -1,0 +1,21 @@
+/* where ads are supposed to be */
+.rightbar {
+    display: none
+}
+
+/* commandline bar */
+input {
+  outline: none;
+  resize: none;
+  overflow: auto;
+  padding: 5px;
+  border: 2px solid #1b2125;
+  background-color: #1b2125;
+  color: #FFFFFF;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+  border-top-style: solid;
+  border-top-color: #b3413b;
+  border-top-width: 2px;
+}
