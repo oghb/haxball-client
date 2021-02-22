@@ -17,6 +17,7 @@ if (document.getElementsByClassName("overflowhidden").length != 0) {
 		<div class="header">
 			<span class="title">HaxBall Client by og</span>
                         <a href="https://discord.gg/RRmBfP5">Discord</a>
+                        <a href="https://github.com/oghb/haxball-client">GitHub</a>
 		</div>
                 <input type=text size=5 id="commandline" rows="1" cols="20" style="font-size: 20px" placeholder="Paste a room link or enter a command"></input>
 		<div class="flexRow flexGrow">
@@ -26,7 +27,7 @@ if (document.getElementsByClassName("overflowhidden").length != 0) {
 </body>`;
 }
 
-if (localStorage.getItem("shortcuts") == null) localStorage.setItem("shortcuts", '[["/e","/extrapolation"]]');
+if (localStorage.getItem("shortcuts") == null) localStorage.setItem("shortcuts", '[["/e","/extrapolation "]]');
 localStorage.setItem("transp_ui", "false");
 
 // parses commands and room links typed in the command line
@@ -60,7 +61,7 @@ commandInput.addEventListener("keyup", function (event) {
           commandInput.value = "";
           if (newShortcut.length != 2) {
             commandInput.value = "";
-            commandInput.placeholder = "Wrong syntax! Example: shortcut add /e,/extrapolation 30";
+            commandInput.placeholder = "Wrong syntax! Example: shortcut add !c,!claim yourpassword";
             setTimeout(function () {
               commandInput.placeholder = "Paste a room link or enter a command";
             }, 5000);
@@ -185,7 +186,6 @@ commandInput.addEventListener("keyup", function (event) {
             }, 2000);
             return;
           }
-          if (value < -200 || value > 200) value = value > 0 ? 200 : -200;
           localStorage.setItem("extrapolation", value.toString());
           commandInput.placeholder = "Extrapolation set! Reloading HaxBall with the new value...";
           setTimeout(function () {
@@ -211,13 +211,13 @@ commandInput.addEventListener("keyup", function (event) {
       case commandSplit[0] == "info":
         commandInput.value = "";
         window.alert(
-          "HaxBall Client\n\nThis app was developed by og#9525 in an effort to create an overall better HaxBall experience.\n\nIt is open-source and built with open-source tools.\n\nMost of the work was done by 'nativefier', a command-line tool which creates standalone Electron apps for any website. Then, both the 'HaxBall All-in-one' browser extension and some custom Javascript were injected in the app, in order to block ads, add custom CSS styling to the webpage, and add the input bar on the top, which functions both as an address bar for room links and as a command launcher.\n\nThank you for checking it out!\n\nLinks\nhttps://discord.gg/RRmBfP5\nhttps://github.com/nativefier/nativefier\nhttps://github.com/xenonsb/Haxball-Room-Extension"
+          "HaxBall Client\n\nThis app was developed by og#9525 in an effort to create an overall better HaxBall experience.\n\nIt is open-source and built with open-source tools.\n\nMost of the work was done by 'nativefier', a command-line tool which creates standalone Electron apps for any website. Then, both the 'HaxBall All-in-one' browser extension and some custom Javascript were injected in the app, in order to block ads, add custom CSS styling to the webpage, and add the input bar on the top, which functions both as an address bar for room links and as a command launcher.\n\nThank you for checking it out!\n\nLinks\nhttps://discord.gg/RRmBfP5\nhttps://github.com/oghb/haxball-client\nhttps://github.com/nativefier/nativefier\nhttps://github.com/xenonsb/Haxball-Room-Extension"
         );
         break;
 
       case commandSplit[0] == "version":
         commandInput.value = "";
-        commandInput.placeholder = "v0.1 (2021.02.20)";
+        commandInput.placeholder = "v0.1.1 (2021.02.22)";
         setTimeout(function () {
           commandInput.placeholder = "Paste a room link or enter a command";
         }, 3000);
@@ -225,7 +225,9 @@ commandInput.addEventListener("keyup", function (event) {
 
       case commandSplit[0] == "changelog":
         commandInput.value = "";
-        window.alert("Changelog\n\nv0.1\nThis is the very first release, thank you for checking it out!");
+        window.alert(
+          "Changelog\n\nv0.1.1 (2021.02.22)\n-shortcuts changes are reflected immediately\n-changed the default shortcut to\n'/e' —> '/extrapolation '\n-updated 'info' and header with GitHub link\n-extrapolation set with the command bar no longer limited to +-200 (if you use a modified game-min.js to bypass the limit)\n\nv0.1 (2021.02.20)\nFirst release"
+        );
         break;
     }
   }
@@ -247,8 +249,8 @@ iframe.addEventListener("load", function () {
 
           // waits for shortcuts in chat
           let chatInput = gameframe.contentWindow.document.querySelector('[data-hook="input"]');
-          const shortcuts = JSON.parse(localStorage.getItem("shortcuts"));
           chatInput.addEventListener("keyup", function () {
+            const shortcuts = JSON.parse(localStorage.getItem("shortcuts"));
             for (let i = 0; i < shortcuts.length; i++) {
               if (chatInput.value == shortcuts[i][0]) {
                 chatInput.value = shortcuts[i][1];
