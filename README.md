@@ -21,6 +21,7 @@ Download from the [Releases](https://github.com/oghb/haxball-client/releases) pa
 * Dedicated button to make the UI transparent
 * Custom command-line (see below)
 * Support for high refresh rate monitors (e.g. 144fps if you have a 144Hz monitor)
+* No ads
 
 \* *these were originally featured in the All-in-one Tool, but given that they do not work in the client they have been rewritten from scratch (see below)*.
 
