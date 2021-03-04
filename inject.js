@@ -124,6 +124,48 @@ commandInput.addEventListener("keyup", function (event) {
         }
         break;
 
+      case commandSplit[0] == "notes":
+        let notes = JSON.parse(localStorage.getItem("notes"));
+        if (commandSplit[1] == "add") {
+          const newNote = commandInput.value.replace("notes add ", "");
+
+          notes.push(newNote);
+          localStorage.setItem("notes", JSON.stringify(notes));
+
+          commandInput.value = "";
+          commandInput.placeholder = `New note added: '${newNote}'`;
+        } else if (commandSplit[1] == "remove") {
+          const index = parseInt(commandInput.value.replace("notes remove ", "")) - 1;
+          commandInput.value = "";
+          if (index >= notes.length) {
+            commandInput.placeholder = `Invalid number. Check again by typing 'notes list'`;
+            return;
+          }
+
+          commandInput.placeholder = `Removed note: '${notes[index]}'`;
+          notes.splice(index, 1);
+          localStorage.setItem("notes", JSON.stringify(notes));
+          setTimeout(function () {
+            commandInput.placeholder = "Paste a room link or enter a command";
+          }, 2000);
+        } else if (commandSplit[1] == "list") {
+          commandInput.value = "";
+          if (notes.length != 0) {
+            let notesString = "Notes list\n\n";
+            for (let i = 0; i < notes.length; i++) {
+              notesString += `[${i + 1}] ${notes[i]}\n\n`;
+            }
+            window.alert(notesString);
+          } else {
+            commandInput.placeholder = "You haven't saved any notes";
+          }
+        }
+        setTimeout(function () {
+          commandInput.placeholder = "Paste a room link or enter a command";
+        }, 3000);
+
+        break;
+
       case commandSplit[0] == "auth":
         commandInput.value = "";
         if (commandSplit[1]) {
