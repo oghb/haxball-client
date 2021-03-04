@@ -16,6 +16,7 @@ if (document.getElementsByClassName("overflowhidden").length != 0) {
 	<div class="container flexCol">
 		<div class="header">
 			<span class="title">HaxBall Client by og</span>
+                        <a href="https://www.haxball.com/play">New Tab (right click)</a>
                         <a href="https://discord.gg/RRmBfP5">Discord</a>
                         <a href="https://github.com/oghb/haxball-client">GitHub</a>
 		</div>
@@ -27,9 +28,12 @@ if (document.getElementsByClassName("overflowhidden").length != 0) {
 </body>`;
 }
 
-if (localStorage.getItem("shortcuts") == null)
+if (localStorage.getItem("shortcuts") == null) {
   localStorage.setItem("shortcuts", '[["/e","/extrapolation "],["/a", "/avatar "]]');
-if (localStorage.getItem("notes") == null) localStorage.setItem("notes", "[]");
+}
+if (localStorage.getItem("notes") == null) {
+  localStorage.setItem("notes", "[]");
+}
 localStorage.setItem("transp_ui", "false");
 
 // parses commands and room links typed in the command line
@@ -248,14 +252,14 @@ commandInput.addEventListener("keyup", function (event) {
       case commandSplit[0] == "help":
         commandInput.value = "";
         window.alert(
-          "Commands list\n\n•Chat shortcuts A -> B\n(A is what you type in chat\nand B is what appears)\nshortcut list\nshortcut add A,B\nshortcut remove A\n\n•Player Auth management (view or update)\nauth\nauth privatekey\n\n•Extrapolation (view or update)\nextra\nextra newvalue\n\n•Avatar (view or update)\navatar\navatar newavatar\nclearavatar\n\n•HaxBall Client info\nhelp\ninfo\nversion\nchangelog"
+          "Commands list\n\n•Chat shortcuts A -> B\n(A is what you type in chat\nand B is what appears)\nshortcut list\nshortcut add A,B\nshortcut remove A\n\n•Notes\nnotes add yournote\nnotesremove notenumber\nnotes list\n\n•Player Auth management (view or update)\nauth\nauth privatekey\n\n•Extrapolation (view or update)\nextra\nextra newvalue\n\n•Avatar (view or update)\navatar\navatar newavatar\nclearavatar\n\n•HaxBall Client info\nhelp\ninfo\nversion\nchangelog"
         );
         break;
 
       case commandSplit[0] == "info":
         commandInput.value = "";
         window.alert(
-          "HaxBall Client\n\nThis app was developed by og#9525 in an effort to create an overall better HaxBall experience.\n\nIt is open-source and built with open-source tools.\n\nMost of the work was done by 'nativefier', a command-line tool which creates standalone Electron apps for any website. Then, both the 'HaxBall All-in-one' browser extension and some custom Javascript were injected in the app, in order to block ads, add custom CSS styling to the webpage, and add the input bar on the top, which functions both as an address bar for room links and as a command launcher.\n\nThank you for checking it out!\n\nLinks\nhttps://discord.gg/RRmBfP5\nhttps://github.com/oghb/haxball-client\nhttps://github.com/nativefier/nativefier\nhttps://github.com/xenonsb/Haxball-Room-Extension"
+          "HaxBall Client\n\nThis app was developed by og#9525 in an effort to create an overall better HaxBall experience.\n\nIt is open-source and built with open-source tools.\n\nMost of the work was done by 'nativefier', a command-line tool which creates standalone Electron apps for any website. Then, both the 'HaxBall All-in-one' browser extension and some custom Javascript were injected in the app.\n\nThank you for checking it out!\n\nLinks\nhttps://discord.gg/RRmBfP5\nhttps://github.com/oghb/haxball-client\nhttps://github.com/nativefier/nativefier\nhttps://github.com/xenonsb/Haxball-Room-Extension"
         );
         break;
 
