@@ -27,7 +27,9 @@ if (document.getElementsByClassName("overflowhidden").length != 0) {
 </body>`;
 }
 
-if (localStorage.getItem("shortcuts") == null) localStorage.setItem("shortcuts", '[["/e","/extrapolation "]]');
+if (localStorage.getItem("shortcuts") == null)
+  localStorage.setItem("shortcuts", '[["/e","/extrapolation "],["/a", "/avatar "]]');
+if (localStorage.getItem("notes") == null) localStorage.setItem("notes", "[]");
 localStorage.setItem("transp_ui", "false");
 
 // parses commands and room links typed in the command line
