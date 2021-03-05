@@ -356,6 +356,7 @@ iframe.addEventListener("load", function () {
             false
           );
           bottomRightButtons.appendChild(transpButton);
+
           break;
 
         case tempView == "roomlist-view":
@@ -416,6 +417,7 @@ iframe.addEventListener("load", function () {
           let showFavButton = document.createElement("button");
           showFavButton.id = "showfav-btn";
           showFavButton.innerHTML = '<i class="icon-star"></i><div>Show Rooms</div>';
+
           showFavButton.addEventListener(
             "click",
             function () {
