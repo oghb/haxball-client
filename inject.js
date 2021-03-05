@@ -34,6 +34,10 @@ if (localStorage.getItem("shortcuts") == null) {
 if (localStorage.getItem("notes") == null) {
   localStorage.setItem("notes", "[]");
 }
+if (localStorage.getItem("fav_rooms") == null) {
+  localStorage.setItem("fav_rooms", '["og-bot 3on3 WS | discord.gg/RRmBfP5"]');
+}
+
 localStorage.setItem("transp_ui", "false");
 
 // parses commands and room links typed in the command line
@@ -249,23 +253,38 @@ commandInput.addEventListener("keyup", function (event) {
         }
         break;
 
+      case commandSplit[0] == "favrooms":
+        commandInput.value = "";
+        let favRoomsString = "Favourite Rooms\n\n";
+        const favRooms = JSON.parse(localStorage.getItem("fav_rooms"));
+        if (favRooms.length != 0) {
+          for (let i = 0; i < favRooms.length; i++) favRoomsString += favRooms[i] + "\n";
+          window.alert(favRoomsString);
+        } else {
+          commandInput.placeholder = "You haven't added any room to your Favourites!";
+          setTimeout(function () {
+            commandInput.placeholder = "Paste a room link or enter a command";
+          }, 2000);
+        }
+        break;
+
       case commandSplit[0] == "help":
         commandInput.value = "";
         window.alert(
-          "Commands list\n\n•Chat shortcuts A -> B\n(A is what you type in chat\nand B is what appears)\nshortcut list\nshortcut add A,B\nshortcut remove A\n\n•Notes\nnotes add yournote\nnotesremove notenumber\nnotes list\n\n•Player Auth management (view or update)\nauth\nauth privatekey\n\n•Extrapolation (view or update)\nextra\nextra newvalue\n\n•Avatar (view or update)\navatar\navatar newavatar\nclearavatar\n\n•HaxBall Client info\nhelp\ninfo\nversion\nchangelog"
+          "Commands list\n\n•Chat shortcuts A -> B\n(A is what you type in chat\nand B is what appears)\nshortcut list\nshortcut add A,B\nshortcut remove A\n\n•Notes\nnotes add yournote\nnotesremove notenumber\nnotes list\n\n•Player Auth management (view or update)\nauth\nauth privatekey\n\n•Extrapolation (view or update)\nextra\nextra newvalue\n\n•Avatar (view or update)\navatar\navatar newavatar\nclearavatar\n\n•Favourite Rooms\nfavrooms\n\n•HaxBall Client info\nhelp\ninfo\nversion\nchangelog"
         );
         break;
 
       case commandSplit[0] == "info":
         commandInput.value = "";
         window.alert(
-          "HaxBall Client\n\nThis app was developed by og#9525 in an effort to create an overall better HaxBall experience.\n\nIt is open-source and built with open-source tools.\n\nMost of the work was done by 'nativefier', a command-line tool which creates standalone Electron apps for any website. Then, both the 'HaxBall All-in-one' browser extension and some custom Javascript were injected in the app.\n\nThank you for checking it out!\n\nLinks\nhttps://discord.gg/RRmBfP5\nhttps://github.com/oghb/haxball-client\nhttps://github.com/nativefier/nativefier\nhttps://github.com/xenonsb/Haxball-Room-Extension"
+          "HaxBall Client\n\nThis app was developed by og#9525 in an effort to create an overall better HaxBall experience.\n\nIt is open-source and built with open-source tools.\n\nMost of the work was done by 'nativefier', a command-line tool which creates standalone Electron apps for any website. Then, the 'HaxBall All-in-one' browser extension and some custom Javascript were injected in the app.\n\nThank you for checking it out!\n\nLinks\nhttps://discord.gg/RRmBfP5\nhttps://github.com/oghb/haxball-client\nhttps://github.com/nativefier/nativefier\nhttps://github.com/xenonsb/Haxball-Room-Extension"
         );
         break;
 
       case commandSplit[0] == "version":
         commandInput.value = "";
-        commandInput.placeholder = "v0.1.1 (2021.02.22)";
+        commandInput.placeholder = "v0.2 (2021.03.05)";
         setTimeout(function () {
           commandInput.placeholder = "Paste a room link or enter a command";
         }, 3000);
@@ -274,7 +293,7 @@ commandInput.addEventListener("keyup", function (event) {
       case commandSplit[0] == "changelog":
         commandInput.value = "";
         window.alert(
-          "Changelog\n\nv0.1.1 (2021.02.22)\n-shortcuts changes are reflected immediately\n-changed the default shortcut to\n'/e' —> '/extrapolation '\n-updated 'info' and header with GitHub link\n-extrapolation set with the command bar no longer limited to +-200 (if you use a modified game-min.js to bypass the limit)\n\nv0.1 (2021.02.20)\nFirst release"
+          "Changelog\n\nv0.2 (2021.03.05)\n-added 'Favourite Rooms' functionality\n-added 'notes' command\n-added 'New Tab' (opens the game in a new tab of the app)\n-added '/avatar ' as a default shortcut\n\nv0.1.1 (2021.02.22)\n-shortcuts changes are reflected immediately\n-changed the default shortcut to\n'/e' —> '/extrapolation '\n-updated 'info' and header with GitHub link\n-extrapolation set with the command bar no longer limited to +-200 (if you use a modified game-min.js to bypass the limit)\n\nv0.1 (2021.02.20)\nFirst release"
         );
         break;
     }
@@ -282,7 +301,6 @@ commandInput.addEventListener("keyup", function (event) {
 });
 
 // checks for changes in the page
-// (used to detect when a player has entered a room)
 iframe = document.getElementsByTagName("iframe")[0];
 iframe.addEventListener("load", function () {
   // borrowed from Haxball-Room-Extension 'content.js'
@@ -293,7 +311,7 @@ iframe.addEventListener("load", function () {
       const tempView = candidates[0].className;
       switch (true) {
         case tempView == "game-view":
-          const gameframe = document.documentElement.getElementsByClassName("gameframe")[0];
+          var gameframe = document.documentElement.getElementsByClassName("gameframe")[0];
 
           // waits for shortcuts in chat
           let chatInput = gameframe.contentWindow.document.querySelector('[data-hook="input"]');
@@ -338,6 +356,82 @@ iframe.addEventListener("load", function () {
             false
           );
           bottomRightButtons.appendChild(transpButton);
+          break;
+
+        case tempView == "roomlist-view":
+          var gameframe = document.documentElement.getElementsByClassName("gameframe")[0];
+          const splitter = gameframe.contentWindow.document.getElementsByClassName("splitter")[0];
+
+          // listens for clicks on the roomlist
+          // to switch between 'Add Room' / 'Del Room'
+          splitter.addEventListener(
+            "click",
+            function () {
+              const selectedRoom = this.getElementsByClassName("selected")[0];
+              let favButton = this.getElementsByClassName("buttons")[0].children[4];
+              if (typeof selectedRoom !== "undefined" && typeof favButton !== "undefined") {
+                const selectedRoomName = selectedRoom.querySelector('[data-hook="name"]').innerHTML;
+                const favRooms = JSON.parse(localStorage.getItem("fav_rooms"));
+                favRooms.includes(selectedRoomName) == true
+                  ? (favButton.innerHTML = '<i class="icon-star"></i><div>Del Room</div>')
+                  : (favButton.innerHTML = '<i class="icon-star"></i><div>Add Room</div>');
+              }
+            },
+            false
+          );
+
+          const roomListButtons = splitter.getElementsByClassName("buttons")[0];
+
+          //'Add/Del Room' button to add/delete a room to the Favourites
+          let addFavButton = document.createElement("button");
+          addFavButton.id = "addfav-btn";
+          addFavButton.innerHTML = '<i class="icon-star"></i><div>Add Room</div>';
+
+          addFavButton.addEventListener(
+            "click",
+            function () {
+              var gameframe = document.documentElement.getElementsByClassName("gameframe")[0];
+              const splitter = gameframe.contentWindow.document.getElementsByClassName("splitter")[0];
+              const selectedRoom = splitter.getElementsByClassName("selected")[0];
+              if (typeof selectedRoom !== "undefined") {
+                const selectedRoomName = selectedRoom.querySelector('[data-hook="name"]').innerHTML;
+                const favRooms = JSON.parse(localStorage.getItem("fav_rooms"));
+                let updatedFavRooms = [];
+                if (favRooms.includes(selectedRoomName) == false) {
+                  updatedFavRooms = favRooms;
+                  updatedFavRooms.push(selectedRoomName);
+                } else {
+                  for (let i = 0; i < favRooms.length; i++) {
+                    if (favRooms[i] != selectedRoomName) updatedFavRooms.push(favRooms[i]);
+                  }
+                }
+                localStorage.setItem("fav_rooms", JSON.stringify(updatedFavRooms));
+              }
+            },
+            false
+          );
+          roomListButtons.insertBefore(addFavButton, roomListButtons.childNodes[3]);
+
+          // 'Show Rooms' button to show the Favourite Rooms
+          let showFavButton = document.createElement("button");
+          showFavButton.id = "showfav-btn";
+          showFavButton.innerHTML = '<i class="icon-star"></i><div>Show Rooms</div>';
+          showFavButton.addEventListener(
+            "click",
+            function () {
+              var gameframe = document.documentElement.getElementsByClassName("gameframe")[0];
+              const roomsList = gameframe.contentWindow.document.getElementsByClassName("list")[0];
+              const roomsRows = roomsList.querySelector('[data-hook="list"]').rows;
+              const favRooms = JSON.parse(localStorage.getItem("fav_rooms"));
+              for (let i = 0; i < roomsRows.length; i++) {
+                let roomName = roomsRows[i].querySelector('[data-hook = "name"]').innerHTML;
+                if (favRooms.includes(roomName) == false) roomsRows[i].style.display = "none";
+              }
+            },
+            false
+          );
+          roomListButtons.insertBefore(showFavButton, roomListButtons.childNodes[4]);
+
           break;
       }
     }

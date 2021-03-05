@@ -18,12 +18,22 @@ Download from the [Releases](https://github.com/oghb/haxball-client/releases) pa
   * Hide chat toggle
   * **R** as a REC hotkey
   * Chat shortcuts\*
+* Favourite Rooms
 * Dedicated button to make the UI transparent
 * Custom command-line (see below)
 * Support for high refresh rate monitors (e.g. 144fps if you have a 144Hz monitor)
 * No ads
 
 \* *these were originally featured in the All-in-one Tool, but given that they do not work in the client they have been rewritten from scratch (see below)*.
+
+### Favourite Rooms
+Two new buttons have been added to the **Room list** view: **Add Room** and **Show Rooms**. 
+
+By selecting a room in the list and then clicking the **Add Room** button, such room will be added to the list of your **Favourite Rooms**, and will be easily accessible by clicking the **Show Rooms** button.
+
+In addition to the **Search** feature provided by the All-in-one Tool, this functionality comes very handy when you only are interested in a few rooms, and some of these are distant from your geographical position or not close to each other.
+
+A room will stay among your **Favourites** (use the `favrooms` command in the command-line to see them all) regardless of it being online or not, as long as its name doesn't change.
 
 ### Command-line
 The horizontal bar on the top has two functions: **redirect you to a room** given its link and launch **custom commands**. 
@@ -68,6 +78,9 @@ If you want to view/change your extrapolation/avatar without entering a room or 
 * `avatar`
 * `avatar newavatar`
 * `clearavatar`
+
+##### Favourite Rooms
+Use the `favrooms` command to have a list of every room currently marked as **Favourite**.
 
 ##### Client info
 * `help`
