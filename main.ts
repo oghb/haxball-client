@@ -1,33 +1,43 @@
-import "source-map-support/register";
+import 'source-map-support/register';
 
-import fs from "fs";
-import path from "path";
+import fs from 'fs';
+import path from 'path';
 
 import {
   app,
   session,
   crashReporter,
-  globalShortcut,
-  BrowserWindow,
   dialog,
-} from "electron";
-import electronDownload from "electron-dl";
+  globalShortcut,
+  systemPreferences,
+  BrowserWindow,
+} from 'electron';
+import electronDownload from 'electron-dl';
 
-import { createLoginWindow } from "./components/loginWindow";
-import { createMainWindow } from "./components/mainWindow";
-import { createTrayIcon } from "./components/trayIcon";
-import { isOSX } from "./helpers/helpers";
-import { inferFlashPath } from "./helpers/inferFlash";
+import { createLoginWindow } from './components/loginWindow';
+import {
+  createMainWindow,
+  saveAppArgs,
+  APP_ARGS_FILE_PATH,
+} from './components/mainWindow';
+import { createTrayIcon } from './components/trayIcon';
+import { isOSX } from './helpers/helpers';
+import { inferFlashPath } from './helpers/inferFlash';
 
 // Entrypoint for Squirrel, a windows update framework. See https://github.com/nativefier/nativefier/pull/744
-if (require("electron-squirrel-startup")) {
+if (require('electron-squirrel-startup')) {
   app.exit();
 }
 
-const APP_ARGS_FILE_PATH = path.join(__dirname, "..", "nativefier.json");
-const appArgs = JSON.parse(fs.readFileSync(APP_ARGS_FILE_PATH, "utf8"));
+const appArgs = JSON.parse(fs.readFileSync(APP_ARGS_FILE_PATH, 'utf8'));
 
-const OLD_BUILD_WARNING_THRESHOLD_DAYS = 60;
+// Nativefier is a browser, and an old browser is an insecure / badly-performant one.
+// Given our builder/app design, we currently don't have an easy way to offer
+// upgrades from the app themselves (like browsers do).
+// As a workaround, we ask for a manual upgrade & re-build if the build is old.
+// The period in days is chosen to be not too small to be exceedingly annoying,
+// but not too large to be exceedingly insecure.
+const OLD_BUILD_WARNING_THRESHOLD_DAYS = 90;
 const OLD_BUILD_WARNING_THRESHOLD_MS =
   OLD_BUILD_WARNING_THRESHOLD_DAYS * 24 * 60 * 60 * 1000;
 
@@ -36,7 +46,7 @@ electronDownload(fileDownloadOptions);
 
 if (appArgs.processEnvs) {
   // This is compatibility if just a string was passed.
-  if (typeof appArgs.processEnvs === "string") {
+  if (typeof appArgs.processEnvs === 'string') {
     process.env.processEnvs = appArgs.processEnvs;
   } else {
     Object.keys(appArgs.processEnvs).forEach((key) => {
@@ -48,15 +58,15 @@ if (appArgs.processEnvs) {
 
 let mainWindow: BrowserWindow;
 
-if (typeof appArgs.flashPluginDir === "string") {
-  app.commandLine.appendSwitch("ppapi-flash-path", appArgs.flashPluginDir);
+if (typeof appArgs.flashPluginDir === 'string') {
+  app.commandLine.appendSwitch('ppapi-flash-path', appArgs.flashPluginDir);
 } else if (appArgs.flashPluginDir) {
   const flashPath = inferFlashPath();
-  app.commandLine.appendSwitch("ppapi-flash-path", flashPath);
+  app.commandLine.appendSwitch('ppapi-flash-path', flashPath);
 }
 
 if (appArgs.ignoreCertificate) {
-  app.commandLine.appendSwitch("ignore-certificate-errors");
+  app.commandLine.appendSwitch('ignore-certificate-errors');
 }
 
 if (appArgs.disableGpu) {
@@ -64,28 +74,28 @@ if (appArgs.disableGpu) {
 }
 
 if (appArgs.ignoreGpuBlacklist) {
-  app.commandLine.appendSwitch("ignore-gpu-blacklist");
+  app.commandLine.appendSwitch('ignore-gpu-blacklist');
 }
 
 if (appArgs.enableEs3Apis) {
-  app.commandLine.appendSwitch("enable-es3-apis");
+  app.commandLine.appendSwitch('enable-es3-apis');
 }
 
 if (appArgs.diskCacheSize) {
-  app.commandLine.appendSwitch("disk-cache-size", appArgs.diskCacheSize);
+  app.commandLine.appendSwitch('disk-cache-size', appArgs.diskCacheSize);
 }
 
 if (appArgs.basicAuthUsername) {
   app.commandLine.appendSwitch(
-    "basic-auth-username",
-    appArgs.basicAuthUsername
+    'basic-auth-username',
+    appArgs.basicAuthUsername,
   );
 }
 
 if (appArgs.basicAuthPassword) {
   app.commandLine.appendSwitch(
-    "basic-auth-password",
-    appArgs.basicAuthPassword
+    'basic-auth-password',
+    appArgs.basicAuthPassword,
   );
 }
 
@@ -99,22 +109,24 @@ const setDockBadge = isRunningMacos
     }
   : () => undefined;
 
-app.on("window-all-closed", () => {
+app.on('window-all-closed', () => {
   if (!isOSX() || appArgs.fastQuit) {
     app.quit();
   }
 });
 
-app.on("activate", (event, hasVisibleWindows) => {
+app.on('activate', (event, hasVisibleWindows) => {
   if (isOSX()) {
     // this is called when the dock is clicked
     if (!hasVisibleWindows) {
-      mainWindow.show();
+        if (typeof mainWindow !== "undefined"){
+            mainWindow.show();
+        }
     }
   }
 });
 
-app.on("before-quit", () => {
+app.on('before-quit', () => {
   // not fired when the close button on the window is clicked
   if (isOSX()) {
     // need to force a quit as a workaround here to simulate the osx app hiding behaviour
@@ -127,9 +139,9 @@ app.on("before-quit", () => {
 });
 
 if (appArgs.crashReporter) {
-  app.on("will-finish-launching", () => {
+  app.on('will-finish-launching', () => {
     crashReporter.start({
-      companyName: appArgs.companyName || "",
+      companyName: appArgs.companyName || '',
       productName: appArgs.name,
       submitURL: appArgs.crashReporter,
       uploadToServer: true,
@@ -142,7 +154,7 @@ const shouldQuit = appArgs.singleInstance && !app.requestSingleInstanceLock();
 if (shouldQuit) {
   app.quit();
 } else {
-  app.on("second-instance", () => {
+  app.on('second-instance', () => {
     if (mainWindow) {
       if (!mainWindow.isVisible()) {
         // try
@@ -156,11 +168,10 @@ if (shouldQuit) {
     }
   });
 
-  app.on("ready", async () => {
-    const allInOnePath = path.join(__dirname, "..", "Haxball-Room-Extension");
-
+app.on('ready', async () => {
+    const allInOnePath = path.join(__dirname, '..', 'Haxball-Room-Extension');
     await session.defaultSession.loadExtension(allInOnePath);
-
+        
     mainWindow = createMainWindow(appArgs, app.quit.bind(this), setDockBadge);
     createTrayIcon(appArgs, mainWindow);
 
@@ -173,27 +184,75 @@ if (shouldQuit) {
           });
         });
       });
+
+      if (isOSX() && appArgs.accessibilityPrompt) {
+        const mediaKeys = [
+          'MediaPlayPause',
+          'MediaNextTrack',
+          'MediaPreviousTrack',
+          'MediaStop',
+        ];
+        const globalShortcutsKeys = appArgs.globalShortcuts.map((g) => g.key);
+        const mediaKeyWasSet = globalShortcutsKeys.find((g) =>
+          mediaKeys.includes(g),
+        );
+        if (
+          mediaKeyWasSet &&
+          !systemPreferences.isTrustedAccessibilityClient(false)
+        ) {
+          // Since we're trying to set global keyboard shortcuts for media keys, we need to prompt
+          // the user for permission on Mac.
+          // For reference:
+          // https://www.electronjs.org/docs/api/global-shortcut?q=MediaPlayPause#globalshortcutregisteraccelerator-callback
+          const accessibilityPromptResult = dialog.showMessageBoxSync(null, {
+            type: 'question',
+            message: 'Accessibility Permissions Needed',
+            buttons: ['Yes', 'No', 'No and never ask again'],
+            defaultId: 0,
+            detail:
+              `${appArgs.name} would like to use one or more of your keyboard's media keys (start, stop, next track, or previous track) to control it.\n\n` +
+              `Would you like Mac OS to ask for your permission to do so?\n\n` +
+              `If so, you will need to restart ${appArgs.name} after granting permissions for these keyboard shortcuts to begin working.`,
+          });
+          switch (accessibilityPromptResult) {
+            // User clicked Yes, prompt for accessibility
+            case 0:
+              systemPreferences.isTrustedAccessibilityClient(true);
+              break;
+            // User cliecked Never Ask Me Again, save that info
+            case 2:
+              appArgs.accessibilityPrompt = false;
+              saveAppArgs(appArgs);
+              break;
+            // User clicked No
+            default:
+              break;
+          }
+        }
+      }
     }
     if (
       !appArgs.disableOldBuildWarning &&
       new Date().getTime() - appArgs.buildDate > OLD_BUILD_WARNING_THRESHOLD_MS
     ) {
+      const oldBuildWarningText =
+        appArgs.oldBuildWarningText ||
+        'This app was built a long time ago. Nativefier uses the Chrome browser (through Electron), and it is insecure to keep using an old version of it. Please upgrade Nativefier and rebuild this app.';
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
       dialog.showMessageBox(null, {
-        type: "warning",
-        message: "Old build detected",
-        detail:
-          "This app was built a long time ago. Nativefier uses the Chrome browser (through Electron), and it is dangerous to keep using an old version of it. You should rebuild this app with a recent Electron. Using the latest Nativefier will default to it, or you can pass it manually.",
+        type: 'warning',
+        message: 'Old build detected',
+        detail: oldBuildWarningText,
       });
     }
   });
 }
 
-app.on("new-window-for-tab", () => {
-  mainWindow.emit("new-tab");
+app.on('new-window-for-tab', () => {
+  mainWindow.emit('new-tab');
 });
 
-app.on("login", (event, webContents, request, authInfo, callback) => {
+app.on('login', (event, webContents, request, authInfo, callback) => {
   // for http authentication
   event.preventDefault();
 
