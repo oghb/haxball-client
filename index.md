@@ -7,7 +7,7 @@ The app works on Windows, macOS and Linux, and is 64-bit only.
 Download the Client for your OS and unzip it. Then
 * if you're on **Windows**, move the folder wherever you want and double-click on `HaxBall.exe`
 * if you're on **macOS**, move the `HaxBall.app` in your Applications folder and then double-click on it
-* if you're on **Linux**, move the folder wherever you want, `cd` into that folder and then type `./HaxBall` in the terminal
+* if you're on **Linux**, move the folder wherever you want and run `./HaxBall` from the terminal
 
 ## Features
 * Every feature of the All-in-one Tool, including
