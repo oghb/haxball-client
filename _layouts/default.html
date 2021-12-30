@@ -15,20 +15,18 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1><a href="{{ "/" | absolute_url }}">{{ site.title | default: site.github.repository_name }}</a></h1>
+        <h1><a href="{{ "/" | absolute_url }}">HaxBall Client</a></h1>
 
-        {% if site.logo %}
-          <img src="https://github.com/oghb/haxball-client/blob/main/icon.png" alt="Logo" />
-        {% endif %}
+        <img src="https://github.com/oghb/haxball-client/blob/main/icon.png" alt="Logo" />
 
         <p>{{ site.description | default: site.github.project_tagline }}</p>
 
         {% if site.github.is_project_page %}
-        <p class="view"><a href="{{ site.github.repository_url }}">View the Project on GitHub <small>{{ site.github.repository_nwo }}</small></a></p>
+        <p class="view"><a href="https://discord.gg/RRmBfP5">Need any support? <small>Contact og#9525 on Discord</small></a></p>
         {% endif %}
 
         {% if site.github.is_user_page %}
-        <p class="view"><a href="discord.gg/RRmBfP5">Need any help? Contact og#9525 on Discord</a></p>
+        <p class="view"><a href="discord.gg/RRmBfP5">Need any support? Contact og#9525 on Discord</a></p>
         {% endif %}
 
         {% if site.show_downloads %}
