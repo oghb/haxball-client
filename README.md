@@ -91,9 +91,9 @@ Use the `favrooms` command to have a list of every room currently marked as **Fa
 ## How to build
 In order to build the client you will need to have [git](https://git-scm.com/downloads) and [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm/) installed; there are plenty of tutorials on how to install them on your platform so it won't be explained here.
 
-Open a terminal and clone both this repository and nativefier in any directory
+Open a terminal and clone both this repository and nativefier in the same parent directory (e.g on your Desktop)
 ```bash
-https://github.com/oghb/haxball-client.git
+git clone https://github.com/oghb/haxball-client.git
 git clone https://github.com/nativefier/nativefier.git
 ```
 
