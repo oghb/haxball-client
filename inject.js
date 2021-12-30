@@ -5,7 +5,7 @@ if (document.getElementsByClassName("rightbar").length != 0) {
 // edits the main html page
 // (removes ads, changes flexcol and adds the top bar)
 if (document.getElementsByClassName("overflowhidden").length != 0) {
-  document.getElementsByClassName("overflowhidden")[0].innerHTML = `<head>	
+  document.getElementsByClassName("overflowhidden")[0].innerHTML = `<head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 	<title>HaxBall Client</title>
@@ -22,14 +22,17 @@ if (document.getElementsByClassName("overflowhidden").length != 0) {
 		</div>
                 <input type=text size=5 id="commandline" rows="1" cols="20" style="font-size: 20px" placeholder="Paste a room link or enter a command"></input>
 		<div class="flexRow flexGrow">
-			<iframe src="hiF05fAx/__cache_static__/g/game.html" class="gameframe"></iframe>			
+			<iframe src="hiF05fAx/__cache_static__/g/game.html" class="gameframe"></iframe>
 		</div>
 	</div>
 </body>`;
 }
 
 if (localStorage.getItem("shortcuts") == null) {
-  localStorage.setItem("shortcuts", '[["/e","/extrapolation "],["/a", "/avatar "]]');
+  localStorage.setItem(
+    "shortcuts",
+    '[["/e","/extrapolation "],["/a", "/avatar "]]'
+  );
 }
 if (localStorage.getItem("notes") == null) {
   localStorage.setItem("notes", "[]");
@@ -54,7 +57,8 @@ commandInput.addEventListener("keyup", function (event) {
         }, 2000);
       } else {
         commandInput.value = "";
-        commandInput.placeholder = "Wrong format! Example: https://www.haxball.com/play?c=3dcxYu4_nNw";
+        commandInput.placeholder =
+          "Wrong format! Example: https://www.haxball.com/play?c=3dcxYu4_nNw";
         setTimeout(function () {
           commandInput.placeholder = "Paste a room link or enter a command";
         }, 5000);
@@ -67,11 +71,14 @@ commandInput.addEventListener("keyup", function (event) {
     switch (true) {
       case commandSplit[0] == "shortcut":
         if (commandSplit[1] == "add") {
-          const newShortcut = commandInput.value.replace("shortcut add ", "").split(",");
+          const newShortcut = commandInput.value
+            .replace("shortcut add ", "")
+            .split(",");
           commandInput.value = "";
           if (newShortcut.length != 2) {
             commandInput.value = "";
-            commandInput.placeholder = "Wrong syntax! Example: shortcut add !c,!claim yourpassword";
+            commandInput.placeholder =
+              "Wrong syntax! Example: shortcut add !c,!claim yourpassword";
             setTimeout(function () {
               commandInput.placeholder = "Paste a room link or enter a command";
             }, 5000);
@@ -83,7 +90,8 @@ commandInput.addEventListener("keyup", function (event) {
             if (shortcuts[i][0] == newShortcut[0]) {
               commandInput.placeholder = `Shortcut already exists!`;
               setTimeout(function () {
-                commandInput.placeholder = "Paste a room link or enter a command";
+                commandInput.placeholder =
+                  "Paste a room link or enter a command";
               }, 4000);
               return;
             }
@@ -95,13 +103,17 @@ commandInput.addEventListener("keyup", function (event) {
             commandInput.placeholder = "Paste a room link or enter a command";
           }, 3000);
         } else if (commandSplit[1] == "remove") {
-          const inputShortcut = commandInput.value.replace("shortcut remove ", "");
+          const inputShortcut = commandInput.value.replace(
+            "shortcut remove ",
+            ""
+          );
           commandInput.value = "";
           const shortcuts = JSON.parse(localStorage.getItem("shortcuts"));
           let updatedShortcuts = [];
 
           for (let i = 0; i < shortcuts.length; i++) {
-            if (shortcuts[i][0] != inputShortcut) updatedShortcuts.push(shortcuts[i]);
+            if (shortcuts[i][0] != inputShortcut)
+              updatedShortcuts.push(shortcuts[i]);
           }
 
           if (shortcuts.length == updatedShortcuts.length) {
@@ -145,7 +157,8 @@ commandInput.addEventListener("keyup", function (event) {
           commandInput.value = "";
           commandInput.placeholder = `New note added: '${newNote}'`;
         } else if (commandSplit[1] == "remove") {
-          const index = parseInt(commandInput.value.replace("notes remove ", "")) - 1;
+          const index =
+            parseInt(commandInput.value.replace("notes remove ", "")) - 1;
           commandInput.value = "";
           if (index >= notes.length) {
             commandInput.placeholder = `Invalid number. Check again by typing 'notes list'`;
@@ -181,7 +194,8 @@ commandInput.addEventListener("keyup", function (event) {
         if (commandSplit[1]) {
           if (commandSplit[1].match(/^idkey\..{43}\..{87}/)) {
             localStorage.setItem("player_auth_key", commandSplit[1]);
-            commandInput.placeholder = "New player auth set! Reloading HaxBall...";
+            commandInput.placeholder =
+              "New player auth set! Reloading HaxBall...";
             setTimeout(function () {
               window.location.reload(true);
             }, 2000);
@@ -211,7 +225,9 @@ commandInput.addEventListener("keyup", function (event) {
         } else {
           const currentAvatar = localStorage.getItem("avatar");
           commandInput.placeholder =
-            currentAvatar == null ? `No avatar set` : `Current avatar: ${currentAvatar.substring(0, 2)}`;
+            currentAvatar == null
+              ? `No avatar set`
+              : `Current avatar: ${currentAvatar.substring(0, 2)}`;
           setTimeout(function () {
             commandInput.placeholder = "Paste a room link or enter a command";
           }, 3000);
@@ -239,14 +255,18 @@ commandInput.addEventListener("keyup", function (event) {
             return;
           }
           localStorage.setItem("extrapolation", value.toString());
-          commandInput.placeholder = "Extrapolation set! Reloading HaxBall with the new value...";
+          commandInput.placeholder =
+            "Extrapolation set! Reloading HaxBall with the new value...";
           setTimeout(function () {
             window.location.reload(true);
           }, 2000);
         } else if (commandInput.value == "extra") {
           const value = localStorage.getItem("extrapolation");
           commandInput.value = "";
-          commandInput.placeholder = value == null ? `No extrapolation set` : `Current extrapolation: ${value}ms`;
+          commandInput.placeholder =
+            value == null
+              ? `No extrapolation set`
+              : `Current extrapolation: ${value}ms`;
           setTimeout(function () {
             commandInput.placeholder = "Paste a room link or enter a command";
           }, 3000);
@@ -258,10 +278,12 @@ commandInput.addEventListener("keyup", function (event) {
         let favRoomsString = "Favourite Rooms\n\n";
         const favRooms = JSON.parse(localStorage.getItem("fav_rooms"));
         if (favRooms.length != 0) {
-          for (let i = 0; i < favRooms.length; i++) favRoomsString += favRooms[i] + "\n";
+          for (let i = 0; i < favRooms.length; i++)
+            favRoomsString += favRooms[i] + "\n";
           window.alert(favRoomsString);
         } else {
-          commandInput.placeholder = "You haven't added any room to your Favourites!";
+          commandInput.placeholder =
+            "You haven't added any room to your Favourites!";
           setTimeout(function () {
             commandInput.placeholder = "Paste a room link or enter a command";
           }, 2000);
@@ -284,7 +306,7 @@ commandInput.addEventListener("keyup", function (event) {
 
       case commandSplit[0] == "version":
         commandInput.value = "";
-        commandInput.placeholder = "v0.2.1 (2021.04.23)";
+        commandInput.placeholder = "v0.2.2 (2021.12.30)";
         setTimeout(function () {
           commandInput.placeholder = "Paste a room link or enter a command";
         }, 3000);
@@ -293,7 +315,7 @@ commandInput.addEventListener("keyup", function (event) {
       case commandSplit[0] == "changelog":
         commandInput.value = "";
         window.alert(
-          "Changelog\n\nv0.2.1 (2021.04.23)\n-built with latest Nativefier\n\nv0.2 (2021.03.05)\n-added 'Favourite Rooms' functionality\n-added 'notes' command\n-added 'New Tab' (opens the game in a new tab of the app)\n-added '/avatar ' as a default shortcut\n\nv0.1.1 (2021.02.22)\n-shortcuts changes are reflected immediately\n-changed the default shortcut to\n'/e' —> '/extrapolation '\n-updated 'info' and header with GitHub link\n-extrapolation set with the command bar no longer limited to +-200 (if you use a modified game-min.js to bypass the limit)\n\nv0.1 (2021.02.20)\nFirst release"
+          "Changelog\n\nv0.2.2 (2021.12.30)\n-built with latest Nativefier\n\nv0.2.1 (2021.04.23)\n-built with latest Nativefier\n\nv0.2 (2021.03.05)\n-added 'Favourite Rooms' functionality\n-added 'notes' command\n-added 'New Tab' (opens the game in a new tab of the app)\n-added '/avatar ' as a default shortcut\n\nv0.1.1 (2021.02.22)\n-shortcuts changes are reflected immediately\n-changed the default shortcut to\n'/e' —> '/extrapolation '\n-updated 'info' and header with GitHub link\n-extrapolation set with the command bar no longer limited to +-200 (if you use a modified game-min.js to bypass the limit)\n\nv0.1 (2021.02.20)\nFirst release"
         );
         break;
     }
@@ -306,15 +328,20 @@ iframe.addEventListener("load", function () {
   // borrowed from Haxball-Room-Extension 'content.js'
   const iframeBody = window.frames[0].document.getElementsByTagName("body")[0];
   viewObserver = new MutationObserver(function (mutations) {
-    candidates = mutations.flatMap((x) => Array.from(x.addedNodes)).filter((x) => x.className);
+    candidates = mutations
+      .flatMap((x) => Array.from(x.addedNodes))
+      .filter((x) => x.className);
     if (candidates.length == 1) {
       const tempView = candidates[0].className;
       switch (true) {
         case tempView == "game-view":
-          var gameframe = document.documentElement.getElementsByClassName("gameframe")[0];
+          var gameframe =
+            document.documentElement.getElementsByClassName("gameframe")[0];
 
           // waits for shortcuts in chat
-          let chatInput = gameframe.contentWindow.document.querySelector('[data-hook="input"]');
+          let chatInput = gameframe.contentWindow.document.querySelector(
+            '[data-hook="input"]'
+          );
           chatInput.addEventListener("keyup", function () {
             const shortcuts = JSON.parse(localStorage.getItem("shortcuts"));
             for (let i = 0; i < shortcuts.length; i++) {
@@ -326,8 +353,12 @@ iframe.addEventListener("load", function () {
           });
 
           // TranspUI button to change css
-          const bottomSec = gameframe.contentWindow.document.getElementsByClassName("bottom-section")[0];
-          const bottomRightButtons = bottomSec.getElementsByClassName("buttons")[0];
+          const bottomSec =
+            gameframe.contentWindow.document.getElementsByClassName(
+              "bottom-section"
+            )[0];
+          const bottomRightButtons =
+            bottomSec.getElementsByClassName("buttons")[0];
 
           let transpButton = document.createElement("button");
           transpButton.id = "invisui-btn";
@@ -347,10 +378,11 @@ iframe.addEventListener("load", function () {
                 window.frames[0].document.head.appendChild(node);
               } else {
                 localStorage.setItem("transp_ui", "false");
-                window.frames[0].document.head.innerHTML = window.frames[0].document.head.innerHTML.replace(
-                  '.game-view > .bottom-section {\nposition: absolute;\nleft: 0px;\nright: 0px;\nbottom: 0px;\nbackground: rgba(26, 33, 37, 0);\n}\n.game-view > .bottom-section > .stats-view {\nbackground: rgba(26, 33, 37, 0);\n}\n.game-view > .bottom-section > .chatbox-view > .input input[type="text"] {\nbackground: rgba(26, 33, 37, 0);\n}\n.game-view > .bottom-section button {\nbackground: rgba(26, 33, 37, 0);\n}\n.game-state-view .bar {\nbackground: rgba(26, 33, 37, 0);\n}',
-                  ""
-                );
+                window.frames[0].document.head.innerHTML =
+                  window.frames[0].document.head.innerHTML.replace(
+                    '.game-view > .bottom-section {\nposition: absolute;\nleft: 0px;\nright: 0px;\nbottom: 0px;\nbackground: rgba(26, 33, 37, 0);\n}\n.game-view > .bottom-section > .stats-view {\nbackground: rgba(26, 33, 37, 0);\n}\n.game-view > .bottom-section > .chatbox-view > .input input[type="text"] {\nbackground: rgba(26, 33, 37, 0);\n}\n.game-view > .bottom-section button {\nbackground: rgba(26, 33, 37, 0);\n}\n.game-state-view .bar {\nbackground: rgba(26, 33, 37, 0);\n}',
+                    ""
+                  );
               }
             },
             false
@@ -360,8 +392,12 @@ iframe.addEventListener("load", function () {
           break;
 
         case tempView == "roomlist-view":
-          var gameframe = document.documentElement.getElementsByClassName("gameframe")[0];
-          const splitter = gameframe.contentWindow.document.getElementsByClassName("splitter")[0];
+          var gameframe =
+            document.documentElement.getElementsByClassName("gameframe")[0];
+          const splitter =
+            gameframe.contentWindow.document.getElementsByClassName(
+              "splitter"
+            )[0];
 
           // listens for clicks on the roomlist
           // to switch between 'Add Room' / 'Del Room'
@@ -369,13 +405,20 @@ iframe.addEventListener("load", function () {
             "click",
             function () {
               const selectedRoom = this.getElementsByClassName("selected")[0];
-              let favButton = this.getElementsByClassName("buttons")[0].children[4];
-              if (typeof selectedRoom !== "undefined" && typeof favButton !== "undefined") {
-                const selectedRoomName = selectedRoom.querySelector('[data-hook="name"]').innerHTML;
+              let favButton =
+                this.getElementsByClassName("buttons")[0].children[4];
+              if (
+                typeof selectedRoom !== "undefined" &&
+                typeof favButton !== "undefined"
+              ) {
+                const selectedRoomName =
+                  selectedRoom.querySelector('[data-hook="name"]').innerHTML;
                 const favRooms = JSON.parse(localStorage.getItem("fav_rooms"));
                 favRooms.includes(selectedRoomName) == true
-                  ? (favButton.innerHTML = '<i class="icon-star"></i><div>Del Room</div>')
-                  : (favButton.innerHTML = '<i class="icon-star"></i><div>Add Room</div>');
+                  ? (favButton.innerHTML =
+                      '<i class="icon-star"></i><div>Del Room</div>')
+                  : (favButton.innerHTML =
+                      '<i class="icon-star"></i><div>Add Room</div>');
               }
             },
             false
@@ -386,16 +429,23 @@ iframe.addEventListener("load", function () {
           //'Add/Del Room' button to add/delete a room to the Favourites
           let addFavButton = document.createElement("button");
           addFavButton.id = "addfav-btn";
-          addFavButton.innerHTML = '<i class="icon-star"></i><div>Add Room</div>';
+          addFavButton.innerHTML =
+            '<i class="icon-star"></i><div>Add Room</div>';
 
           addFavButton.addEventListener(
             "click",
             function () {
-              var gameframe = document.documentElement.getElementsByClassName("gameframe")[0];
-              const splitter = gameframe.contentWindow.document.getElementsByClassName("splitter")[0];
-              const selectedRoom = splitter.getElementsByClassName("selected")[0];
+              var gameframe =
+                document.documentElement.getElementsByClassName("gameframe")[0];
+              const splitter =
+                gameframe.contentWindow.document.getElementsByClassName(
+                  "splitter"
+                )[0];
+              const selectedRoom =
+                splitter.getElementsByClassName("selected")[0];
               if (typeof selectedRoom !== "undefined") {
-                const selectedRoomName = selectedRoom.querySelector('[data-hook="name"]').innerHTML;
+                const selectedRoomName =
+                  selectedRoom.querySelector('[data-hook="name"]').innerHTML;
                 const favRooms = JSON.parse(localStorage.getItem("fav_rooms"));
                 let updatedFavRooms = [];
                 if (favRooms.includes(selectedRoomName) == false) {
@@ -403,40 +453,64 @@ iframe.addEventListener("load", function () {
                   updatedFavRooms.push(selectedRoomName);
                 } else {
                   for (let i = 0; i < favRooms.length; i++) {
-                    if (favRooms[i] != selectedRoomName) updatedFavRooms.push(favRooms[i]);
+                    if (favRooms[i] != selectedRoomName)
+                      updatedFavRooms.push(favRooms[i]);
                   }
                 }
-                localStorage.setItem("fav_rooms", JSON.stringify(updatedFavRooms));
+                localStorage.setItem(
+                  "fav_rooms",
+                  JSON.stringify(updatedFavRooms)
+                );
               }
             },
             false
           );
-          roomListButtons.insertBefore(addFavButton, roomListButtons.childNodes[3]);
+          roomListButtons.insertBefore(
+            addFavButton,
+            roomListButtons.childNodes[3]
+          );
 
           // 'Show Rooms' button to show the Favourite Rooms
           let showFavButton = document.createElement("button");
           showFavButton.id = "showfav-btn";
-          showFavButton.innerHTML = '<i class="icon-star"></i><div>Show Rooms</div>';
+          showFavButton.innerHTML =
+            '<i class="icon-star"></i><div>Show Rooms</div>';
 
           showFavButton.addEventListener(
             "click",
             function () {
-              var gameframe = document.documentElement.getElementsByClassName("gameframe")[0];
-              const roomsList = gameframe.contentWindow.document.getElementsByClassName("list")[0];
-              const roomsRows = roomsList.querySelector('[data-hook="list"]').rows;
+              var gameframe =
+                document.documentElement.getElementsByClassName("gameframe")[0];
+              const roomsList =
+                gameframe.contentWindow.document.getElementsByClassName(
+                  "list"
+                )[0];
+              const roomsRows =
+                roomsList.querySelector('[data-hook="list"]').rows;
               const favRooms = JSON.parse(localStorage.getItem("fav_rooms"));
               for (let i = 0; i < roomsRows.length; i++) {
-                let roomName = roomsRows[i].querySelector('[data-hook = "name"]').innerHTML;
-                if (favRooms.includes(roomName) == false) roomsRows[i].style.display = "none";
+                let roomName = roomsRows[i].querySelector(
+                  '[data-hook = "name"]'
+                ).innerHTML;
+                if (favRooms.includes(roomName) == false)
+                  roomsRows[i].style.display = "none";
               }
             },
             false
           );
-          roomListButtons.insertBefore(showFavButton, roomListButtons.childNodes[4]);
+          roomListButtons.insertBefore(
+            showFavButton,
+            roomListButtons.childNodes[4]
+          );
 
           break;
       }
     }
   });
-  viewObserver.observe(iframeBody, { characterData: false, childList: true, attributes: false, subtree: true });
+  viewObserver.observe(iframeBody, {
+    characterData: false,
+    childList: true,
+    attributes: false,
+    subtree: true,
+  });
 });
