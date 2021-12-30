@@ -1,37 +1,89 @@
-## Welcome to GitHub Pages
+# HaxBall Client
+This a client for the HTML game [HaxBall](https://www.haxball.com/play), built with a custom build of [nativefier](https://github.com/nativefier/nativefier) in order for the browser extension [HaxBall All-in-one Tool](https://github.com/xenonsb/Haxball-Room-Extension) to be supported.
 
-You can use the [editor on GitHub](https://github.com/oghb/haxball-client/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+The app works on Windows, macOS and Linux, and is 64-bit only.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## How to run
+Download from the [Releases](https://github.com/oghb/haxball-client/releases) page the **.zip** file with the Client for your OS and unzip ip. Then
+* if you're on **Windows**, move the folder wherever you want and double-click on `HaxBall.exe`
+* if you're on **macOS**, move the `HaxBall.app` in your Applications folder and then double-click on it
+* if you're on **Linux**, move the folder wherever you want, `cd` into that folder and then type `./HaxBall` in the terminal
 
-### Markdown
+## Features
+* Every feature of the All-in-one Tool, including
+  * Auto-join
+  * Room search
+  * Kick/Ban quick buttons
+  * Local mute
+  * Hide chat toggle
+  * **R** as a REC hotkey
+  * Chat shortcuts\*
+* Favourite Rooms
+* Dedicated button to make the UI transparent
+* Custom command-line (see below)
+* Support for high refresh rate monitors (e.g. 144fps if you have a 144Hz monitor)
+* No ads
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+\* *these were originally featured in the All-in-one Tool, but given that they do not work in the client they have been rewritten from scratch (see below)*.
 
-```markdown
-Syntax highlighted code block
+### Favourite Rooms
+Two new buttons have been added to the **Room list** view: **Add Room** and **Show Rooms**. 
 
-# Header 1
-## Header 2
-### Header 3
+By selecting a room in the list and then clicking the **Add Room** button, such room will be added to the list of your **Favourite Rooms**, and will be easily accessible by clicking the **Show Rooms** button.
 
-- Bulleted
-- List
+In addition to the **Search** feature provided by the All-in-one Tool, this functionality comes very handy when you only are interested in a few rooms, and some of these are distant from your geographical position or not close to each other.
 
-1. Numbered
-2. List
+A room will stay among your **Favourites** (use the `favrooms` command in the command-line to see them all) regardless of it being online or not, as long as its name doesn't change.
 
-**Bold** and _Italic_ and `Code` text
+### Command-line
+The horizontal bar on the top has two functions: **redirect you to a room** given its link and launch **custom commands**. 
 
-[Link](url) and ![Image](src)
-```
+#### Available commands
+##### Shortcuts
+Shortcuts let you type frequent commands/messages by expanding a shorter piece of text.
+* `shortcut add A,B`
+* `shortcut remove A`
+* `shortcut list`
 
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+For example, you may be someone who often changes extrapolation and you'd prefer not to type the full command each time. To do so, you can create a new shortcut by entering in the command bar
 
-### Jekyll Themes
+`shortcut add /e,/extrapolation`
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/oghb/haxball-client/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+so that every time you type in the game chat `/e` you will instead get `/extrapolation`.
+If you wish to remove it, you can then use
 
-### Support or Contact
+`shortcut remove /e`
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+This particular shortcut is included by the default in the client, but you can create whatever shortcut you want (even entire messages)!
+
+##### Notes
+Notes let you store text snippets you may want to save up for later.
+* `notes add yournote`
+* `notes remove notenumber`
+* `notes list`
+
+ For instance, you could save links to private rooms, different private keys for different rooms, a Discord invite someone linked in the chat, or some longer chat commands you don't want to create a shortcut for (like team colors).
+
+To remove a saved note, check its number with `list` and then use `remove`.
+
+##### Player Auth management
+Your Player Auth is often used by headless rooms' admins to authenticate you or to save your in-game statistics. If you want to view your Public Auth or Private Key, or change the latter, type the commands
+* `auth`
+* `auth yournewprivatekey`
+
+##### Extrapolation / Avatar
+If you want to view/change your extrapolation/avatar without entering a room or opening the console, type in the command bar
+* `extra`
+* `extra newvalue`
+* `avatar`
+* `avatar newavatar`
+* `clearavatar`
+
+##### Favourite Rooms
+Use the `favrooms` command to have a list of every room currently marked as **Favourite**.
+
+##### Client info
+* `help`
+* `info`
+* `version`
+* `changelog`
