@@ -22,7 +22,7 @@ if (document.getElementsByClassName("overflowhidden").length != 0) {
 		</div>
                 <input type=text size=5 id="commandline" rows="1" cols="20" style="font-size: 20px" placeholder="Paste a room link or enter a command"></input>
 		<div class="flexRow flexGrow">
-			<iframe src="hiF05fAx/__cache_static__/g/game.html" class="gameframe"></iframe>
+			<iframe src="PFj3geCw/__cache_static__/g/game.html" class="gameframe"></iframe>
 		</div>
 	</div>
 </body>`;
