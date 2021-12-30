@@ -4,7 +4,7 @@ This a client for the HTML game [HaxBall](https://www.haxball.com/play), built w
 The app works on Windows, macOS and Linux, and is 64-bit only.
 
 ## How to run
-Download from the [Releases](https://github.com/oghb/haxball-client/releases) page the **.zip** file with the Client for your OS and unzip the **HaxBall Client** folder within. Then
+Download from the [Releases](https://github.com/oghb/haxball-client/releases) page the **.zip** file with the Client for your OS and unzip ip. Then
 * if you're on **Windows**, move the folder wherever you want and double-click on `HaxBall.exe`
 * if you're on **macOS**, move the `HaxBall.app` in your Applications folder and then double-click on it
 * if you're on **Linux**, move the folder wherever you want, `cd` into that folder and then type `./HaxBall` in the terminal
@@ -89,4 +89,98 @@ Use the `favrooms` command to have a list of every room currently marked as **Fa
 * `changelog`
 
 ## How to build
-*Coming soon!*
+In order to build the client you will need to have [git](https://git-scm.com/downloads) and [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm/) installed; there are plenty of tutorials on how to install them on your platform so it won't be explained here.
+
+Open a terminal and clone both this repository and nativefier in any directory
+```bash
+https://github.com/oghb/haxball-client.git
+git clone https://github.com/nativefier/nativefier.git
+```
+
+Open the `nativefier` repository you just cloned and go to `app/src`, where you'll find a file called `main.ts`: either replace it with the one in this repository, or modify it as follows:
+- replace
+```javascript
+import electron, {
+  app,
+  crashReporter,
+  dialog,
+  globalShortcut,
+  systemPreferences,
+  BrowserWindow,
+  Event,
+} from 'electron';
+```
+with 
+```javascript
+import electron, {
+  app,
+  session,
+  crashReporter,
+  dialog,
+  globalShortcut,
+  systemPreferences,
+  BrowserWindow,
+  Event,
+} from 'electron';
+```
+- replace
+```javascript
+app.on('activate', (event: electron.Event, hasVisibleWindows: boolean) => {
+  log.debug('app.activate', { event, hasVisibleWindows });
+  if (isOSX()) {
+    // this is called when the dock is clicked
+    if (!hasVisibleWindows) {
+      mainWindow.show();
+    }
+  }
+});
+```
+with 
+```javascript
+app.on('activate', (event: electron.Event, hasVisibleWindows: boolean) => {
+  log.debug('app.activate', { event, hasVisibleWindows });
+  if (isOSX()) {
+    // this is called when the dock is clicked
+    if (!hasVisibleWindows) {
+      if (typeof mainWindow !== 'undefined') {
+        mainWindow.show();
+      }
+    }
+  }
+});
+```
+- above
+```javascript
+  // Warning: `mainWindow` below is the *global* unique `mainWindow`, created at init time
+  mainWindow = await createMainWindow(appArgs, setDockBadge);
+```
+add these two lines
+```javascript
+const allInOnePath = path.join(__dirname, '..', 'Haxball-Room-Extension');
+await session.defaultSession.loadExtension(allInOnePath);
+```
+
+You can now build the modified nativefier with
+```bash
+npm install
+```
+(make sure the working directory of the terminal is `nativefier`) and when it's done building, launch
+```bash
+npm link
+```
+so when you launch `nativefier` your system will actually this one (in case you have another installation).
+
+Now launch `cd ..` to go in the parent directory of `nativefier` (the one where you cloned the two repositories to), and launch one of these commands to build the client:
+- Windows client
+```bash
+nativefier https://www.haxball.com/play --internal-urls ".*?\.haxball\.*?" --name HaxBall --inject haxball-client/inject.js --inject haxball-client/inject.css --icon haxball-client/icon.png --platform windows && git clone https://github.com/xenonsb/Haxball-Room-Extension.git ./HaxBall-win32-x64/resources/app/Haxball-Room-Extension
+```
+- macOS client
+```bash
+nativefier https://www.haxball.com/play --browserwindow-options '{"fullscreenable": true}' --internal-urls ".*?\.haxball\.*?" --name HaxBall --inject haxball-client/inject.js --inject haxball-client/inject.css --icon haxball-client/icon.png && git clone https://github.com/xenonsb/Haxball-Room-Extension.git ./HaxBall-darwin-x64/HaxBall.app/Contents/Resources/app/Haxball-Room-Extension
+```
+
+- Linux client
+```bash
+nativefier https://www.haxball.com/play --internal-urls ".*?\.haxball\.*?" --name HaxBall --inject haxball-client/inject.js --inject haxball-client/inject.css --icon haxball-client/icon.png --platform linux && git clone https://github.com/xenonsb/Haxball-Room-Extension.git ./HaxBall-linux-x64/resources/app/Haxball-Room-Extension
+```
