@@ -28,6 +28,17 @@ if (document.getElementsByClassName("overflowhidden").length != 0) {
 </body>`;
 }
 
+function injectGameMin(src) {
+  const gameframe =
+    document.documentElement.getElementsByClassName("gameframe")[0];
+  let script = gameframe.contentWindow.document.createElement("script");
+  script.src = src;
+  script.type = "text/javascript";
+  gameframe.contentWindow.document
+    .getElementsByTagName("head")[0]
+    .appendChild(script);
+}
+
 if (localStorage.getItem("shortcuts") == null) {
   localStorage.setItem(
     "shortcuts",
@@ -37,8 +48,19 @@ if (localStorage.getItem("shortcuts") == null) {
 if (localStorage.getItem("notes") == null) {
   localStorage.setItem("notes", "[]");
 }
+
+if (localStorage.getItem("extra_unlock") == null) {
+  localStorage.setItem("extra_unlock", "false");
+}
+
 if (localStorage.getItem("fav_rooms") == null) {
-  localStorage.setItem("fav_rooms", '["og-bot 3on3 WS | discord.gg/RRmBfP5"]');
+  localStorage.setItem("fav_rooms", '["og-bot Big 3on3 | discord.gg/RRmBfP5"]');
+}
+
+if (localStorage.getItem("extra_unlock") == "true") {
+  injectGameMin(
+    "https://rawcdn.githack.com/oghb/haxball-client/0c02134a6c25118d1570b3d5e2cfa1240164eba2/game-min_custom.js"
+  );
 }
 
 localStorage.setItem("transp_ui", "false");
@@ -273,6 +295,22 @@ commandInput.addEventListener("keyup", function (event) {
         }
         break;
 
+      case commandSplit[0] == "extraunlock":
+        injectGameMin(
+          "https://rawcdn.githack.com/oghb/haxball-client/0c02134a6c25118d1570b3d5e2cfa1240164eba2/game-min_custom.js"
+        );
+
+        localStorage.setItem("extra_unlock", "true");
+
+        commandInput.value = "";
+        commandInput.placeholder =
+          "Extrapolation unlocked – you can now set any value up to 999ms";
+        setTimeout(function () {
+          commandInput.placeholder = "Paste a room link or enter a command";
+        }, 3000);
+
+        break;
+
       case commandSplit[0] == "favrooms":
         commandInput.value = "";
         let favRoomsString = "Favourite Rooms\n\n";
@@ -293,7 +331,7 @@ commandInput.addEventListener("keyup", function (event) {
       case commandSplit[0] == "help":
         commandInput.value = "";
         window.alert(
-          "Commands list\n\n•Chat shortcuts A -> B\n(A is what you type in chat\nand B is what appears)\nshortcut list\nshortcut add A,B\nshortcut remove A\n\n•Notes\nnotes add yournote\nnotesremove notenumber\nnotes list\n\n•Player Auth management (view or update)\nauth\nauth privatekey\n\n•Extrapolation (view or update)\nextra\nextra newvalue\n\n•Avatar (view or update)\navatar\navatar newavatar\nclearavatar\n\n•Favourite Rooms\nfavrooms\n\n•HaxBall Client info\nhelp\ninfo\nversion\nchangelog"
+          "Commands list\n\n•Chat shortcuts A -> B\n(A is what you type in chat\nand B is what appears)\nshortcut list\nshortcut add A,B\nshortcut remove A\n\n•Notes\nnotes add yournote\nnotesremove notenumber\nnotes list\n\n•Player Auth management (view or update)\nauth\nauth privatekey\n\n•Extrapolation (view/update/unlock)\nextra\nextra newvalue\nextraunlock\n\n•Avatar (view or update)\navatar\navatar newavatar\nclearavatar\n\n•Favourite Rooms\nfavrooms\n\n•HaxBall Client info\nhelp\ninfo\nversion\nchangelog"
         );
         break;
 
@@ -306,7 +344,7 @@ commandInput.addEventListener("keyup", function (event) {
 
       case commandSplit[0] == "version":
         commandInput.value = "";
-        commandInput.placeholder = "v0.2.3 (2021.12.30)";
+        commandInput.placeholder = "v0.3 (2022.01.03)";
         setTimeout(function () {
           commandInput.placeholder = "Paste a room link or enter a command";
         }, 3000);
@@ -315,7 +353,7 @@ commandInput.addEventListener("keyup", function (event) {
       case commandSplit[0] == "changelog":
         commandInput.value = "";
         window.alert(
-          "Changelog\n\nv0.2.2/v0.2.3 (2021.12.30)\n-built with latest Nativefier\n-fixed \"404 page not found\" error\n\nv0.2.1 (2021.04.23)\n-built with latest Nativefier\n\nv0.2 (2021.03.05)\n-added 'Favourite Rooms' functionality\n-added 'notes' command\n-added 'New Tab' (opens the game in a new tab of the app)\n-added '/avatar ' as a default shortcut\n\nv0.1.1 (2021.02.22)\n-shortcuts changes are reflected immediately\n-changed the default shortcut to\n'/e' —> '/extrapolation '\n-updated 'info' and header with GitHub link\n-extrapolation set with the command bar no longer limited to +-200 (if you use a modified game-min.js to bypass the limit)\n\nv0.1 (2021.02.20)\nFirst release"
+          "Changelog\n\nv0.3 (2022.01.03)\n-'extraunlock' command to set any extrapolation value\n\nv0.2.2/v0.2.3 (2021.12.30)\n-built with latest Nativefier\n-fixed \"404 page not found\" error\n\nv0.2.1 (2021.04.23)\n-built with latest Nativefier\n\nv0.2 (2021.03.05)\n-added 'Favourite Rooms' functionality\n-added 'notes' command\n-added 'New Tab' (opens the game in a new tab of the app)\n-added '/avatar ' as a default shortcut\n\nv0.1.1 (2021.02.22)\n-shortcuts changes are reflected immediately\n-changed the default shortcut to\n'/e' —> '/extrapolation '\n-updated 'info' and header with GitHub link\n-extrapolation set with the command bar no longer limited to +-200 (if you use a modified game-min.js to bypass the limit)\n\nv0.1 (2021.02.20)\nFirst release"
         );
         break;
     }
