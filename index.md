@@ -70,10 +70,16 @@ Your Player Auth is often used by headless rooms' admins to authenticate you or 
 * `auth`
 * `auth yournewprivatekey`
 
-##### Extrapolation / Avatar
-If you want to view/change your extrapolation/avatar without entering a room or opening the console, type in the command bar
+##### Extrapolation
+If you want to view or change your extrapolation without entering a room or opening the console, type in the command bar
 * `extra`
 * `extra newvalue`
+
+Although I don't support the choice, since it was highly requested a command to uncap the extrapolation is also available
+* `extraunlock`
+
+##### Avatar
+If you want to view or change your avatar without entering a room or opening the console, type in the command bar
 * `avatar`
 * `avatar newavatar`
 * `clearavatar`
