@@ -20,7 +20,7 @@ Download from the [Releases](https://github.com/oghb/haxball-client/releases) pa
   * Chat shortcuts\*
 * Favourite Rooms
 * Dedicated button to make the UI transparent
-* Extrapolation unlocked
+* Unlockable extrapolation
 * Custom command-line (see below)
 * Support for high refresh rate monitors (e.g. 144fps if you have a 144Hz monitor)
 * No ads
