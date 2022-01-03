@@ -49,21 +49,9 @@ if (localStorage.getItem("notes") == null) {
   localStorage.setItem("notes", "[]");
 }
 
-if (localStorage.getItem("extra_unlock") == null) {
-  localStorage.setItem("extra_unlock", "false");
-}
-
 if (localStorage.getItem("fav_rooms") == null) {
   localStorage.setItem("fav_rooms", '["og-bot Big 3on3 | discord.gg/RRmBfP5"]');
 }
-
-if (localStorage.getItem("extra_unlock") == "true") {
-  injectGameMin(
-    "https://rawcdn.githack.com/oghb/haxball-client/0c02134a6c25118d1570b3d5e2cfa1240164eba2/game-min_custom.js"
-  );
-}
-
-localStorage.setItem("transp_ui", "false");
 
 // parses commands and room links typed in the command line
 commandInput = document.getElementById("commandline");
@@ -297,10 +285,8 @@ commandInput.addEventListener("keyup", function (event) {
 
       case commandSplit[0] == "extraunlock":
         injectGameMin(
-          "https://rawcdn.githack.com/oghb/haxball-client/0c02134a6c25118d1570b3d5e2cfa1240164eba2/game-min_custom.js"
+          "https://rawcdn.githack.com/oghb/haxball-client/b23a2ed7b315b16ac038493feeaf5afe9cebb7da/game-min_custom.js?min=1"
         );
-
-        localStorage.setItem("extra_unlock", "true");
 
         commandInput.value = "";
         commandInput.placeholder =
@@ -338,7 +324,7 @@ commandInput.addEventListener("keyup", function (event) {
       case commandSplit[0] == "info":
         commandInput.value = "";
         window.alert(
-          "HaxBall Client\n\nThis app was developed by og#9525 in an effort to create an overall better HaxBall experience.\n\nIt is open-source and built with open-source tools.\n\nMost of the work was done by 'nativefier', a command-line tool which creates standalone Electron apps for any website. Then, the 'HaxBall All-in-one' browser extension and some custom Javascript were injected in the app.\n\nThank you for checking it out!\n\nLinks\nhttps://discord.gg/RRmBfP5\nhttps://github.com/oghb/haxball-client\nhttps://github.com/nativefier/nativefier\nhttps://github.com/xenonsb/Haxball-Room-Extension"
+          "HaxBall Client\n\nThis app was developed by og#9525 in an effort to create an overall better HaxBall experience.\n\nIt is open-source and built with open-source tools, such as nativefier and the 'HaxBall All-in-one' browser extension, and finally some custom Javascript was injected in the app to add even more functionalities.\n\nThank you for checking it out!\n\nLinks\nhttps://discord.gg/RRmBfP5\nhttps://oghb.github.io/haxball-client/\nhttps://github.com/nativefier/nativefier\nhttps://github.com/xenonsb/Haxball-Room-Extension"
         );
         break;
 
