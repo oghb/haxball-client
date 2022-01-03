@@ -4,7 +4,7 @@ This a client for the HTML game [HaxBall](https://www.haxball.com/play), built w
 The app works on Windows, macOS and Linux, and is 64-bit only.
 
 ## How to run
-Download from the [Releases](https://github.com/oghb/haxball-client/releases) page the **.zip** file with the Client for your OS and unzip ip. Then
+Download from the [Releases](https://github.com/oghb/haxball-client/releases) page the **.zip** file with the Client for your OS and unzip it. Then
 * if you're on **Windows**, move the folder wherever you want and double-click on `HaxBall.exe`
 * if you're on **macOS**, move the `HaxBall.app` in your Applications folder and then double-click on it
 * if you're on **Linux**, move the folder wherever you want, `cd` into that folder and then type `./HaxBall` in the terminal
@@ -20,6 +20,7 @@ Download from the [Releases](https://github.com/oghb/haxball-client/releases) pa
   * Chat shortcuts\*
 * Favourite Rooms
 * Dedicated button to make the UI transparent
+* Extrapolation unlocked
 * Custom command-line (see below)
 * Support for high refresh rate monitors (e.g. 144fps if you have a 144Hz monitor)
 * No ads
@@ -71,10 +72,16 @@ Your Player Auth is often used by headless rooms' admins to authenticate you or 
 * `auth`
 * `auth yournewprivatekey`
 
-##### Extrapolation / Avatar
-If you want to view/change your extrapolation/avatar without entering a room or opening the console, type in the command bar
+##### Extrapolation
+If you want to view or change your extrapolation without entering a room or opening the console, type in the command bar
 * `extra`
 * `extra newvalue`
+
+**Although I don't support the choice**, considering the number of people who asked a command to uncap the extrapolation has also been added
+* `extraunlock`
+
+##### Avatar
+If you want to view or change your avatar without entering a room or opening the console, type in the command bar
 * `avatar`
 * `avatar newavatar`
 * `clearavatar`
