@@ -77,7 +77,7 @@ If you want to view or change your extrapolation without entering a room or open
 * `extra`
 * `extra newvalue`
 
-**Although I don't support the choice**, considering the number of people who asked a command to uncap the extrapolation has also been added
+Although I don't support the choice, since it was highly requested a command to uncap the extrapolation is also available
 * `extraunlock`
 
 ##### Avatar
