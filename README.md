@@ -177,17 +177,20 @@ npm link
 ```
 so when you launch `nativefier` your system will actually this one (in case you have another installation).
 
-Now launch `cd ..` to go in the parent directory of `nativefier` (the one where you cloned the two repositories to), and launch one of these commands to build the client:
+Now launch `cd ..` to go in the parent directory of `nativefier` (the one where you cloned the two repositories to), and launch these commands to build the client and copy the HaxBall All-in-one tool within:
 - Windows client
 ```bash
-nativefier https://www.haxball.com/play --internal-urls ".*?\.haxball\.*?" --name HaxBall --inject haxball-client/inject.js --inject haxball-client/inject.css --icon haxball-client/icon.png --platform windows && git clone https://github.com/xenonsb/Haxball-Room-Extension.git ./HaxBall-win32-x64/resources/app/Haxball-Room-Extension
+nativefier https://www.haxball.com/play --internal-urls ".*?\.haxball\.*?" --name HaxBall --inject haxball-client/inject.js --inject haxball-client/inject.css --icon haxball-client/icon.png --platform windows
+git clone https://github.com/xenonsb/Haxball-Room-Extension.git ./HaxBall-win32-x64/resources/app/Haxball-Room-Extension
 ```
 - macOS client
 ```bash
-nativefier https://www.haxball.com/play --browserwindow-options '{"fullscreenable": true}' --internal-urls ".*?\.haxball\.*?" --name HaxBall --inject haxball-client/inject.js --inject haxball-client/inject.css --icon haxball-client/icon.png && git clone https://github.com/xenonsb/Haxball-Room-Extension.git ./HaxBall-darwin-x64/HaxBall.app/Contents/Resources/app/Haxball-Room-Extension
+nativefier https://www.haxball.com/play --browserwindow-options '{"fullscreenable": true}' --internal-urls ".*?\.haxball\.*?" --name HaxBall --inject haxball-client/inject.js --inject haxball-client/inject.css --icon haxball-client/icon.png
+git clone https://github.com/xenonsb/Haxball-Room-Extension.git ./HaxBall-win32-x64/resources/app/Haxball-Room-Extension
 ```
 
 - Linux client
 ```bash
-nativefier https://www.haxball.com/play --internal-urls ".*?\.haxball\.*?" --name HaxBall --inject haxball-client/inject.js --inject haxball-client/inject.css --icon haxball-client/icon.png --platform linux && git clone https://github.com/xenonsb/Haxball-Room-Extension.git ./HaxBall-linux-x64/resources/app/Haxball-Room-Extension
+nativefier https://www.haxball.com/play --internal-urls ".*?\.haxball\.*?" --name HaxBall --inject haxball-client/inject.js --inject haxball-client/inject.css --icon haxball-client/icon.png --platform linux
+git clone https://github.com/xenonsb/Haxball-Room-Extension.git ./HaxBall-win32-x64/resources/app/Haxball-Room-Extension
 ```
