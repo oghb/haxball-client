@@ -1,31 +1,24 @@
+// removes ads
 if (document.getElementsByClassName("rightbar").length != 0) {
   document.getElementsByClassName("rightbar")[0].innerHTML = "";
 }
 
-// edits the main html page
-// (removes ads, changes flexcol and adds the top bar)
 if (document.getElementsByClassName("overflowhidden").length != 0) {
-  document.getElementsByClassName("overflowhidden")[0].innerHTML = `<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-	<title>HaxBall Client</title>
-	<link type="text/css" rel="stylesheet" href="hiF05fAx/s/style.css">
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet" type="text/css">
-</head>
-<body>
-	<div class="container flexCol">
-		<div class="header">
-			<span class="title">HaxBall Client by og</span>
+  // custom header
+  document.getElementsByClassName("header")[0].innerHTML = `
+                        <span class="title">HaxBall Client by og</span>
                         <a href="https://www.haxball.com/play">New Tab (right click)</a>
                         <a href="https://discord.gg/RRmBfP5">Discord</a>
                         <a href="https://github.com/oghb/haxball-client">GitHub</a>
-		</div>
-                <input type=text size=5 id="commandline" rows="1" cols="20" style="font-size: 20px" placeholder="Paste a room link or enter a command"></input>
-		<div class="flexRow flexGrow">
-			<iframe src="PFj3geCw/__cache_static__/g/game.html" class="gameframe"></iframe>
-		</div>
-	</div>
-</body>`;
+                        `;
+  // commandline
+  let commandline = document.createElement("input");
+  commandline.type = "text";
+  commandline.size = 5;
+  commandline.id = "commandline";
+  commandline.style = "font-size: 20px";
+  commandline.placeholder = "Paste a room link or enter a command";
+  document.getElementsByClassName("header")[0].after(commandline);
 }
 
 function injectGameMin(src) {
