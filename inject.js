@@ -51,7 +51,7 @@ commandInput = document.getElementById("commandline");
 commandInput.addEventListener("keyup", function (event) {
   if (event.keyCode === 13) {
     if (commandInput.value.match(/haxball.com/)) {
-      const roomLink = commandInput.value;
+      const roomLink = commandInput.value.replace(/\s/g, "");
       if (roomLink.match(/^https:\/\/www\.haxball\.com\/play\?c=.{11}$/)) {
         commandInput.value = "";
         commandInput.placeholder = "Opening room link...";
