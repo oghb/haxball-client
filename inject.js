@@ -43,7 +43,7 @@ if (localStorage.getItem("notes") == null) {
 }
 
 if (localStorage.getItem("fav_rooms") == null) {
-  localStorage.setItem("fav_rooms", '["og-bot Big 3on3 | discord.gg/RRmBfP5"]');
+  localStorage.setItem("fav_rooms", '["og-bot Big 3on3 ║ discord.gg/RRmBfP5"]');
 }
 
 // parses commands and room links typed in the command line
@@ -269,7 +269,7 @@ commandInput.addEventListener("keyup", function (event) {
           commandInput.placeholder =
             value == null
               ? `No extrapolation set`
-              : `Current extrapolation: ${value}ms`;
+              : `Current extrapolation: ${value}`;
           setTimeout(function () {
             commandInput.placeholder = "Paste a room link or enter a command";
           }, 3000);
@@ -310,20 +310,67 @@ commandInput.addEventListener("keyup", function (event) {
       case commandSplit[0] == "help":
         commandInput.value = "";
         window.alert(
-          "Commands list\n\n•Chat shortcuts A -> B\n(A is what you type in chat\nand B is what appears)\nshortcut list\nshortcut add A,B\nshortcut remove A\n\n•Notes\nnotes add yournote\nnotesremove notenumber\nnotes list\n\n•Player Auth management (view or update)\nauth\nauth privatekey\n\n•Extrapolation (view/update/unlock)\nextra\nextra newvalue\nextraunlock\n\n•Avatar (view or update)\navatar\navatar newavatar\nclearavatar\n\n•Favourite Rooms\nfavrooms\n\n•HaxBall Client info\nhelp\ninfo\nversion\nchangelog"
+          `Commands list
+
+•Chat shortcuts A -> B
+(A is what you type in chat
+and B is what appears)
+shortcut list
+shortcut add A,B
+shortcut remove A
+
+•Notes
+notes add yournote
+notesremove notenumber
+notes list
+
+•Player Auth management (view/update)
+auth
+auth privatekey
+
+•Extrapolation (view/update/unlock)
+extra
+extra newvalue
+extraunlock
+
+•Avatar (view/update/clear)
+avatar
+avatar newavatar
+clearavatar
+
+•Favourite Rooms
+favrooms
+
+•HaxBall Client info
+help
+info
+version
+changelog`
         );
         break;
 
       case commandSplit[0] == "info":
         commandInput.value = "";
         window.alert(
-          "HaxBall Client\n\nThis app was developed by og#9525 in an effort to create an overall better HaxBall experience.\n\nIt is open-source and built with open-source tools, such as nativefier and the 'HaxBall All-in-one' browser extension, and finally some custom Javascript was injected in the app to add even more functionalities.\n\nThank you for checking it out!\n\nLinks\nhttps://discord.gg/RRmBfP5\nhttps://oghb.github.io/haxball-client/\nhttps://github.com/nativefier/nativefier\nhttps://github.com/xenonsb/Haxball-Room-Extension"
+          `HaxBall Client
+
+This app was developed by og#9525 in an effort to create an overall better HaxBall experience.
+
+It is open-source and built with open-source tools, namely nativefier and the 'HaxBall All-in-one' browser extension; some custom Javascript was also injected in the app to add even more functionalities.
+
+Thank you for checking it out!
+
+Links
+https://discord.gg/RRmBfP5
+https://oghb.github.io/haxball-client/
+https://github.com/nativefier/nativefier
+https://github.com/xenonsb/Haxball-Room-Extension`
         );
         break;
 
       case commandSplit[0] == "version":
         commandInput.value = "";
-        commandInput.placeholder = "v0.3 (2022.01.03)";
+        commandInput.placeholder = "v0.3.1 (2022.01.26)";
         setTimeout(function () {
           commandInput.placeholder = "Paste a room link or enter a command";
         }, 3000);
@@ -332,7 +379,14 @@ commandInput.addEventListener("keyup", function (event) {
       case commandSplit[0] == "changelog":
         commandInput.value = "";
         window.alert(
-          "Changelog\n\nv0.3 (2022.01.03)\n-'extraunlock' command to set any extrapolation value\n\nv0.2.2/v0.2.3 (2021.12.30)\n-built with latest Nativefier\n-fixed \"404 page not found\" error\n\nv0.2.1 (2021.04.23)\n-built with latest Nativefier\n\nv0.2 (2021.03.05)\n-added 'Favourite Rooms' functionality\n-added 'notes' command\n-added 'New Tab' (opens the game in a new tab of the app)\n-added '/avatar ' as a default shortcut\n\nv0.1.1 (2021.02.22)\n-shortcuts changes are reflected immediately\n-changed the default shortcut to\n'/e' —> '/extrapolation '\n-updated 'info' and header with GitHub link\n-extrapolation set with the command bar no longer limited to +-200 (if you use a modified game-min.js to bypass the limit)\n\nv0.1 (2021.02.20)\nFirst release"
+          `Changelog
+
+v0.3.1 (2022.01.26)
+-fixed 404 and missing CSS errors once and for all
+-fixed room link parsing
+
+v0.3 (2022.01.03)
+-'extraunlock' command to set any extrapolation value`
         );
         break;
     }
