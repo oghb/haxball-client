@@ -1,5 +1,6 @@
 # HaxBall Client
-This a client for the HTML game [HaxBall](https://www.haxball.com/play), built with a custom build of [nativefier](https://github.com/nativefier/nativefier) in order for the browser extension [HaxBall All-in-one Tool](https://github.com/xenonsb/Haxball-Room-Extension) to be supported.
+
+Unofficial client for the HTML5 browser game [HaxBall](https://www.haxball.com/play), built with a custom build of [nativefier](https://github.com/nativefier/nativefier) in order for the browser extension [HaxBall All-in-one Tool](https://github.com/xenonsb/Haxball-Room-Extension) to be supported.
 
 The app works on Windows, macOS and Linux, and is 64-bit only.
 
