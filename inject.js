@@ -248,21 +248,21 @@ commandInput.addEventListener("keyup", function (event) {
 
       case commandSplit[0] == "extra":
         if (isNaN(commandSplit[1]) == false) {
-          let value = parseInt(commandInput.value.replace("extra ", ""));
-          commandInput.value = "";
-          if (value == localStorage.getItem("extrapolation")) {
-            commandInput.placeholder = `Extrapolation was already set at ${value}ms`;
-            setTimeout(function () {
-              commandInput.placeholder = "Paste a room link or enter a command";
-            }, 2000);
-            return;
-          }
-          localStorage.setItem("extrapolation", value.toString());
-          commandInput.placeholder =
-            "Extrapolation set! Reloading HaxBall with the new value...";
-          setTimeout(function () {
-            window.location.reload(true);
-          }, 2000);
+          // let value = parseInt(commandInput.value.replace("extra ", ""));
+          // commandInput.value = "";
+          // if (value == localStorage.getItem("extrapolation")) {
+          //   commandInput.placeholder = `Extrapolation was already set at ${value}ms`;
+          //   setTimeout(function () {
+          //     commandInput.placeholder = "Paste a room link or enter a command";
+          //   }, 2000);
+          //   return;
+          // }
+          // localStorage.setItem("extrapolation", value.toString());
+          // commandInput.placeholder =
+          //   "Extrapolation set! Reloading HaxBall with the new value...";
+          // setTimeout(function () {
+          //   window.location.reload(true);
+          // }, 2000);
         } else if (commandInput.value == "extra") {
           const value = localStorage.getItem("extrapolation");
           commandInput.value = "";
