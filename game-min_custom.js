@@ -3533,7 +3533,7 @@
       this.bc = (this.Ac * a) | 0;
     },
     gm: function (a) {
-      this.rd = this.Ac * (-200 > a ? -200 : 200 < a ? 200 : a);
+      this.rd = this.Ac * (-999 > a ? -999 : 999 < a ? 999 : a);
     },
     f: V,
   });
