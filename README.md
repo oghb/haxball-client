@@ -105,68 +105,7 @@ git clone https://github.com/oghb/haxball-client.git
 git clone https://github.com/nativefier/nativefier.git
 ```
 
-Open the `nativefier` repository you just cloned and go to `app/src`, where you'll find a file called `main.ts`: either replace it with the one in this repository, or modify it as follows:
-- replace
-```javascript
-import electron, {
-  app,
-  crashReporter,
-  dialog,
-  globalShortcut,
-  systemPreferences,
-  BrowserWindow,
-  Event,
-} from 'electron';
-```
-with 
-```javascript
-import electron, {
-  app,
-  session,
-  crashReporter,
-  dialog,
-  globalShortcut,
-  systemPreferences,
-  BrowserWindow,
-  Event,
-} from 'electron';
-```
-- replace
-```javascript
-app.on('activate', (event: electron.Event, hasVisibleWindows: boolean) => {
-  log.debug('app.activate', { event, hasVisibleWindows });
-  if (isOSX()) {
-    // this is called when the dock is clicked
-    if (!hasVisibleWindows) {
-      mainWindow.show();
-    }
-  }
-});
-```
-with 
-```javascript
-app.on('activate', (event: electron.Event, hasVisibleWindows: boolean) => {
-  log.debug('app.activate', { event, hasVisibleWindows });
-  if (isOSX()) {
-    // this is called when the dock is clicked
-    if (!hasVisibleWindows) {
-      if (typeof mainWindow !== 'undefined') {
-        mainWindow.show();
-      }
-    }
-  }
-});
-```
-- above
-```javascript
-  // Warning: `mainWindow` below is the *global* unique `mainWindow`, created at init time
-  mainWindow = await createMainWindow(appArgs, setDockBadge);
-```
-add these two lines
-```javascript
-const allInOnePath = path.join(__dirname, '..', 'Haxball-Room-Extension');
-await session.defaultSession.loadExtension(allInOnePath);
-```
+Open the `nativefier` repository you just cloned and go to `app/src`, where you'll find a file called `main.ts`: replace it with the `main.ts` in this repository.
 
 You can now build the modified nativefier with
 ```bash
