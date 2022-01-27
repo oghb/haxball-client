@@ -67,7 +67,7 @@ Notes let you store text snippets you may want to save up for later.
 * `notes remove notenumber`
 * `notes list`
 
- For instance, you could save links to private rooms, different private keys for different rooms, a Discord invite someone linked in the chat, or some longer chat commands you don't want to create a shortcut for (like team colors).
+ For instance, you could save links to private rooms, different private keys for different rooms, a Discord invite someone linked in chat, or some longer chat commands you don't want to create a shortcut for (like team colors).
 
 To remove a saved note, check its number with `list` and then use `remove`.
 
@@ -118,7 +118,7 @@ npm install
 ```bash
 npm link
 ```
-so when you launch `nativefier` your system will actually this one (in case you have another installation).
+so when you launch `nativefier` your system will actually use this one.
 
 Now launch `cd ..` to go in the parent directory of `nativefier` (the one where you cloned the two repositories to), and launch these commands to build the client and copy the HaxBall All-in-one tool within:
 - Windows client
