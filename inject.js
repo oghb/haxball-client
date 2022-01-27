@@ -402,8 +402,7 @@ favrooms
 •HaxBall Client info
 help
 info
-version
-changelog`
+version`
         );
         break;
 
@@ -432,27 +431,6 @@ https://github.com/xenonsb/Haxball-Room-Extension`
         setTimeout(function () {
           commandInput.placeholder = "Paste a room link or enter a command";
         }, 3000);
-        break;
-
-      case commandSplit[0] == "changelog":
-        commandInput.value = "";
-        window.alert(
-          `Changelog
-
-v0.3.2 (2022.01.27)
--automatically checks updates on launch
--fixed extrapolation still being limited to 200ms
--extraunlock choice is saved when the app is closed
--fixed buttons and shortcuts sometimes not working
--removed possibility to set new extrapolation values from the command line
-
-v0.3.1 (2022.01.26)
--fixed 404 and missing CSS errors once and for all
--fixed room link parsing
-
-v0.3 (2022.01.03)
--'extraunlock' command to set any extrapolation value`
-        );
         break;
     }
   }
