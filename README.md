@@ -4,6 +4,8 @@ Unofficial client for the HTML5 browser game [HaxBall](https://www.haxball.com/p
 
 The app works on Windows, macOS and Linux, and is 64-bit only.
 
+**Note:** if you use Linux you may need to install some libraries first
+
 ## How to run
 Download from the [main website](https://oghb.github.io/haxball-client/) or from the [Releases](https://github.com/oghb/haxball-client/releases) page the **.zip** file with the Client for your OS and unzip it. Then
 * if you're on **Windows**, move the folder wherever you want and double-click on `HaxBall.exe`
