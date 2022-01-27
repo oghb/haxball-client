@@ -1,6 +1,8 @@
 const CURRENT_VERSION = "v0.3.2";
 const RELEASES_URL =
   "https://api.github.com/repos/oghb/haxball-client/releases";
+const EXTRA_GAMEMIN_URL =
+  "https://rawcdn.githack.com/oghb/haxball-client/5f7553fc655c7b90504eead44d9f593f24e3e7bd/game-min_custom.js?min=1";
 
 function injectGameMin(src) {
   const gameframe =
@@ -62,7 +64,6 @@ async function autoUpdater() {
     if (choice) window.location.replace(latest.url);
   }
 }
-autoUpdater();
 
 // removes ads
 if (document.getElementsByClassName("rightbar").length != 0) {
@@ -99,6 +100,10 @@ if (localStorage.getItem("notes") == null) {
 
 if (localStorage.getItem("fav_rooms") == null) {
   localStorage.setItem("fav_rooms", '["og-bot Big 3on3 ║ discord.gg/RRmBfP5"]');
+}
+
+if (localStorage.getItem("extraunlock") == null) {
+  localStorage.setItem("extraunlock", "false");
 }
 
 // parses commands and room links typed in the command line
@@ -332,9 +337,8 @@ commandInput.addEventListener("keyup", function (event) {
         break;
 
       case commandSplit[0] == "extraunlock":
-        injectGameMin(
-          "https://rawcdn.githack.com/oghb/haxball-client/5f7553fc655c7b90504eead44d9f593f24e3e7bd/game-min_custom.js?min=1"
-        );
+        injectGameMin(EXTRA_GAMEMIN_URL);
+        localStorage.setItem("extraunlock", "true");
 
         commandInput.value = "";
         commandInput.placeholder =
@@ -438,6 +442,7 @@ https://github.com/xenonsb/Haxball-Room-Extension`
 v0.3.2 (2022.01.27)
 -automatically checks updates on launch
 -fixed extrapolation still being limited to 200ms
+-extraunlock choice is saved when the app is closed
 -fixed buttons and shortcuts sometimes not working
 -removed possibility to set new extrapolation values from the command line
 
@@ -670,6 +675,12 @@ viewObserver = new MutationObserver(function (mutations) {
 // checks for changes in the page
 init = waitForElement("div[class$='view']");
 init.then(function (value) {
+  if (localStorage.getItem("extraunlock") == "true") {
+    injectGameMin(EXTRA_GAMEMIN_URL);
+  }
+
+  autoUpdater();
+
   currentView = value.parentNode;
   viewObserver.observe(currentView, {
     characterData: false,
