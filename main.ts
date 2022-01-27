@@ -130,9 +130,8 @@ if (appArgs.disableGpu) {
   app.disableHardwareAcceleration();
 }
 
-// Uncomment to disable the FPS cap
-// (it may increase ping)
-// app.commandLine.appendSwitch('disable-frame-rate-limit');
+// Comment the following line if you don't want unlimited FPS
+app.commandLine.appendSwitch('disable-frame-rate-limit');
 
 if (appArgs.ignoreGpuBlacklist) {
   app.commandLine.appendSwitch("ignore-gpu-blacklist");
