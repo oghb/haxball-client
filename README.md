@@ -5,7 +5,7 @@ Unofficial client for the HTML5 browser game [HaxBall](https://www.haxball.com/p
 The app works on Windows, macOS and Linux, and is 64-bit only.
 
 ## How to run
-Download from the [Releases](https://github.com/oghb/haxball-client/releases) page the **.zip** file with the Client for your OS and unzip it. Then
+Download from the [main website](https://oghb.github.io/haxball-client/) or from the [Releases](https://github.com/oghb/haxball-client/releases) page the **.zip** file with the Client for your OS and unzip it. Then
 * if you're on **Windows**, move the folder wherever you want and double-click on `HaxBall.exe`
 * if you're on **macOS**, move the `HaxBall.app` in your Applications folder and then double-click on it
 * if you're on **Linux**, move the folder wherever you want, `cd` into that folder and then type `./HaxBall` in the terminal
@@ -22,8 +22,9 @@ Download from the [Releases](https://github.com/oghb/haxball-client/releases) pa
 * Favourite Rooms
 * Dedicated button to make the UI transparent
 * Unlockable extrapolation
+* Unlimited FPS
+* Automatic updates
 * Custom command-line (see below)
-* Support for high refresh rate monitors (e.g. 144fps if you have a 144Hz monitor)
 * No ads
 
 \* *these were originally featured in the All-in-one Tool, but given that they do not work in the client they have been rewritten from scratch (see below)*.
@@ -74,9 +75,8 @@ Your Player Auth is often used by headless rooms' admins to authenticate you or 
 * `auth yournewprivatekey`
 
 ##### Extrapolation
-If you want to view or change your extrapolation without entering a room or opening the console, type in the command bar
+If you want to view your extrapolation without entering a room or opening the console, type in the command bar
 * `extra`
-* `extra newvalue`
 
 Although I don't support the choice, since it was highly requested a command to uncap the extrapolation is also available
 * `extraunlock`
@@ -94,7 +94,6 @@ Use the `favrooms` command to have a list of every room currently marked as **Fa
 * `help`
 * `info`
 * `version`
-* `changelog`
 
 ## How to build
 In order to build the client you will need to have [git](https://git-scm.com/downloads) and [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm/) installed; there are plenty of tutorials on how to install them on your platform so it won't be explained here.
@@ -106,6 +105,8 @@ git clone https://github.com/nativefier/nativefier.git
 ```
 
 Open the `nativefier` repository you just cloned and go to `app/src`, where you'll find a file called `main.ts`: replace it with the `main.ts` in this repository.
+
+**Note**: if you *don't* want unlimited FPS (it may increase ping for some), put two slashes `//` in front of the appropriate line in `main.ts`.
 
 You can now build the modified nativefier with
 ```bash
