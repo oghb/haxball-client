@@ -20,8 +20,9 @@ Download the Client for your OS and unzip it. Then
 * Favourite Rooms
 * Dedicated button to make the UI transparent
 * Unlockable extrapolation
+* Unlimited FPS
+* Automatic updates
 * Custom command-line (see below)
-* Support for high refresh rate monitors (e.g. 144fps if you have a 144Hz monitor)
 * No ads
 
 \* *these were originally featured in the All-in-one Tool, but given that they do not work in the client they have been rewritten from scratch (see below)*.
@@ -72,9 +73,8 @@ Your Player Auth is often used by headless rooms' admins to authenticate you or 
 * `auth yournewprivatekey`
 
 ##### Extrapolation
-If you want to view or change your extrapolation without entering a room or opening the console, type in the command bar
+If you want to view your extrapolation without entering a room or opening the console, type in the command bar
 * `extra`
-* `extra newvalue`
 
 Although I don't support the choice, since it was highly requested a command to uncap the extrapolation is also available
 * `extraunlock`
@@ -92,4 +92,3 @@ Use the `favrooms` command to have a list of every room currently marked as **Fa
 * `help`
 * `info`
 * `version`
-* `changelog`
