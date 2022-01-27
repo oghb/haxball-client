@@ -1,3 +1,69 @@
+const CURRENT_VERSION = "v0.3.2";
+const RELEASES_URL =
+  "https://api.github.com/repos/oghb/haxball-client/releases";
+
+function injectGameMin(src) {
+  const gameframe =
+    document.documentElement.getElementsByClassName("gameframe")[0];
+  let script = gameframe.contentWindow.document.createElement("script");
+  script.src = src;
+  script.type = "text/javascript";
+  gameframe.contentWindow.document
+    .getElementsByTagName("head")[0]
+    .appendChild(script);
+}
+
+function getOs() {
+  if (navigator.userAgent.indexOf("Windows") !== -1) {
+    return "win";
+  } else if (navigator.userAgent.indexOf("Macintosh") !== -1) {
+    return "macOS";
+  } else {
+    return "linux";
+  }
+}
+
+async function checkLatestRelease() {
+  const res = await fetch(RELEASES_URL, {
+    method: "GET",
+    headers: {
+      Accept: "application/vnd.github.v3+json",
+    },
+  });
+
+  const data = await res.json();
+
+  const latest = {
+    version: data[0].tag_name,
+    url: data[0].assets.find((el) => el.name.indexOf(getOs()) !== -1)
+      .browser_download_url,
+    notes: data[0].body,
+    date: data[0].published_at.substr(0, 10),
+  };
+
+  return latest;
+}
+
+async function autoUpdater() {
+  const latest = await checkLatestRelease();
+
+  if (latest.version !== CURRENT_VERSION) {
+    const choice = confirm(
+      "New version available!\n\nLatest: " +
+        latest.version +
+        "\nYou have: " +
+        CURRENT_VERSION +
+        "\n\nChangelog (" +
+        latest.date +
+        ")\n" +
+        latest.notes +
+        "\n\nClick OK to download it now"
+    );
+    if (choice) window.location.replace(latest.url);
+  }
+}
+autoUpdater();
+
 // removes ads
 if (document.getElementsByClassName("rightbar").length != 0) {
   document.getElementsByClassName("rightbar")[0].innerHTML = "";
@@ -19,17 +85,6 @@ if (document.getElementsByClassName("overflowhidden").length != 0) {
   commandline.style = "font-size: 20px";
   commandline.placeholder = "Paste a room link or enter a command";
   document.getElementsByClassName("header")[0].after(commandline);
-}
-
-function injectGameMin(src) {
-  const gameframe =
-    document.documentElement.getElementsByClassName("gameframe")[0];
-  let script = gameframe.contentWindow.document.createElement("script");
-  script.src = src;
-  script.type = "text/javascript";
-  gameframe.contentWindow.document
-    .getElementsByTagName("head")[0]
-    .appendChild(script);
 }
 
 if (localStorage.getItem("shortcuts") == null) {
@@ -328,9 +383,8 @@ notes list
 auth
 auth privatekey
 
-•Extrapolation (view/update/unlock)
+•Extrapolation (view/unlock)
 extra
-extra newvalue
 extraunlock
 
 •Avatar (view/update/clear)
@@ -370,7 +424,7 @@ https://github.com/xenonsb/Haxball-Room-Extension`
 
       case commandSplit[0] == "version":
         commandInput.value = "";
-        commandInput.placeholder = "v0.3.1 (2022.01.26)";
+        commandInput.placeholder = CURRENT_VERSION;
         setTimeout(function () {
           commandInput.placeholder = "Paste a room link or enter a command";
         }, 3000);
@@ -380,6 +434,12 @@ https://github.com/xenonsb/Haxball-Room-Extension`
         commandInput.value = "";
         window.alert(
           `Changelog
+
+v0.3.2 (2022.01.27)
+-automatically checks updates on launch
+-fixed extrapolation still being limited to 200ms
+-fixed buttons and shortcuts sometimes not working
+-removed possibility to set new extrapolation values from the command line
 
 v0.3.1 (2022.01.26)
 -fixed 404 and missing CSS errors once and for all
@@ -393,192 +453,225 @@ v0.3 (2022.01.03)
   }
 });
 
-// checks for changes in the page
-iframe = document.getElementsByTagName("iframe")[0];
-iframe.addEventListener("load", function () {
-  // borrowed from Haxball-Room-Extension 'content.js'
-  const iframeBody = window.frames[0].document.getElementsByTagName("body")[0];
-  viewObserver = new MutationObserver(function (mutations) {
-    candidates = mutations
-      .flatMap((x) => Array.from(x.addedNodes))
-      .filter((x) => x.className);
-    if (candidates.length == 1) {
-      const tempView = candidates[0].className;
-      switch (true) {
-        case tempView == "game-view":
-          var gameframe =
-            document.documentElement.getElementsByClassName("gameframe")[0];
+// borrowed from Haxball-Room-Extension 'content.js'
+// wait until the game in iFrame loads, then continue
+function waitForElement(selector) {
+  return new Promise(function (resolve, reject) {
+    var element = document
+      .getElementsByClassName("gameframe")[0]
+      .contentWindow.document.querySelector(selector);
 
-          // waits for shortcuts in chat
-          let chatInput = gameframe.contentWindow.document.querySelector(
-            '[data-hook="input"]'
-          );
-          chatInput.addEventListener("keyup", function () {
-            const shortcuts = JSON.parse(localStorage.getItem("shortcuts"));
-            for (let i = 0; i < shortcuts.length; i++) {
-              if (chatInput.value == shortcuts[i][0]) {
-                chatInput.value = shortcuts[i][1];
-                return;
-              }
-            }
-          });
-
-          // TranspUI button to change css
-          const bottomSec =
-            gameframe.contentWindow.document.getElementsByClassName(
-              "bottom-section"
-            )[0];
-          const bottomRightButtons =
-            bottomSec.getElementsByClassName("buttons")[0];
-
-          let transpButton = document.createElement("button");
-          transpButton.id = "invisui-btn";
-          transpButton.innerHTML = "TranspUI";
-          transpButton.addEventListener(
-            "click",
-            function () {
-              if (localStorage.getItem("transp_ui") == "false") {
-                localStorage.setItem("transp_ui", "true");
-                let node = document.createElement("style");
-                node.id = "invisui-style";
-                node.appendChild(
-                  document.createTextNode(
-                    '.game-view > .bottom-section {\nposition: absolute;\nleft: 0px;\nright: 0px;\nbottom: 0px;\nbackground: rgba(26, 33, 37, 0);\n}\n.game-view > .bottom-section > .stats-view {\nbackground: rgba(26, 33, 37, 0);\n}\n.game-view > .bottom-section > .chatbox-view > .input input[type="text"] {\nbackground: rgba(26, 33, 37, 0);\n}\n.game-view > .bottom-section button {\nbackground: rgba(26, 33, 37, 0);\n}\n.game-state-view .bar {\nbackground: rgba(26, 33, 37, 0);\n}'
-                  )
-                );
-                window.frames[0].document.head.appendChild(node);
-              } else {
-                localStorage.setItem("transp_ui", "false");
-                window.frames[0].document.head.innerHTML =
-                  window.frames[0].document.head.innerHTML.replace(
-                    '.game-view > .bottom-section {\nposition: absolute;\nleft: 0px;\nright: 0px;\nbottom: 0px;\nbackground: rgba(26, 33, 37, 0);\n}\n.game-view > .bottom-section > .stats-view {\nbackground: rgba(26, 33, 37, 0);\n}\n.game-view > .bottom-section > .chatbox-view > .input input[type="text"] {\nbackground: rgba(26, 33, 37, 0);\n}\n.game-view > .bottom-section button {\nbackground: rgba(26, 33, 37, 0);\n}\n.game-state-view .bar {\nbackground: rgba(26, 33, 37, 0);\n}',
-                    ""
-                  );
-              }
-            },
-            false
-          );
-          bottomRightButtons.appendChild(transpButton);
-
-          break;
-
-        case tempView == "roomlist-view":
-          var gameframe =
-            document.documentElement.getElementsByClassName("gameframe")[0];
-          const splitter =
-            gameframe.contentWindow.document.getElementsByClassName(
-              "splitter"
-            )[0];
-
-          // listens for clicks on the roomlist
-          // to switch between 'Add Room' / 'Del Room'
-          splitter.addEventListener(
-            "click",
-            function () {
-              const selectedRoom = this.getElementsByClassName("selected")[0];
-              let favButton =
-                this.getElementsByClassName("buttons")[0].children[4];
-              if (
-                typeof selectedRoom !== "undefined" &&
-                typeof favButton !== "undefined"
-              ) {
-                const selectedRoomName =
-                  selectedRoom.querySelector('[data-hook="name"]').innerHTML;
-                const favRooms = JSON.parse(localStorage.getItem("fav_rooms"));
-                favRooms.includes(selectedRoomName) == true
-                  ? (favButton.innerHTML =
-                      '<i class="icon-star"></i><div>Del Room</div>')
-                  : (favButton.innerHTML =
-                      '<i class="icon-star"></i><div>Add Room</div>');
-              }
-            },
-            false
-          );
-
-          const roomListButtons = splitter.getElementsByClassName("buttons")[0];
-
-          //'Add/Del Room' button to add/delete a room to the Favourites
-          let addFavButton = document.createElement("button");
-          addFavButton.id = "addfav-btn";
-          addFavButton.innerHTML =
-            '<i class="icon-star"></i><div>Add Room</div>';
-
-          addFavButton.addEventListener(
-            "click",
-            function () {
-              var gameframe =
-                document.documentElement.getElementsByClassName("gameframe")[0];
-              const splitter =
-                gameframe.contentWindow.document.getElementsByClassName(
-                  "splitter"
-                )[0];
-              const selectedRoom =
-                splitter.getElementsByClassName("selected")[0];
-              if (typeof selectedRoom !== "undefined") {
-                const selectedRoomName =
-                  selectedRoom.querySelector('[data-hook="name"]').innerHTML;
-                const favRooms = JSON.parse(localStorage.getItem("fav_rooms"));
-                let updatedFavRooms = [];
-                if (favRooms.includes(selectedRoomName) == false) {
-                  updatedFavRooms = favRooms;
-                  updatedFavRooms.push(selectedRoomName);
-                } else {
-                  for (let i = 0; i < favRooms.length; i++) {
-                    if (favRooms[i] != selectedRoomName)
-                      updatedFavRooms.push(favRooms[i]);
-                  }
-                }
-                localStorage.setItem(
-                  "fav_rooms",
-                  JSON.stringify(updatedFavRooms)
-                );
-              }
-            },
-            false
-          );
-          roomListButtons.insertBefore(
-            addFavButton,
-            roomListButtons.childNodes[3]
-          );
-
-          // 'Show Rooms' button to show the Favourite Rooms
-          let showFavButton = document.createElement("button");
-          showFavButton.id = "showfav-btn";
-          showFavButton.innerHTML =
-            '<i class="icon-star"></i><div>Show Rooms</div>';
-
-          showFavButton.addEventListener(
-            "click",
-            function () {
-              var gameframe =
-                document.documentElement.getElementsByClassName("gameframe")[0];
-              const roomsList =
-                gameframe.contentWindow.document.getElementsByClassName(
-                  "list"
-                )[0];
-              const roomsRows =
-                roomsList.querySelector('[data-hook="list"]').rows;
-              const favRooms = JSON.parse(localStorage.getItem("fav_rooms"));
-              for (let i = 0; i < roomsRows.length; i++) {
-                let roomName = roomsRows[i].querySelector(
-                  '[data-hook = "name"]'
-                ).innerHTML;
-                if (favRooms.includes(roomName) == false)
-                  roomsRows[i].style.display = "none";
-              }
-            },
-            false
-          );
-          roomListButtons.insertBefore(
-            showFavButton,
-            roomListButtons.childNodes[4]
-          );
-
-          break;
-      }
+    if (element) {
+      resolve(element);
+      return;
     }
+
+    var observer = new MutationObserver(function (mutations) {
+      mutations.forEach(function (mutation) {
+        var nodes = Array.from(mutation.addedNodes);
+        for (var node of nodes) {
+          if (node.matches && node.matches(selector)) {
+            resolve(node);
+            return;
+          }
+        }
+      });
+    });
+
+    observer.observe(
+      document.getElementsByClassName("gameframe")[0].contentWindow.document,
+      { childList: true, subtree: true }
+    );
   });
-  viewObserver.observe(iframeBody, {
+}
+
+// obeserver to detect changes to views
+// and add custom buttons/shortcuts in chat
+viewObserver = new MutationObserver(function (mutations) {
+  candidates = mutations
+    .flatMap((x) => Array.from(x.addedNodes))
+    .filter((x) => x.className);
+  if (candidates.length == 1) {
+    const tempView = candidates[0].className;
+    switch (true) {
+      case tempView == "game-view":
+        var gameframe =
+          document.documentElement.getElementsByClassName("gameframe")[0];
+
+        // waits for shortcuts in chat
+        let chatInput = gameframe.contentWindow.document.querySelector(
+          '[data-hook="input"]'
+        );
+        chatInput.addEventListener("keyup", function () {
+          const shortcuts = JSON.parse(localStorage.getItem("shortcuts"));
+          for (let i = 0; i < shortcuts.length; i++) {
+            if (chatInput.value == shortcuts[i][0]) {
+              chatInput.value = shortcuts[i][1];
+              return;
+            }
+          }
+        });
+
+        // TranspUI button to change css
+        const bottomSec =
+          gameframe.contentWindow.document.getElementsByClassName(
+            "bottom-section"
+          )[0];
+        const bottomRightButtons =
+          bottomSec.getElementsByClassName("buttons")[0];
+
+        let transpButton = document.createElement("button");
+        transpButton.id = "invisui-btn";
+        transpButton.innerHTML = "TranspUI";
+        transpButton.addEventListener(
+          "click",
+          function () {
+            if (localStorage.getItem("transp_ui") == "false") {
+              localStorage.setItem("transp_ui", "true");
+              let node = document.createElement("style");
+              node.id = "invisui-style";
+              node.appendChild(
+                document.createTextNode(
+                  '.game-view > .bottom-section {\nposition: absolute;\nleft: 0px;\nright: 0px;\nbottom: 0px;\nbackground: rgba(26, 33, 37, 0);\n}\n.game-view > .bottom-section > .stats-view {\nbackground: rgba(26, 33, 37, 0);\n}\n.game-view > .bottom-section > .chatbox-view > .input input[type="text"] {\nbackground: rgba(26, 33, 37, 0);\n}\n.game-view > .bottom-section button {\nbackground: rgba(26, 33, 37, 0);\n}\n.game-state-view .bar {\nbackground: rgba(26, 33, 37, 0);\n}'
+                )
+              );
+              window.frames[0].document.head.appendChild(node);
+            } else {
+              localStorage.setItem("transp_ui", "false");
+              window.frames[0].document.head.innerHTML =
+                window.frames[0].document.head.innerHTML.replace(
+                  '.game-view > .bottom-section {\nposition: absolute;\nleft: 0px;\nright: 0px;\nbottom: 0px;\nbackground: rgba(26, 33, 37, 0);\n}\n.game-view > .bottom-section > .stats-view {\nbackground: rgba(26, 33, 37, 0);\n}\n.game-view > .bottom-section > .chatbox-view > .input input[type="text"] {\nbackground: rgba(26, 33, 37, 0);\n}\n.game-view > .bottom-section button {\nbackground: rgba(26, 33, 37, 0);\n}\n.game-state-view .bar {\nbackground: rgba(26, 33, 37, 0);\n}',
+                  ""
+                );
+            }
+          },
+          false
+        );
+        bottomRightButtons.appendChild(transpButton);
+
+        break;
+
+      case tempView == "roomlist-view":
+        var gameframe =
+          document.documentElement.getElementsByClassName("gameframe")[0];
+        const splitter =
+          gameframe.contentWindow.document.getElementsByClassName(
+            "splitter"
+          )[0];
+
+        // listens for clicks on the roomlist
+        // to switch between 'Add Room' / 'Del Room'
+        splitter.addEventListener(
+          "click",
+          function () {
+            const selectedRoom = this.getElementsByClassName("selected")[0];
+            let favButton =
+              this.getElementsByClassName("buttons")[0].children[4];
+            if (
+              typeof selectedRoom !== "undefined" &&
+              typeof favButton !== "undefined"
+            ) {
+              const selectedRoomName =
+                selectedRoom.querySelector('[data-hook="name"]').innerHTML;
+              const favRooms = JSON.parse(localStorage.getItem("fav_rooms"));
+              favRooms.includes(selectedRoomName) == true
+                ? (favButton.innerHTML =
+                    '<i class="icon-star"></i><div>Del Room</div>')
+                : (favButton.innerHTML =
+                    '<i class="icon-star"></i><div>Add Room</div>');
+            }
+          },
+          false
+        );
+
+        const roomListButtons = splitter.getElementsByClassName("buttons")[0];
+
+        //'Add/Del Room' button to add/delete a room to the Favourites
+        let addFavButton = document.createElement("button");
+        addFavButton.id = "addfav-btn";
+        addFavButton.innerHTML = '<i class="icon-star"></i><div>Add Room</div>';
+
+        addFavButton.addEventListener(
+          "click",
+          function () {
+            var gameframe =
+              document.documentElement.getElementsByClassName("gameframe")[0];
+            const splitter =
+              gameframe.contentWindow.document.getElementsByClassName(
+                "splitter"
+              )[0];
+            const selectedRoom = splitter.getElementsByClassName("selected")[0];
+            if (typeof selectedRoom !== "undefined") {
+              const selectedRoomName =
+                selectedRoom.querySelector('[data-hook="name"]').innerHTML;
+              const favRooms = JSON.parse(localStorage.getItem("fav_rooms"));
+              let updatedFavRooms = [];
+              if (favRooms.includes(selectedRoomName) == false) {
+                updatedFavRooms = favRooms;
+                updatedFavRooms.push(selectedRoomName);
+              } else {
+                for (let i = 0; i < favRooms.length; i++) {
+                  if (favRooms[i] != selectedRoomName)
+                    updatedFavRooms.push(favRooms[i]);
+                }
+              }
+              localStorage.setItem(
+                "fav_rooms",
+                JSON.stringify(updatedFavRooms)
+              );
+            }
+          },
+          false
+        );
+        roomListButtons.insertBefore(
+          addFavButton,
+          roomListButtons.childNodes[3]
+        );
+
+        // 'Show Rooms' button to show the Favourite Rooms
+        let showFavButton = document.createElement("button");
+        showFavButton.id = "showfav-btn";
+        showFavButton.innerHTML =
+          '<i class="icon-star"></i><div>Show Rooms</div>';
+
+        showFavButton.addEventListener(
+          "click",
+          function () {
+            var gameframe =
+              document.documentElement.getElementsByClassName("gameframe")[0];
+            const roomsList =
+              gameframe.contentWindow.document.getElementsByClassName(
+                "list"
+              )[0];
+            const roomsRows =
+              roomsList.querySelector('[data-hook="list"]').rows;
+            const favRooms = JSON.parse(localStorage.getItem("fav_rooms"));
+            for (let i = 0; i < roomsRows.length; i++) {
+              let roomName = roomsRows[i].querySelector(
+                '[data-hook = "name"]'
+              ).innerHTML;
+              if (favRooms.includes(roomName) == false)
+                roomsRows[i].style.display = "none";
+            }
+          },
+          false
+        );
+        roomListButtons.insertBefore(
+          showFavButton,
+          roomListButtons.childNodes[4]
+        );
+
+        break;
+    }
+  }
+});
+
+// borrowed from Haxball-Room-Extension 'content.js'
+// checks for changes in the page
+init = waitForElement("div[class$='view']");
+init.then(function (value) {
+  currentView = value.parentNode;
+  viewObserver.observe(currentView, {
     characterData: false,
     childList: true,
     attributes: false,
