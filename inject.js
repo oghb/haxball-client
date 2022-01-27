@@ -51,10 +51,10 @@ async function autoUpdater() {
 
   if (latest.version !== CURRENT_VERSION) {
     const choice = confirm(
-      "New version available!\n\nLatest: " +
-        latest.version +
-        "\nYou have: " +
+      "New version available!\n\nYou have → " +
         CURRENT_VERSION +
+        "\n🔥Latest → " +
+        latest.version +
         "\n\nChangelog (" +
         latest.date +
         ")\n" +
