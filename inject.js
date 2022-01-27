@@ -75,7 +75,7 @@ if (document.getElementsByClassName("overflowhidden").length != 0) {
   document.getElementsByClassName("header")[0].innerHTML = `
                         <span class="title">HaxBall Client by og</span>
                         <a href="https://www.haxball.com/play">New Tab (right click)</a>
-                        <a href="https://discord.gg/RRmBfP5">Discord</a>
+                        <a href="https://discord.gg/RqGJ7ZyHqc">Discord</a>
                         <a href="https://github.com/oghb/haxball-client">GitHub</a>
                         `;
   // commandline
@@ -418,7 +418,7 @@ It is open-source and built with open-source tools, namely nativefier and the 'H
 Thank you for checking it out!
 
 Links
-https://discord.gg/RRmBfP5
+https://discord.gg/RqGJ7ZyHqc
 https://oghb.github.io/haxball-client/
 https://github.com/nativefier/nativefier
 https://github.com/xenonsb/Haxball-Room-Extension`
