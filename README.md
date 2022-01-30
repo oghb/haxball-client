@@ -4,13 +4,11 @@ Unofficial client for the HTML5 browser game [HaxBall](https://www.haxball.com/p
 
 The app works on Windows, macOS and Linux, and is 64-bit only.
 
-**Note:** if you use Linux you may need to install some libraries first
-
 ## How to run
 Download from the [main website](https://oghb.github.io/haxball-client/) or from the [Releases](https://github.com/oghb/haxball-client/releases) page the **.zip** file with the Client for your OS and unzip it. Then
 * if you're on **Windows**, move the folder wherever you want and double-click on `HaxBall.exe`
 * if you're on **macOS**, move the `HaxBall.app` in your Applications folder and then double-click on it
-* if you're on **Linux**, move the folder wherever you want, `cd` into that folder and then type `./HaxBall` in the terminal
+* if you're on **Linux**, move the folder wherever you want, `cd` into that folder and then type `./HaxBall` in the terminal (you may need to install some libraries first)
 
 ## Features
 * Every feature of the All-in-one Tool, including
@@ -128,7 +126,7 @@ git clone https://github.com/xenonsb/Haxball-Room-Extension.git ./HaxBall-win32-
 ```
 - macOS client
 ```bash
-nativefier https://www.haxball.com/play --browserwindow-options '{"fullscreenable": true}' --internal-urls ".*?\.haxball\.*?" --name HaxBall --inject haxball-client/inject.js --inject haxball-client/inject.css --icon haxball-client/icon.png
+nativefier https://www.haxball.com/play --browserwindow-options '{"fullscreenable": true}' --internal-urls ".*?\.haxball\.*?" --name HaxBall --inject haxball-client/inject.js --inject haxball-client/inject.css --icon haxball-client/icon.png --platform darwin
 git clone https://github.com/xenonsb/Haxball-Room-Extension.git ./HaxBall-darwin-x64/HaxBall.app/Contents/Resources/app/Haxball-Room-Extension
 ```
 
