@@ -337,12 +337,17 @@ commandInput.addEventListener("keyup", function (event) {
         break;
 
       case commandSplit[0] == "extraunlock":
-        injectGameMin(EXTRA_GAMEMIN_URL);
-        localStorage.setItem("extraunlock", "true");
-
         commandInput.value = "";
-        commandInput.placeholder =
-          "Extrapolation unlocked – you can now set any value up to 999ms";
+
+        if (localStorage.getItem("extraunlock") == "false") {
+          injectGameMin(EXTRA_GAMEMIN_URL);
+          localStorage.setItem("extraunlock", "true");
+          commandInput.placeholder =
+            "Extrapolation unlocked – you can now set any value up to 999ms";
+        } else {
+          commandInput.placeholder = "Extrapolation already unlocked!";
+        }
+
         setTimeout(function () {
           commandInput.placeholder = "Paste a room link or enter a command";
         }, 3000);
