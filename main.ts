@@ -131,7 +131,7 @@ if (appArgs.disableGpu) {
 }
 
 // Comment the following line if you don't want unlimited FPS
-app.commandLine.appendSwitch('disable-frame-rate-limit');
+app.commandLine.appendSwitch("disable-frame-rate-limit");
 
 if (appArgs.ignoreGpuBlacklist) {
   app.commandLine.appendSwitch("ignore-gpu-blacklist");
@@ -323,6 +323,7 @@ async function onReady(): Promise<void> {
 
   // Warning: `mainWindow` below is the *global* unique `mainWindow`, created at init time
   mainWindow = await createMainWindow(appArgs, setDockBadge);
+  mainWindow.show();
 
   createTrayIcon(appArgs, mainWindow);
 
