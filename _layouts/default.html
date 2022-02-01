@@ -14,29 +14,30 @@
   </head>
   <body>
     <div class="wrapper">
-      <header>
-        <h1><a href="{{ "/" | absolute_url }}">HaxBall Client</a></h1>
+        <header>
+          <h1><a href="https://oghb.github.io/haxball-client/">HaxBall Client</a></h1>
 
-        <img src="https://raw.githubusercontent.com/oghb/haxball-client/main/icon.png" alt="Logo" />
+          <img src="https://raw.githubusercontent.com/oghb/haxball-client/main/icon.png" alt="Logo">
 
-        <p>{{ site.description | default: site.github.project_tagline }}</p>
+          <p>Unofficial client for haxball.com</p>
 
-        {% if site.github.is_project_page %}
-        <p class="view"><a href="https://discord.gg/RqGJ7ZyHqc">Need any support? <small>Contact og#9525 on Discord</small></a></p>
-        {% endif %}
+          <p class="view"><a href="https://discord.gg/RqGJ7ZyHqc">Need any support? <small>Contact og#9525 on Discord</small></a></p>
 
-        {% if site.github.is_user_page %}
-        <p class="view"><a href="https://discord.gg/RqGJ7ZyHqc">Need any support? <small>Contact og#9525 on Discord</small></a></p>
-        {% endif %}
+          <h4>Standard version</h4>
+          <ul class="downloads">
+            <li><a href="https://github.com/oghb/haxball-client/releases/download/v0.3.3/HaxBall-Client-v0.3.3_win-x64.zip">Download <strong>Windows</strong></a></li>
+            <li><a href="https://github.com/oghb/haxball-client/releases/download/v0.3.3/HaxBall-Client-v0.3.3_macOS-x64.zip">Download <strong>macOS</strong></a></li>
+            <li><a href="https://github.com/oghb/haxball-client/releases/download/v0.3.3/HaxBall-Client-v0.3.3_linux-x64.zip">Download <strong>Linux</strong></a></li>        
+          </ul>
 
-        {% if site.show_downloads %}
-        <ul class="downloads">
-          <li><a href="https://github.com/oghb/haxball-client/releases/download/v0.3.2/HaxBall-Client-v0.3.2_win-x64.zip">Download <strong>Windows</strong></a></li>
-          <li><a href="https://github.com/oghb/haxball-client/releases/download/v0.3.2/HaxBall-Client-v0.3.2_macOS-x64.zip">Download <strong>macOS</strong></a></li>
-          <li><a href="https://github.com/oghb/haxball-client/releases/download/v0.3.2/HaxBall-Client-v0.3.2_linux-x64.zip">Download <strong>Linux</strong></a></li>
-        </ul>
-        {% endif %}
-      </header>
+          <h4>Lite version</h4>
+          <ul class="downloads">
+            <li><a href="https://github.com/oghb/haxball-client/releases/download/v0.3.3/HaxBall-Client-Lite-v0.3.3_win-x64.zip">Download <strong>Windows</strong></a></li>
+            <li><a href="https://github.com/oghb/haxball-client/releases/download/v0.3.3/HaxBall-Client-Lite-v0.3.3_macOS-x64.zip">Download <strong>macOS</strong></a></li>
+            <li><a href="https://github.com/oghb/haxball-client/releases/download/v0.3.3/HaxBall-Client-Lite-v0.3.3_linux-x64.zip">Download <strong>Linux</strong></a></li>     
+          </ul>     
+        </header>
+      
       <section>
 
       {{ content }}
