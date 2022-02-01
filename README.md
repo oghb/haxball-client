@@ -2,10 +2,16 @@
 
 Unofficial client for the HTML5 browser game [HaxBall](https://www.haxball.com/play), built with a custom build of [nativefier](https://github.com/nativefier/nativefier) in order for the browser extension [HaxBall All-in-one Tool](https://github.com/xenonsb/Haxball-Room-Extension) to be supported.
 
-The app works on Windows, macOS and Linux, and is 64-bit only.
+The client works on Windows, macOS and Linux, and is 64-bit only.
+
+There are two versions of the client: **Standard** and **Lite**. 
+
+In the **Standard** version the FPS are unlimited, whereas in the **Lite** version they are synced with your monitor's refresh rate; other than this they are exactly the same.
 
 ## How to run
-Download from the [main website](https://oghb.github.io/haxball-client/) or from the [Releases](https://github.com/oghb/haxball-client/releases) page the **.zip** file with the Client for your OS and unzip it. Then
+Download from the [main website](https://oghb.github.io/haxball-client/) or from the [Releases](https://github.com/oghb/haxball-client/releases) page the **.zip** file with the version for your OS and unzip it. 
+
+Then
 * if you're on **Windows**, move the folder wherever you want and double-click on `HaxBall.exe`
 * if you're on **macOS**, move the `HaxBall.app` in your Applications folder and then double-click on it
 * if you're on **Linux**, move the folder wherever you want, `cd` into that folder and then type `./HaxBall` in the terminal (you may need to install some libraries first)
@@ -22,12 +28,14 @@ Download from the [main website](https://oghb.github.io/haxball-client/) or from
 * Favourite Rooms
 * Dedicated button to make the UI transparent
 * Unlockable extrapolation
-* Unlimited FPS
+* Unlimited FPS\*\*
 * Automatic updates
 * Custom command-line (see below)
 * No ads
 
-\* *these were originally featured in the All-in-one Tool, but given that they do not work in the client they have been rewritten from scratch (see below)*.
+\* *these were originally featured in the All-in-one Tool, but given that they do not work in the client they have been rewritten from scratch (see below)*
+
+\*\* *only in the **Standard** version of the client*
 
 ### Favourite Rooms
 Two new buttons have been added to the **Room list** view: **Add Room** and **Show Rooms**. 
@@ -81,6 +89,8 @@ If you want to view your extrapolation without entering a room or opening the co
 Although I don't support the choice, since it was highly requested a command to uncap the extrapolation is also available
 * `extraunlock`
 
+You only need to launch this command once.
+
 ##### Avatar
 If you want to view or change your avatar without entering a room or opening the console, type in the command bar
 * `avatar`
@@ -121,17 +131,17 @@ so when you launch `nativefier` your system will actually use this one.
 Now launch `cd ..` to go in the parent directory of `nativefier` (the one where you cloned the two repositories to), and launch these commands to build the client and copy the HaxBall All-in-one tool within:
 - Windows client
 ```bash
-nativefier https://www.haxball.com/play --internal-urls ".*?\.haxball\.*?" --name HaxBall --inject haxball-client/inject.js --inject haxball-client/inject.css --icon haxball-client/icon.png --platform windows
-git clone https://github.com/xenonsb/Haxball-Room-Extension.git ./HaxBall-win32-x64/resources/app/Haxball-Room-Extension
+nativefier https://www.haxball.com/play --internal-urls ".*?\.haxball\.*?" --name "HaxBall Client" --inject haxball-client/inject.js --inject haxball-client/inject.css --icon haxball-client/icon.png --tray start-in-tray --fast-quit --platform windows --app-version 0.3.3 --build-version 0.3.3 --win32metadata '{"ProductName": "HaxBall Client", "InternalName": "HaxBall Client", "FileDescription": "Unofficial client for haxball.com"}'
+git clone https://github.com/xenonsb/Haxball-Room-Extension.git ./HaxBall\ Client-win32-x64/resources/app/Haxball-Room-Extension
 ```
 - macOS client
 ```bash
-nativefier https://www.haxball.com/play --browserwindow-options '{"fullscreenable": true}' --internal-urls ".*?\.haxball\.*?" --name HaxBall --inject haxball-client/inject.js --inject haxball-client/inject.css --icon haxball-client/icon.png --platform darwin
-git clone https://github.com/xenonsb/Haxball-Room-Extension.git ./HaxBall-darwin-x64/HaxBall.app/Contents/Resources/app/Haxball-Room-Extension
+nativefier https://www.haxball.com/play --browserwindow-options '{"fullscreenable": true}' --internal-urls ".*?\.haxball\.*?" --name "HaxBall Client" --inject haxball-client/inject.js --inject haxball-client/inject.css --icon haxball-client/icon.png --tray start-in-tray --fast-quit --platform darwin --app-version 0.3.3 --build-version 0.3.3
+git clone https://github.com/xenonsb/Haxball-Room-Extension.git ./HaxBall\ Client-darwin-x64/HaxBall\ Client.app/Contents/Resources/app/Haxball-Room-Extension
 ```
 
 - Linux client
 ```bash
-nativefier https://www.haxball.com/play --internal-urls ".*?\.haxball\.*?" --name HaxBall --inject haxball-client/inject.js --inject haxball-client/inject.css --icon haxball-client/icon.png --platform linux
-git clone https://github.com/xenonsb/Haxball-Room-Extension.git ./HaxBall-linux-x64/resources/app/Haxball-Room-Extension
+nativefier https://www.haxball.com/play --internal-urls ".*?\.haxball\.*?" --name "HaxBall Client" --inject haxball-client/inject.js --inject haxball-client/inject.css --icon haxball-client/icon.png --tray start-in-tray --fast-quit --platform linux --app-version 0.3.3 --build-version 0.3.3
+git clone https://github.com/xenonsb/Haxball-Room-Extension.git ./HaxBall\ Client-linux-x64/resources/app/Haxball-Room-Extension
 ```
