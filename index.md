@@ -35,6 +35,7 @@ Then
 * No ads
 
 \* *these were originally featured in the All-in-one Tool, but given that they do not work in the client they have been rewritten from scratch (see below)*
+
 \*\* *only in the **Standard** version of the client*
 
 ### Favourite Rooms
