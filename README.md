@@ -116,7 +116,7 @@ git clone https://github.com/nativefier/nativefier.git
 
 Open the `nativefier` repository you just cloned and go to `app/src`, where you'll find a file called `main.ts`: replace it with the `main.ts` in this repository.
 
-**Note**: if you *don't* want unlimited FPS (it may increase ping for some), put two slashes `//` in front of the appropriate line in `main.ts`.
+**Note**: if you *don't* want unlimited FPS (it may increase ping or worsen performance for some), put two slashes `//` in front of the appropriate line in `main.ts`.
 
 You can now build the modified nativefier with
 ```bash
