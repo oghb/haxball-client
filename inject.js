@@ -34,11 +34,16 @@ async function checkLatestRelease() {
   });
 
   const data = await res.json();
+  const urls = data[0].assets
+    .filter((el) => el.name.indexOf(getOs()) !== -1)
+    .map((el) => el.browser_download_url);
 
   const latest = {
     version: data[0].tag_name,
-    url: data[0].assets.find((el) => el.name.indexOf(getOs()) !== -1)
-      .browser_download_url,
+    url: {
+      standard: urls.find((el) => el.indexOf("Lite") === -1),
+      lite: urls.find((el) => el.indexOf("Lite") !== -1),
+    },
     notes: data[0].body,
     date: data[0].published_at.substr(0, 10),
   };
@@ -97,10 +102,10 @@ function showUpdaterView(latest) {
         <div class="dl-buttons">
 
       		<button id="btn_std-dl" style="width: 200px" onclick="window.location.replace('${
-            latest.url
+            latest.url.standard
           }'); alert('The client is now being downloaded in your Downloads folder')">⬇💾 Standard</button>
           <button id="btn_light-dl" style="width: 200px" onclick="window.location.replace('${
-            latest.url
+            latest.url.lite
           }'); alert('The client is now being downloaded in your Downloads folder')">⬇💾 Lite</button>
 
         </div>
