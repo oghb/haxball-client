@@ -130,7 +130,8 @@ if (appArgs.disableGpu) {
   app.disableHardwareAcceleration();
 }
 
-// Comment the following line if you don't want unlimited FPS
+// Comment the following line to build the "Lite" version of the client
+// (unlimited FPS may increase ping or worsen performance for some)
 app.commandLine.appendSwitch("disable-frame-rate-limit");
 
 if (appArgs.ignoreGpuBlacklist) {
