@@ -4,17 +4,20 @@ Unofficial client for the HTML5 browser game [HaxBall](https://www.haxball.com/p
 
 The client works on Windows, macOS and Linux, and is 64-bit only.
 
-There are two versions of the client: **Standard** and **Lite**. 
+## Standard & Lite version
+The client comes in two versions which only differ for one thing:
+* **Standard**: the game plays at un unlimited framerate (as many FPS as your computer can handle)
+* **Lite**: the framerate will be limited to your monitor's refresh rate (e.g. 60fps with a 60Hz monitor, 144fps with a 144Hz monitor, etc)
 
-In the **Standard** version the FPS are unlimited, whereas in the **Lite** version they are synced with your monitor's refresh rate; other than this they are exactly the same.
+For some having unlimited FPS may increase ping or in general worsen performance: in that case I suggest the Lite version which should feel exactly the same.
 
 ## How to run
 Download from the [main website](https://oghb.github.io/haxball-client/) or from the [Releases](https://github.com/oghb/haxball-client/releases) page the **.zip** file with the version for your OS and unzip it. 
 
 Then
-* if you're on **Windows**, move the folder wherever you want and double-click on `HaxBall.exe`
-* if you're on **macOS**, move the `HaxBall.app` in your Applications folder and then double-click on it
-* if you're on **Linux**, move the folder wherever you want, `cd` into that folder and then type `./HaxBall` in the terminal (you may need to install some libraries first)
+* if you're on **Windows**, move the folder wherever you want and double-click on `HaxBall Client.exe`
+* if you're on **macOS**, move the `HaxBall Client.app` in your Applications folder and then double-click on it
+* if you're on **Linux**, move the folder wherever you want, `cd` into that folder and then type `./HaxBallClient` in the terminal (you may need to install some libraries first)
 
 ## Features
 * Every feature of the All-in-one Tool, including
