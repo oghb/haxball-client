@@ -1,4 +1,4 @@
-const CURRENT_VERSION = "v0.3.2";
+const CURRENT_VERSION = "v0.3.3";
 const RELEASES_URL =
   "https://api.github.com/repos/oghb/haxball-client/releases";
 const EXTRA_GAMEMIN_URL =
@@ -55,14 +55,68 @@ async function autoUpdater() {
         CURRENT_VERSION +
         "\n🔥Latest → " +
         latest.version +
-        "\n\nChangelog (" +
-        latest.date +
-        ")\n" +
-        latest.notes +
-        "\n\nClick OK to download it now"
+        "\n\nClick OK to check it out!"
     );
-    if (choice) window.location.replace(latest.url);
+    if (choice) showUpdaterView(latest);
   }
+}
+
+function showUpdaterView(latest) {
+  const gameframe = document.getElementsByClassName("gameframe")[0];
+  gameframe.contentWindow.document.body.innerHTML = "";
+
+  let updaterDiv = document.createElement("div");
+  updaterDiv.className = "autoupdater-view";
+  updaterDiv.setAttribute("class", "autoupdater-view");
+
+  updaterDiv.style = `position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;`;
+
+  updaterDiv.innerHTML = `
+      <head>
+      <script type ="text/javascript">
+            function downloadNewVersion(url) {
+              window.location.replace(url);
+
+              window.location.reload();
+              alert("The new version is being downloaded to your Downloads folder");
+            }
+      </script>
+      </head>
+      <body>
+      <div class="dialog">
+
+      <h1>New client version</h1>
+      <h1 style="font-size: 15px">Changelog ${latest.version} (${
+    latest.date
+  })</h1>
+
+      ${latest.notes.replaceAll("\n", "<br><br>")}
+
+      <br><br><br>
+
+      <div align="center">
+        <p style="font-size: 18px; font-weight: bold">Choose which version to download</p>
+        <br>
+        <p style="font-size: 12px">❗️Don't close the client until the download has finished❗️</p>
+        <br>
+        <div class="dl-buttons">
+      		<button id="btn_std-dl" style="width: 200px" onclick="window.location.replace('${
+            latest.url
+          }'); alert('The client is now being downloaded in your Downloads folder')">⬇💾 Standard</button>
+          <button id="btn_light-dl" style="width: 200px" onclick="window.location.replace('${
+            latest.url
+          }'); alert('The client is now being downloaded in your Downloads folder')">⬇💾 Lite</button>
+        </div>
+      </div>
+      </body>
+  </div>`;
+
+  gameframe.contentWindow.document.body.appendChild(updaterDiv);
 }
 
 // removes ads
@@ -650,6 +704,10 @@ viewObserver = new MutationObserver(function (mutations) {
         );
 
         break;
+
+      case tempView == "dropdown":
+        autoUpdater();
+        break;
     }
   }
 });
@@ -661,8 +719,6 @@ init.then(function (value) {
   if (localStorage.getItem("extraunlock") == "true") {
     injectGameMin(EXTRA_GAMEMIN_URL);
   }
-
-  autoUpdater();
 
   currentView = value.parentNode;
   viewObserver.observe(currentView, {
