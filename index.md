@@ -1,12 +1,21 @@
 Unofficial client for the HTML5 browser game [HaxBall](https://www.haxball.com/play), built with a custom build of [nativefier](https://github.com/nativefier/nativefier) in order for the browser extension [HaxBall All-in-one Tool](https://github.com/xenonsb/Haxball-Room-Extension) to be supported.
 
-The app works on Windows, macOS and Linux, and is 64-bit only.
+The client works on Windows, macOS and Linux, and is 64-bit only.
+
+## Standard & Lite version
+The client comes in two versions which only differ for one thing:
+* **Standard**: the game plays at un unlimited framerate (as many FPS as your computer can handle)
+* **Lite**: the framerate will be limited to your monitor's refresh rate (e.g. 60fps with a 60Hz monitor, 144fps with a 144Hz monitor, etc)
+
+For some having unlimited FPS may increase ping or in general worsen performance: in that case I suggest the Lite version which should feel exactly the same.
 
 ## How to run
-Download the Client for your OS and unzip it. Then
-* if you're on **Windows**, move the folder wherever you want and double-click on `HaxBall.exe`
-* if you're on **macOS**, move the `HaxBall.app` in your Applications folder and then double-click on it
-* if you're on **Linux**, move the folder wherever you want and run `./HaxBall` from the terminal (you may need to install some libraries first)
+Download from the buttons on the left or from the [Releases](https://github.com/oghb/haxball-client/releases) page the **.zip** file with the version for your OS and unzip it. 
+
+Then
+* if you're on **Windows**, move the folder wherever you want and double-click on `HaxBall Client.exe`
+* if you're on **macOS**, move the `HaxBall Client.app` in your Applications folder and then double-click on it
+* if you're on **Linux**, move the folder wherever you want, `cd` into that folder and then type `./HaxBallClient` in the terminal (you may need to install some libraries first)
 
 ## Features
 * Every feature of the All-in-one Tool, including
@@ -20,12 +29,13 @@ Download the Client for your OS and unzip it. Then
 * Favourite Rooms
 * Dedicated button to make the UI transparent
 * Unlockable extrapolation
-* Unlimited FPS
+* Unlimited FPS\*\*
 * Automatic updates
 * Custom command-line (see below)
 * No ads
 
-\* *these were originally featured in the All-in-one Tool, but given that they do not work in the client they have been rewritten from scratch (see below)*.
+\* *these were originally featured in the All-in-one Tool, but given that they do not work in the client they have been rewritten from scratch (see below)*
+\*\* *only in the **Standard** version*
 
 ### Favourite Rooms
 Two new buttons have been added to the **Room list** view: **Add Room** and **Show Rooms**. 
