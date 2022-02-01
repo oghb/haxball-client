@@ -127,7 +127,7 @@ if (document.getElementsByClassName("rightbar").length != 0) {
 if (document.getElementsByClassName("overflowhidden").length != 0) {
   // custom header
   document.getElementsByClassName("header")[0].innerHTML = `
-                        <span class="title">HaxBall Client by og</span>
+                        <span class="title"><a href="https://www.haxball.com/play">HaxBall Client by og</a></span>
                         <a href="https://www.haxball.com/play">New Tab (right click)</a>
                         <a href="https://discord.gg/RqGJ7ZyHqc">Discord</a>
                         <a href="https://github.com/oghb/haxball-client">GitHub</a>
