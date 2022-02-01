@@ -143,5 +143,5 @@ git clone https://github.com/xenonsb/Haxball-Room-Extension.git ./HaxBall\ Clien
 - Linux client
 ```bash
 nativefier https://www.haxball.com/play --internal-urls ".*?\.haxball\.*?" --name "HaxBall Client" --inject haxball-client/inject.js --inject haxball-client/inject.css --icon haxball-client/icon.png --tray start-in-tray --fast-quit --platform linux --app-version 0.3.3 --build-version 0.3.3
-git clone https://github.com/xenonsb/Haxball-Room-Extension.git ./HaxBall\ Client-linux-x64/resources/app/Haxball-Room-Extension
+git clone https://github.com/xenonsb/Haxball-Room-Extension.git ./HaxBallClient-linux-x64/resources/app/Haxball-Room-Extension
 ```
