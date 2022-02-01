@@ -76,19 +76,7 @@ function showUpdaterView(latest) {
     justify-content: center;
     align-items: center;`;
 
-  updaterDiv.innerHTML = `
-      <head>
-      <script type ="text/javascript">
-            function downloadNewVersion(url) {
-              window.location.replace(url);
-
-              window.location.reload();
-              alert("The new version is being downloaded to your Downloads folder");
-            }
-      </script>
-      </head>
-      <body>
-      <div class="dialog">
+  updaterDiv.innerHTML = `<div class="dialog">
 
       <h1>New client version</h1>
       <h1 style="font-size: 15px">Changelog ${latest.version} (${
@@ -100,20 +88,24 @@ function showUpdaterView(latest) {
       <br><br><br>
 
       <div align="center">
+
         <p style="font-size: 18px; font-weight: bold">Choose which version to download</p>
         <br>
         <p style="font-size: 12px">❗️Don't close the client until the download has finished❗️</p>
         <br>
+
         <div class="dl-buttons">
+
       		<button id="btn_std-dl" style="width: 200px" onclick="window.location.replace('${
             latest.url
           }'); alert('The client is now being downloaded in your Downloads folder')">⬇💾 Standard</button>
           <button id="btn_light-dl" style="width: 200px" onclick="window.location.replace('${
             latest.url
           }'); alert('The client is now being downloaded in your Downloads folder')">⬇💾 Lite</button>
+
         </div>
+
       </div>
-      </body>
   </div>`;
 
   gameframe.contentWindow.document.body.appendChild(updaterDiv);
