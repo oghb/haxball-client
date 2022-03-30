@@ -7,7 +7,7 @@ The client comes in two versions which only differ for one thing:
 * **Standard**: the game plays at un unlimited framerate (as many FPS as your computer can handle)
 * **Lite**: the framerate will be limited to your monitor's refresh rate (e.g. 60fps with a 60Hz monitor, 144fps with a 144Hz monitor, etc)
 
-For some having unlimited FPS may increase ping or in general worsen performance: in that case I suggest the Lite version which should feel exactly the same.
+Not every PC can handle unlimited FPS, so download the **Lite** version if the **Standard** gives you any ping/performance issue! If the game doesn't run well **it's not the client's fault**.
 
 ## How to run
 Download from the buttons on the left or from the [Releases](https://github.com/oghb/haxball-client/releases) page the **.zip** file with the version for your OS and unzip it. 
