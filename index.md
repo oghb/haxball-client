@@ -13,8 +13,9 @@ Only a good PC can handle unlimited FPS, so download the **Lite** version if the
 Download from the buttons on the left or from the [Releases](https://github.com/oghb/haxball-client/releases) page the **.zip** file with the version for your OS and unzip it. 
 
 Then
-* if you're on **Windows**, move the folder wherever you want and double-click on `HaxBall Client.exe`
-* if you're on **macOS**, move the `HaxBall Client.app` in your Applications folder and then double-click on it
+* if you're on **Windows**, move the folder wherever you want and double-click on `HaxBall Client`
+* if you're on **macOS**, move the `HaxBall Client.app` in your `Applications` folder and then double-click on it
+  if you get a "The app is damaged and can't be opened", [follow Method 1 from this guide](https://www.funkyspacemonkey.com/how-to-open-applications-from-anywhere-in-macos-monterey)
 * if you're on **Linux**, move the folder wherever you want, `cd` into that folder and then type `./HaxBallClient` in the terminal (you may need to install some libraries first)
 
 ## Features
