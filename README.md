@@ -9,14 +9,14 @@ The client comes in two versions which only differ for one thing:
 * **Standard**: the game plays at un unlimited framerate (as many FPS as your computer can handle)
 * **Lite**: the framerate will be limited to your monitor's refresh rate (e.g. 60fps with a 60Hz monitor, 144fps with a 144Hz monitor, etc)
 
-For some having unlimited FPS may increase ping or in general worsen performance: in that case I suggest the Lite version which should feel exactly the same.
+Only a good PC can handle unlimited FPS, so download the **Lite** version if the **Standard** gives you any ping/performance issue!
 
 ## How to run
-Download from the [main website](https://oghb.github.io/haxball-client/) or from the [Releases](https://github.com/oghb/haxball-client/releases) page the **.zip** file with the version for your OS and unzip it. 
+Download from the [main website](https://oghb.github.io/haxball-client/) or from the [Releases](https://github.com/oghb/haxball-client/releases) page the **.zip** file with the version for your OS and unzip it.
 
 Then
-* if you're on **Windows**, move the folder wherever you want and double-click on `HaxBall Client.exe`
-* if you're on **macOS**, move the `HaxBall Client.app` in your Applications folder and then double-click on it
+* if you're on **Windows**, move the folder wherever you want and double-click on the executable `HaxBall Client`
+* if you're on **macOS**, move the `HaxBall Client.app` in your `Applications` folder and then double-click on it
 * if you're on **Linux**, move the folder wherever you want, `cd` into that folder and then type `./HaxBallClient` in the terminal (you may need to install some libraries first)
 
 ## Features
@@ -41,7 +41,7 @@ Then
 \*\* *only in the **Standard** version of the client*
 
 ### Favourite Rooms
-Two new buttons have been added to the **Room list** view: **Add Room** and **Show Rooms**. 
+Two new buttons have been added to the **Room list** view: **Add Room** and **Show Rooms**.
 
 By selecting a room in the list and then clicking the **Add Room** button, such room will be added to the list of your **Favourite Rooms**, and will be easily accessible by clicking the **Show Rooms** button.
 
@@ -50,7 +50,7 @@ In addition to the **Search** feature provided by the All-in-one Tool, this func
 A room will stay among your **Favourites** (use the `favrooms` command in the command-line to see them all) regardless of it being online or not, as long as its name doesn't change.
 
 ### Command-line
-The horizontal bar on the top has two functions: **redirect you to a room** given its link and launch **custom commands**. 
+The horizontal bar on the top has two functions: **redirect you to a room** given its link and launch **custom commands**.
 
 #### Available commands
 ##### Shortcuts
@@ -119,7 +119,7 @@ git clone https://github.com/nativefier/nativefier.git
 
 Open the `nativefier` repository you just cloned and go to `app/src`, where you'll find a file called `main.ts`: replace it with the `main.ts` in this repository.
 
-**Note**: if you *don't* want unlimited FPS (it may increase ping or worsen performance for some), put two slashes `//` in front of the appropriate line in `main.ts`.
+**Note**: if you *don't* want unlimited FPS (it may increase ping or worsen performance on older PC's), put two slashes `//` in front of the appropriate line in `main.ts`.
 
 You can now build the modified nativefier with
 ```bash
@@ -134,17 +134,23 @@ so when you launch `nativefier` your system will actually use this one.
 Now launch `cd ..` to go in the parent directory of `nativefier` (the one where you cloned the two repositories to), and launch these commands to build the client and copy the HaxBall All-in-one tool within:
 - Windows client
 ```bash
-nativefier https://www.haxball.com/play --internal-urls ".*?\.haxball\.*?" --name "HaxBall Client" --inject haxball-client/inject.js --inject haxball-client/inject.css --icon haxball-client/icon.png --tray start-in-tray --fast-quit --platform windows --app-version 0.3.3 --build-version 0.3.3 --win32metadata '{"ProductName": "HaxBall Client", "InternalName": "HaxBall Client", "FileDescription": "Unofficial client for haxball.com"}'
+nativefier https://www.haxball.com/play --internal-urls ".*?\.haxball\.*?" --name "HaxBall Client" --inject haxball-client/inject.js --inject haxball-client/inject.css --icon haxball-client/icon.png --tray start-in-tray --fast-quit --platform windows --app-version 0.3.4 --build-version 0.3.4 --win32metadata '{"ProductName": "HaxBall Client", "InternalName": "HaxBall Client", "FileDescription": "Unofficial client for haxball.com"}'
 git clone https://github.com/xenonsb/Haxball-Room-Extension.git ./HaxBall\ Client-win32-x64/resources/app/Haxball-Room-Extension
 ```
-- macOS client
+- macOS (M1) client
 ```bash
-nativefier https://www.haxball.com/play --browserwindow-options '{"fullscreenable": true}' --internal-urls ".*?\.haxball\.*?" --name "HaxBall Client" --inject haxball-client/inject.js --inject haxball-client/inject.css --icon haxball-client/icon.png --tray start-in-tray --fast-quit --platform darwin --app-version 0.3.3 --build-version 0.3.3
+nativefier https://www.haxball.com/play --browserwindow-options '{"fullscreenable": true}' --internal-urls ".*?\.haxball\.*?" --name "HaxBall Client" --inject haxball-client/inject.js --inject haxball-client/inject.css --icon haxball-client/icon.png --tray start-in-tray --fast-quit --arch arm64 --platform osx --app-version 0.3.4 --build-version 0.3.4
+git clone https://github.com/xenonsb/Haxball-Room-Extension.git ./HaxBall\ Client-darwin-arm64/HaxBall\ Client.app/Contents/Resources/app/Haxball-Room-Extension
+```
+
+- macOS (Intel) client
+```bash
+nativefier https://www.haxball.com/play --browserwindow-options '{"fullscreenable": true}' --internal-urls ".*?\.haxball\.*?" --name "HaxBall Client" --inject haxball-client/inject.js --inject haxball-client/inject.css --icon haxball-client/icon.png --tray start-in-tray --fast-quit --arch x64 --platform osx --app-version 0.3.4 --build-version 0.3.4
 git clone https://github.com/xenonsb/Haxball-Room-Extension.git ./HaxBall\ Client-darwin-x64/HaxBall\ Client.app/Contents/Resources/app/Haxball-Room-Extension
 ```
 
 - Linux client
 ```bash
-nativefier https://www.haxball.com/play --internal-urls ".*?\.haxball\.*?" --name "HaxBall Client" --inject haxball-client/inject.js --inject haxball-client/inject.css --icon haxball-client/icon.png --tray start-in-tray --fast-quit --platform linux --app-version 0.3.3 --build-version 0.3.3
+nativefier https://www.haxball.com/play --internal-urls ".*?\.haxball\.*?" --name "HaxBall Client" --inject haxball-client/inject.js --inject haxball-client/inject.css --icon haxball-client/icon.png --tray start-in-tray --fast-quit --platform linux --app-version 0.3.4 --build-version 0.3.4
 git clone https://github.com/xenonsb/Haxball-Room-Extension.git ./HaxBallClient-linux-x64/resources/app/Haxball-Room-Extension
 ```

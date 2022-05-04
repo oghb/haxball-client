@@ -1,4 +1,4 @@
-const CURRENT_VERSION = "v0.3.3";
+const CURRENT_VERSION = "v0.3.4";
 const RELEASES_URL =
   "https://api.github.com/repos/oghb/haxball-client/releases";
 const EXTRA_GAMEMIN_URL =
