@@ -134,7 +134,7 @@ so when you launch `nativefier` your system will actually use this one.
 Now launch `cd ..` to go in the parent directory of `nativefier` (the one where you cloned the two repositories to), and launch these commands to build the client and copy the HaxBall All-in-one tool within:
 - Windows client
 ```bash
-nativefier https://www.haxball.com/play --internal-urls ".*?\.haxball\.*?" --name "HaxBall Client" --inject haxball-client/inject.js --inject haxball-client/inject.css --icon haxball-client/icon.png --tray start-in-tray --fast-quit --platform windows --app-version 0.3.4 --build-version 0.3.4 --win32metadata '{"ProductName": "HaxBall Client", "InternalName": "HaxBall Client", "FileDescription": "Unofficial client for haxball.com"}'
+nativefier https://www.haxball.com/play --internal-urls ".*?\.haxball\.*?" --name "HaxBall Client" --inject haxball-client/inject.js --inject haxball-client/inject.css --icon haxball-client/icon.png --tray start-in-tray --fast-quit --arch x64 --platform windows --app-version 0.3.4 --build-version 0.3.4 --win32metadata '{"ProductName": "HaxBall Client", "InternalName": "HaxBall Client", "FileDescription": "Unofficial client for haxball.com"}'
 git clone https://github.com/xenonsb/Haxball-Room-Extension.git ./HaxBall\ Client-win32-x64/resources/app/Haxball-Room-Extension
 ```
 - macOS (M1) client
@@ -151,6 +151,6 @@ git clone https://github.com/xenonsb/Haxball-Room-Extension.git ./HaxBall\ Clien
 
 - Linux client
 ```bash
-nativefier https://www.haxball.com/play --internal-urls ".*?\.haxball\.*?" --name "HaxBall Client" --inject haxball-client/inject.js --inject haxball-client/inject.css --icon haxball-client/icon.png --tray start-in-tray --fast-quit --platform linux --app-version 0.3.4 --build-version 0.3.4
+nativefier https://www.haxball.com/play --internal-urls ".*?\.haxball\.*?" --name "HaxBall Client" --inject haxball-client/inject.js --inject haxball-client/inject.css --icon haxball-client/icon.png --tray start-in-tray --fast-quit --arch x64 --platform linux --app-version 0.3.4 --build-version 0.3.4
 git clone https://github.com/xenonsb/Haxball-Room-Extension.git ./HaxBallClient-linux-x64/resources/app/Haxball-Room-Extension
 ```
