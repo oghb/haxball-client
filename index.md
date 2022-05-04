@@ -90,6 +90,8 @@ If you want to view your extrapolation without entering a room or opening the co
 Although I don't support the choice, since it was highly requested a command to uncap the extrapolation is also available
 * `extraunlock`
 
+You only need to launch this command once.
+
 ##### Avatar
 If you want to view or change your avatar without entering a room or opening the console, type in the command bar
 * `avatar`
