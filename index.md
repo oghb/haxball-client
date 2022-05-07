@@ -17,7 +17,7 @@ Then
 
 * if you're on **macOS**, move the `HaxBall Client.app` in your `Applications` folder and then double-click on it
 
-  if you get a "The app is damaged and can't be opened", [follow Method 1 from this guide](https://www.funkyspacemonkey.com/how-to-open-applications-from-anywhere-in-macos-monterey)
+  if you get a "The app is damaged and can't be opened", [follow Method 4 from this guide](https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/)
 * if you're on **Linux**, move the folder wherever you want, `cd` into that folder and then type `./HaxBallClient` in the terminal (you may need to install some libraries first)
 
 ## Features
