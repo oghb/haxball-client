@@ -17,6 +17,9 @@ I'm no longer active on Discord and I won't read your messages there.
 - #### On Windows, when I run `HaxBall Client.exe` it asks me if I want to execute this file. Is it safe?
   Yes, it is safe
 
+- #### I have a Mac, which version should I donwload?
+  If your Mac has an Intel chip, download the Standard or Lite version; if your Mac has an M1, M1 Pro/Max or M2 chip, download the M1 version (which is like the Standard version but is optimized for Apple silicon)
+
 - #### On Mac, when I launch the app it says that the app is damaged
   The app is not damaged, it's a security feature of macOS. You can follow [Method 4 from this guide](https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/) or any other tutorial for the "App is damaged" warning
 
