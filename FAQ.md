@@ -1,5 +1,5 @@
 # FAQ & Support 
-> last update of this page: 14/11/2022
+> last update of this page: 16/11/2022
 
 Hi, my name is og and I'm the owner of the og-bot 3on3 public room and creator of this client.
 
@@ -18,7 +18,7 @@ I'm no longer active on Discord and I won't read your messages there.
   Yes, it is safe
 
 - #### I have a Mac, which version should I donwload?
-  If your Mac has an Intel chip, download the Standard or Lite version; if your Mac has an M1, M1 Pro/Max or M2 chip, download the M1 version (which is like the Standard version but is optimized for Apple silicon)
+  If your Mac has an Intel chip, download the Standard or Lite version; if your Mac has an M1, M1 Pro/Max or M2 chip, download the M1 version, which is like the Standard version but is optimized for Apple silicon (if you want the Lite version for M1 visit the [Releases](https://github.com/oghb/haxball-client/releases) page)
 
 - #### On Mac, when I launch the app it says that the app is damaged
   The app is not damaged, it's a security feature of macOS. You can follow [Method 4 from this guide](https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/) or any other tutorial for the "App is damaged" warning
@@ -33,6 +33,9 @@ I'm no longer active on Discord and I won't read your messages there.
 
 - #### How do I download the new version?
   If a new version has come out, when you launch the client you'll get a pop-up asking you if you want to download the new version, and if that's the case it will automatically be downloaded in your Downloads folder
+  
+- #### When I start using the new version, will I lose all my settings and customizations?
+  No you won't
 
 - #### When will the new version come out?
   A new version where the "Old build" warning is removed will come out as soon as I have the time to fix some problems with the tool I build the client with
@@ -73,7 +76,7 @@ I'm no longer active on Discord and I won't read your messages there.
 ## About other clients
 
 - #### Is this like HaxApp?
-  Yes and no. As of now, the graphical customizations on HaxApp are missing on this client, however you get other features – such as Favorite rooms, Notes, Extraunlock, etc – which are not present on HaxApp. Also, this client is arguably less buggy and – most importantly – is open source 
+  Yes and no. As of now, the graphical customizations on HaxApp are missing on this client, however you get other features – such as Favorite rooms, unlimited FPS by default, Extraunlock, Notes, etc – which are not present on HaxApp. Also, this client is arguably less buggy and – most importantly – is open source 
 
 - #### Someone on Discord posted a download link saying it's a/your HaxBall client
   Don't download executables from people you don't personally know or trust, unless they've made the source code public
