@@ -1,5 +1,5 @@
 # FAQ & Support 
-> last update of this page: 16/11/2022
+> last update of this page: 19/11/2022
 
 Hi, my name is og and I'm the owner of the og-bot 3on3 public room and creator of this client.
 
@@ -17,7 +17,7 @@ I'm no longer active on Discord and I won't read your messages there.
 - #### On Windows, when I run `HaxBall Client.exe` it asks me if I want to execute this file. Is it safe?
   Yes, it is safe
 
-- #### I have a Mac, which version should I donwload?
+- #### I have a Mac, which version should I download?
   If your Mac has an Intel chip, download the Standard or Lite version; if your Mac has an M1, M1 Pro/Max or M2 chip, download the M1 version, which is like the Standard version but is optimized for Apple silicon (if you want the Lite version for M1 visit the [Releases](https://github.com/oghb/haxball-client/releases) page)
 
 - #### On Mac, when I launch the app it says that the app is damaged
@@ -60,6 +60,9 @@ I'm no longer active on Discord and I won't read your messages there.
  
 - #### I'm seeing my Favorite rooms; how do I get back to the complete normal list?
   Press the Reload button
+
+- #### I can't enter a room by its link in the command bar
+  You need to copy and paste the entire link – like https://www.haxball.com/play?c=3dcxYu4_nNw – and then press Enter
   
 - #### Does this client include cheats (aimbot, extra-jitter, fake ping, etc)
   It doesn't include any cheat. It does allow you to unlock the extrapolation (which I'm against), but it can't be considered a cheat
