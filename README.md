@@ -2,7 +2,7 @@
 
 Unofficial client for the HTML5 browser game [HaxBall](https://www.haxball.com/play), built with [Electron](https://github.com/electron/electron) and shipping with the browser extension [HaxBall All-in-one Tool](https://github.com/xenonsb/Haxball-Room-Extension).
 
-The client works on Windows, macOS and Linux.
+The client works on Windows, macOS, and Linux.
 
 ## ⚠️ New Update (May 2025)
 A new version is coming very soon and the rest of this page will be outdated by then.
