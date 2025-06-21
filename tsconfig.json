@@ -1,0 +1,15 @@
+{
+	"compilerOptions": {
+	  "target": "es2020",
+	  "lib": ["es2021", "dom"],
+	  "module": "esnext",
+	  "rootDir": "inject/src",
+	  "strict":  false,
+	  "esModuleInterop": true,
+	  "moduleResolution": "node",
+	  "allowSyntheticDefaultImports": true,
+	  "forceConsistentCasingInFileNames": true,
+	  "skipLibCheck": true
+	},
+	"include": ["inject/src/**/*"]
+  }

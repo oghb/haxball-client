@@ -1,0 +1,80 @@
+{
+  "name": "haxball-client",
+  "version": "0.4.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build:ts": "esbuild inject/src/inject.ts --bundle --outfile=inject/inject.js --format=iife --minify",
+    "build:mac": "electron-builder --mac",
+    "build:win-x64": "electron-builder --win --x64 --portable",
+    "build:win-ia32": "electron-builder --win --ia32 --portable",
+    "build:win-arm64": "electron-builder --win --arm64 --portable",
+    "build:linux-appimage": "electron-builder --linux AppImage --x64",
+    "build:linux-deb": "electron-builder --linux deb --x64",
+    "build": "npm run build:ts && sh build.sh",
+    "test": "npm run build && ./dist/mac-universal/HaxBall\\ Client.app/Contents/MacOS/HaxBall\\ Client"
+  },
+  "keywords": [
+    "haxball",
+    "haxball-client"
+  ],
+  "author": "og <73192436+oghb@users.noreply.github.com> (https://github.com/oghb/)",
+  "license": "GPL-3.0",
+  "homepage": "https://github.com/oghb/haxball-client",
+  "email": "73192436+oghb@users.noreply.github.com",
+  "description": "",
+  "devDependencies": {
+    "electron": "23.3.13",
+    "electron-builder": "25.1.8",
+    "esbuild": "0.25.3"
+  },
+  "build": {
+    "appId": "com.haxball.client",
+    "productName": "HaxBall Client",
+    "asarUnpack": "inject/Haxball-Room-Extension/",
+    "compression": "maximum",
+    "files": [
+      "main.js",
+      "preload.js",
+      "inject/inject.js",
+      "inject/Haxball-Room-Extension/",
+      "inject/preferences_default.json"
+    ],
+    "mac": {
+      "category": "public.app-category.games",
+      "icon": "assets/icon.png",
+      "artifactName": "${productName}-${version}-mac-${arch}.${ext}",
+      "target": {
+        "target": "dmg",
+        "arch": "universal"
+      }
+    },
+    "win": {
+      "icon": "assets/icon.png",
+      "artifactName": "${productName}-${version}-${arch}.${ext}",
+      "target": [
+        {
+          "target": "portable",
+          "arch": "arm64"
+        }
+      ]
+    },
+    "linux": {
+      "artifactName": "${productName}-${version}-${arch}.${ext}",
+      "icon": "assets/icon.png",
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": "x64"
+        },
+        {
+          "target": "deb",
+          "arch": "x64"
+        }
+      ]
+    }
+  },
+  "dependencies": {
+    "zod": "^3.24.3"
+  }
+}

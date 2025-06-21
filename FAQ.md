@@ -1,91 +1,89 @@
-# FAQ & Support 
-> last update of this page: 19/11/2022
+# Frequently Asked Questions (FAQ)
+> last update of this page: June 2025 
 
-Hi, my name is og and I'm the owner of the og-bot 3on3 public room and creator of this client.
+## General
 
-As I can't actively support you in any technical problems or doubts you may have, I decided to write this as to hopefully help you.
+- #### Who made this client?
+  Hi! I'm og (@og9525 on Discord), HaxBall player since 2011 and hoster of the og-bot Big 3on3 public room since 2019.
 
-If your question is not here, if you still have issues, or if you have suggestions, open a new issue [here](https://github.com/oghb/haxball-client/issues).
+- #### Is this client safe to install and run?
+  Yes, it is safe. If you don't trust me, let someone you trust inspect the source code or the released client.
 
-I'm no longer active on Discord and I won't read your messages there.
+- #### Is there a Discord server?
+  Yes, [click here to join it](https://discord.gg/zDzYamtcfX).
+
+- #### Where can I ask questions?
+  We have a public [Discord server](https://discord.gg/zDzYamtcfX) where you can connect with others who use the client. If no one can help you there and your question is not on this page, you can [open an issue](https://github.com/oghb/haxball-client/issues) here on GitHub.
+
+- #### Where can I report bugs?
+  If it's not among the [known bugs](https://github.com/oghb/haxball-client?tab=readme-ov-file#known-bugs), then [open an issue](https://github.com/oghb/haxball-client/issues) here on GitHub.
+
+- #### Where can I leave suggestions?
+  We have a public [Discord server](https://discord.gg/zDzYamtcfX) where you can connect with others who use the client and exchange ideas. If your suggestion is original, you can [open an issue](https://github.com/oghb/haxball-client/issues) here on GitHub.
+
+- #### I use Windows 7, why is [...] not working?
+  The app should work fine on Windows 7, but we don't provide support for it. Upgrade to a newer OS or try asking other users on our [Discord server](https://discord.gg/zDzYamtcfX).
+
+- #### Why does the app take so much space?
+  The app is packaged in such a way that the same executable works across multiple architectures, to maximize compatiblity and ease of use.
 
 ## About install/launch issues
 
-- #### On Windows, when I run `HaxBall Client.exe` I get an error saying `ffmpeg.dll` wasn't found
-  You need to copy the entire HaxBall Client folder, and execute `HaxBall Client.exe` inside the folder
-
-- #### On Windows, when I run `HaxBall Client.exe` it asks me if I want to execute this file. Is it safe?
-  Yes, it is safe
-
-- #### I have a Mac, which version should I download?
-  If your Mac has an Intel chip, download the Standard or Lite version; if your Mac has an M1, M1 Pro/Max or M2 chip, download the M1 version, which is like the Standard version but is optimized for Apple silicon (if you want the Lite version for M1 visit the [Releases](https://github.com/oghb/haxball-client/releases) page)
+- #### On Windows, when I run the app it asks me if I want to execute this file. Is it safe?
+  Yes, it is safe. If you don't trust me, let someone you trust inspect the source code or the released client.
 
 - #### On Mac, when I launch the app it says that the app is damaged
-  The app is not damaged, it's a security feature of macOS. You can follow [Method 4 from this guide](https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/) or any other tutorial for the "App is damaged" warning
+  The app is not damaged, it's a security feature of macOS. You can follow [Method 4 from this guide](https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/) or any other tutorial for the "App is damaged" warning.
 
-- #### What's the meaning of the warning message I get when I open it?
-  It means the client you are using was published several months ago. **It doesn't necessarily mean it's not the last version**, you can ignore the message and keep playing
+- #### Why am I not getting all features of the All-in-one Tool?
+  Closing and re-opening the app should fix it.
 
-- #### When I launch it I don't get all the features of the client, just the game as it is on haxball.com
-  Close and re-open the client
+## About its features
+ 
+- #### How can I play with unlimited FPS?
+  Type `fps unlock` in the command bar, press Enter, and restart the app.
+
+- #### After I join a room, the header of the app disappears. How do I get it back?
+  When you leave the room, press CTRL + R (on Windows/Linux) or CMD + R (on Mac) to refresh the page. If you want to keep it visible at all times, enter the Add-on Settings and uncheck "Hide NavBar by default".
+
+- #### When I press the button to show my Favorite rooms, the room list appears empty. Why?
+  You either haven't set any favorite rooms or need to scroll up the room list.
+ 
+- #### Why can't I join rooms using their links?
+  You need to copy and paste the entire link – like https://www.haxball.com/play?c=3dcxYu4_nNw – in the address bar, and then press Enter.
+  
+- #### Does this client include cheats (aimbot, extra-jitter, fake ping, etc)?
+  It doesn't include any cheat. If you don't trust me, let someone you trust inspect the source code or the released client.
+ 
+## About performance or ping
+
+- #### Why am I getting a higher ping than on haxball.com?
+  This is unusual and may also be due to other factors unrelated to the app. If it's systematic, [open an issue](https://github.com/oghb/haxball-client/issues) here on GitHub.
+
+- #### The game doesn't feel fluid or feels different from haxball.com
+  This is unusual and may also be due to other factors unrelated to the app. Try unlocking the FPS to see if performance improves. If it doesn't, discuss with other users on our [Discord server](https://discord.gg/zDzYamtcfX) or [open an issue](https://github.com/oghb/haxball-client/issues) here on GitHub.
+  
+- #### Why do I get lower FPS than using a browser?
+  This is unusual and may also be due to other factors unrelated to the app. If you experience a large decrease of FPS, discuss with other users on our [Discord server](https://discord.gg/zDzYamtcfX) or [open an issue](https://github.com/oghb/haxball-client/issues) here on GitHub.
 
 ## About updates
 
 - #### How do I download the new version?
-  If a new version has come out, when you launch the client you'll get a pop-up asking you if you want to download the new version, and if that's the case it will automatically be downloaded in your Downloads folder
+  If a new version has come out, when you launch the client you'll get a notification next to your Profile name. Just click it and you'll be able to download the update.
   
-- #### When I start using the new version, will I lose all my settings and customizations?
-  No you won't
+- #### If I download a new version, will I lose all my settings and customizations?
+  No, you will keep everything.
 
 - #### When will the new version come out?
-  A new version where the "Old build" warning is removed will come out as soon as I have the time to fix some problems with the tool I build the client with
+  New versions are dedicated to new features or major bug fixes, there is no specific schedule.
 
-- #### When will new features be added?
-  I don't currently plan to add new features as I don't have the time to do so, but never say never
+## About other apps/clients
 
-- #### Will there be a 32bit Windows version?
-  Yes, there will when – or if – the new version comes out
-
-  
-## About its features
-
-- #### I wrote "extraunlock" in the command bar but nothing happens
-  Close and re-open the client, and then set your extrapolation in any room's chat
-
-- #### How do I limit the extrapolation after I have unlocked it?
-  You don't need to, just set it below 200
- 
-- #### When I press the button to show my Favorite rooms the room list appears empty
-  You either haven't set any favorite rooms, or you need to scroll up the room list
- 
-- #### I'm seeing my Favorite rooms; how do I get back to the complete normal list?
-  Press the Reload button
-
-- #### I can't enter a room by its link in the command bar
-  You need to copy and paste the entire link – like https://www.haxball.com/play?c=3dcxYu4_nNw – and then press Enter
-  
-- #### Does this client include cheats (aimbot, extra-jitter, fake ping, etc)
-  It doesn't include any cheat. It does allow you to unlock the extrapolation (which I'm against), but it can't be considered a cheat
- 
-## About performance or ping
-
-- #### I'm getting higher pings than those I get on haxball.com
-  If you're using the Standard version, download the Lite version
-
-- #### The game doesn't feel fluid or feels different from haxball.com
-  If this is a constant, download the Lite version if you're using the Standard version. If it only happens occasionally, it's due to HaxBall itself and this client won't fix it
-
-
-## About other clients
-
-- #### Is this like HaxApp?
-  Yes and no. As of now, the graphical customizations on HaxApp are missing on this client, however you get other features – such as Favorite rooms, unlimited FPS by default, Extraunlock, Notes, etc – which are not present on HaxApp. Also, this client is arguably less buggy and – most importantly – is open source 
-
-- #### Someone on Discord posted a download link saying it's a/your HaxBall client
-  Don't download executables from people you don't personally know or trust, unless they've made the source code public
+- #### Someone on Discord or YouTube posted a download link saying it's your HaxBall client
+  Only download this client from the [official website](http://oghb.github.io/haxball-client/).
 
 - #### I've downloaded a client which looks just like yours from website.xyz. Is it the same?
-  It's either a rip-off or a scam, only download my client from its official website –> https://oghb.github.io/haxball-client/
+  It's either a rip-off or a scam, and it may contain malware. Only download this client from the [official website](http://oghb.github.io/haxball-client/).
 
 - #### I've downloaded a client which looks just like yours from a link on Discord. Is it the same?
-  It's either a rip-off or a scam, only download my client from its official website –> https://oghb.github.io/haxball-client/
+  It's either a rip-off or a scam, and it may contain malware. Only download this client from the [official website](http://oghb.github.io/haxball-client/).

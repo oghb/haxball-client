@@ -1,1 +1,5 @@
 .DS_Store
+node_modules/*
+dist/*
+inject/Haxball-Room-Extension
+inject/inject.js
