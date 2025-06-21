@@ -240,7 +240,7 @@ ipcMain.handle('import-preferences-file', async (event) => {
       const fileContent = fs.readFileSync(filePath, 'utf-8');
       const data = JSON.parse(fileContent);
 
-      console.log(data)
+      // console.log(data)
 
       // Validate the data
       validatePreferences(data);
