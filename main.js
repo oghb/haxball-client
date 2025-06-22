@@ -93,7 +93,7 @@ const createWindow = () => {
     y,
     width,
     height,
-    minWidth: 1280,
+    minWidth: 1024,
     minHeight: 720,
     show: false, // start hidden
     fullscreen: false,
