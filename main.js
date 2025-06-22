@@ -99,6 +99,7 @@ const createWindow = () => {
     fullscreen: false,
     fullscreenable: true,
     titleBarStyle: "default",
+    autoHideMenuBar: true,
     kiosk: false,
     frame: true,
     webPreferences: {
