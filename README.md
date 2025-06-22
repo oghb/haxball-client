@@ -110,9 +110,7 @@ Your Player Auth is typically used by headless rooms' admins to authenticate you
 
 ## How to build
 
-Clone this repository. Then, clone the [HaxBall All-in-one Tool](https://github.com/xenonsb/Haxball-Room-Extension) repository inside the `inject` directory.
-
-Next, run
+Clone this repository. Next, run
 
 ```sh
 npm install
