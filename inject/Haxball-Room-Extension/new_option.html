@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head><title>Options for Haxball All-in-one Tool</title></head>
+<body>
+
+<fieldset>
+<h3>Lobby settings (before room join)</h3>
+<div><label><input type="checkbox" id="haxSearchConfig">Room search/filter bar by Raamyy</label></div>
+<div><label><input type="checkbox" id="haxAutoJoinConfig">Room AutoJoin capability</label></div>
+</fieldset>
+<br />
+<fieldset>
+<h3>In-room settings</h3>
+<div><label><input type="checkbox" id="haxKickBanConfig">Room Kick/Ban shortcuts (double click)</label></div>
+<div><label><input type="checkbox" id="haxMuteConfig">Local muting of players</label></div>
+<div><label><input type="checkbox" id="haxNotifConfig">Game notification (message highlights/moved to team)</label></div>
+<div><label><input type="checkbox" id="haxViewModeConfig">View-mode hotkeys (5-9)</label></div>
+<div><label><input type="checkbox" id="haxRecordHotkey">Record shortcut R - click in game to start/stop recording</label></div>
+<div><label><input type="checkbox" id="haxChatTranslation">Show translate button for every chat message</label></div>
+</fieldset>
+<br />
+<fieldset>
+<h3>Transparent chat by Pacific</h3>
+<div><label><input type="checkbox" id="haxTransChatConfig">Enable transparent chat</label></div>
+<div><label><input type="range" id="haxAlpha" min="10" max="90" step="10"><output id="sliderAmt"></output>% opaqueness (lower value = more transparency)</label></div>
+</fieldset>
+<br />
+<fieldset>
+<h3>Chat text expansion shortcuts</h3>
+<div><label><input type="checkbox" id="haxShortcutConfig">Enable text expansion</label></div>
+<p><b>Example:</b> {"/e1":"/extrapolation 1","/h1":"/handicap 50","/ad":"!admin"}</p>
+<div><label><textarea rows="4" cols="50" id="haxShortcut" type="text" placeholder='{
+"sc1":"shortcut1",
+"sc2":"shortcut2",
+"sc3":"shortcut3"
+}'></textarea></label>
+<br />
+<button id="save">Save Shortcuts</button>
+<button id="enable">Enable all</button>
+<button id="disable">Disable all</button>
+<button id="restoreDef">Restore defaults</button>
+</fieldset>
+
+<a href="https://github.com/xenonsb/Haxball-Room-Extension/" target="blank" id="version"></a>
+
+<script src="js/new_option.js" defer></script>
+</body>
+</html>
