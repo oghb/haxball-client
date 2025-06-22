@@ -78,8 +78,8 @@ function addonSettingsPopup(currentView) {
 	addonSection.appendChild(sliderDiv);
 	addonSection.appendChild(configElem('haxViewModeConfig',false,'View-mode hotkeys'));
 	addonSection.appendChild(configElem('haxRecordHotkey',false,'Record hotkey R'));
-	addonSection.appendChild(configElem('haxShortcutConfig',false,'Chat text expansion and 😃 shortcuts'));
-	addonSection.appendChild(shortcutDiv);
+	// addonSection.appendChild(configElem('haxShortcutConfig',false,'Chat text expansion and 😃 shortcuts'));
+	// addonSection.appendChild(shortcutDiv);
 	addonSection.appendChild(configElem('haxQuickLeaveConfig',false,'One click to leave room'));
 	
 	
