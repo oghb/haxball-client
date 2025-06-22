@@ -17,51 +17,51 @@ function addonSettingsPopup(currentView) {
 	addonSettingsOpen.setAttribute('data-hook','add-on');
 	
 	// thing for transparency selection
-	var sliderDiv = document.createElement('div');
-	sliderDiv.align = 'center';
+	// var sliderDiv = document.createElement('div');
+	// sliderDiv.align = 'center';
 	
-	var sliderOutput = document.createElement('output');
-	sliderOutput.id = 'sliderAmt';
+	// var sliderOutput = document.createElement('output');
+	// sliderOutput.id = 'sliderAmt';
 	
-	var sliderInput = document.createElement('input');
-	sliderInput.type = 'range';
-	sliderInput.id = 'myTrans';
-	sliderInput.min = 10;
-	sliderInput.max = 90;
-	sliderInput.step = 10;
+	// var sliderInput = document.createElement('input');
+	// sliderInput.type = 'range';
+	// sliderInput.id = 'myTrans';
+	// sliderInput.min = 10;
+	// sliderInput.max = 90;
+	// sliderInput.step = 10;
 	
-	chrome.storage.local.get({'haxAlpha' : 10},
-		function (items) { sliderInput.value = items.haxAlpha; });
+	// chrome.storage.local.get({'haxAlpha' : 10},
+	// 	function (items) { sliderInput.value = items.haxAlpha; });
 	
-	sliderOutput.value = sliderInput.value + '%';
-	sliderInput.oninput = function () { 
-		sliderOutput.value = sliderInput.value + "%";
-		chrome.storage.local.set({'haxAlpha': sliderInput.value}, function (obj) { })
-		try {
-			var gameframe = document.getElementsByClassName('gameframe')[0];
-			var bottomSec = gameframe.contentWindow.document.getElementsByClassName('bottom-section')[0];
-			var statSec = gameframe.contentWindow.document.getElementsByClassName('stats-view')[0];
-			var chatInput = gameframe.contentWindow.document.querySelector('[data-hook="input"]');
-		chrome.storage.local.get({'haxTransChatConfig' : false},
-			function (items) {
-				if (items.haxTransChatConfig) { 
-					chatFormat(bottomSec,statSec,chatInput,'absolute');
-				}
-			});
-		}
-		catch(e) { }
-		};
+	// sliderOutput.value = sliderInput.value + '%';
+	// sliderInput.oninput = function () { 
+	// 	sliderOutput.value = sliderInput.value + "%";
+	// 	chrome.storage.local.set({'haxAlpha': sliderInput.value}, function (obj) { })
+	// 	try {
+	// 		var gameframe = document.getElementsByClassName('gameframe')[0];
+	// 		var bottomSec = gameframe.contentWindow.document.getElementsByClassName('bottom-section')[0];
+	// 		var statSec = gameframe.contentWindow.document.getElementsByClassName('stats-view')[0];
+	// 		var chatInput = gameframe.contentWindow.document.querySelector('[data-hook="input"]');
+	// 	chrome.storage.local.get({'haxTransChatConfig' : false},
+	// 		function (items) {
+	// 			if (items.haxTransChatConfig) { 
+	// 				chatFormat(bottomSec,statSec,chatInput,'absolute');
+	// 			}
+	// 		});
+	// 	}
+	// 	catch(e) { }
+	// 	};
 	
-	sliderDiv.append(sliderInput);
-	sliderDiv.append(sliderOutput);
+	// sliderDiv.append(sliderInput);
+	// sliderDiv.append(sliderOutput);
 	
-	var shortcutDiv = document.createElement('div');
-	shortcutDiv.align = 'center';
+	// var shortcutDiv = document.createElement('div');
+	// shortcutDiv.align = 'center';
 	
-	var shortcutPopup = document.createElement('a');
-	shortcutPopup.onclick = function () { chrome.runtime.sendMessage({type: 'popup'}); };
-	shortcutPopup.innerText = 'Configure shortcuts';
-	shortcutDiv.append(shortcutPopup);
+	// var shortcutPopup = document.createElement('a');
+	// shortcutPopup.onclick = function () { chrome.runtime.sendMessage({type: 'popup'}); };
+	// shortcutPopup.innerText = 'Configure shortcuts';
+	// shortcutDiv.append(shortcutPopup);
 	
 	var addonSection = document.createElement('div');
 	addonSettings.appendChild(addonSection);
@@ -73,9 +73,9 @@ function addonSettingsPopup(currentView) {
 	// addonSection.appendChild(configElem('haxHideNavConfig',false,'Hide NavBar by default'));
 	addonSection.appendChild(configElem('haxMuteConfig',true,'Local mute'));
 	addonSection.appendChild(configElem('haxNotifConfig',false,'Game notifications'));
-	addonSection.appendChild(configElem('haxTransChatConfig',false,'Transparent chat (Pacific)'));
-	addonSection.appendChild(configElem('haxChatTranslation',false,'Chat translation (Raamyy)'));
-	addonSection.appendChild(sliderDiv);
+	// addonSection.appendChild(configElem('haxTransChatConfig',false,'Transparent chat (Pacific)'));
+	// addonSection.appendChild(configElem('haxChatTranslation',false,'Chat translation (Raamyy)'));
+	// addonSection.appendChild(sliderDiv);
 	addonSection.appendChild(configElem('haxViewModeConfig',false,'View-mode hotkeys'));
 	addonSection.appendChild(configElem('haxRecordHotkey',false,'Record hotkey R'));
 	// addonSection.appendChild(configElem('haxShortcutConfig',false,'Chat text expansion and 😃 shortcuts'));
@@ -154,34 +154,34 @@ function configElem(id, def = false, desc) {
 		var obj = {[id] : setStatus};
 		chrome.storage.local.set(obj, function (result) {} );
 		icon.className = setStatus ? 'icon-ok' : 'icon-cancel';
-		if (id === 'haxTransChatConfig') {
-			var gameframe = document.getElementsByClassName('gameframe')[0];
-			var bottomSec = gameframe.contentWindow.document.getElementsByClassName('bottom-section')[0];
-			var statSec = gameframe.contentWindow.document.getElementsByClassName('stats-view')[0];
-			var chatInput = gameframe.contentWindow.document.querySelector('[data-hook="input"]');
-			try {
-				if (setStatus) { 
-					chatFormat(bottomSec,statSec,chatInput,'absolute');
-				}
-				else {
-					bottomSec.removeAttribute('style');
-				}
-			}
-			catch(e) { }
-		}
-		if (id === 'haxShortcutConfig') {
-			var gameframe = document.getElementsByClassName('gameframe')[0];
-			var chatInput = gameframe.contentWindow.document.querySelector('[data-hook="input"]');
-			try {
-				if (setStatus) {
-					chatInput.addEventListener("keypress", chatListener);
-				}
-				else {
-					chatInput.removeEventListener("keypress", chatListener);
-				}
-			}
-			catch(e) { }
-		}
+		// if (id === 'haxTransChatConfig') {
+		// 	var gameframe = document.getElementsByClassName('gameframe')[0];
+		// 	var bottomSec = gameframe.contentWindow.document.getElementsByClassName('bottom-section')[0];
+		// 	var statSec = gameframe.contentWindow.document.getElementsByClassName('stats-view')[0];
+		// 	var chatInput = gameframe.contentWindow.document.querySelector('[data-hook="input"]');
+		// 	try {
+		// 		if (setStatus) { 
+		// 			chatFormat(bottomSec,statSec,chatInput,'absolute');
+		// 		}
+		// 		else {
+		// 			bottomSec.removeAttribute('style');
+		// 		}
+		// 	}
+		// 	catch(e) { }
+		// }
+		// if (id === 'haxShortcutConfig') {
+		// 	var gameframe = document.getElementsByClassName('gameframe')[0];
+		// 	var chatInput = gameframe.contentWindow.document.querySelector('[data-hook="input"]');
+		// 	try {
+		// 		if (setStatus) {
+		// 			chatInput.addEventListener("keypress", chatListener);
+		// 		}
+		// 		else {
+		// 			chatInput.removeEventListener("keypress", chatListener);
+		// 		}
+		// 	}
+		// 	catch(e) { }
+		// }
 		if (id === 'haxKickBanConfig') {
 			var gameframe = document.getElementsByClassName('gameframe')[0];
 			try {
