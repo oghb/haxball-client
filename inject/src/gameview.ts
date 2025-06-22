@@ -57,7 +57,7 @@ export const toggleTransparentUI = async (): Promise<void> => {
         // add shadow to chat messages
         // gameframe.contentDocument.querySelectorAll('.chatbox-view-contents > .log .log-contents p').forEach(p => { p.style.textShadow = "1px 1px 1px #000, 0px 1px 1px #000;"})
     } else {
-        const normalChatOpacity = parseFloat(localStorage.getItem("chat-opacity") || "0.8")
+        const normalChatOpacity = parseFloat(localStorage.getItem("chat_opacity") || "0.8")
         gameframe.contentDocument.getElementsByClassName("game-view")[0].style.cssText = `--chat-opacity: ${normalChatOpacity}`
         gameframe.contentDocument.querySelector(".chatbox-view-contents>.input input[type=text]").style.backgroundColor = "#111619"
         gameframe.contentDocument.getElementsByClassName("bar")[0].style.background = ""
