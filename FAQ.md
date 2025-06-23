@@ -32,6 +32,9 @@
 - #### On Windows, when I run the app it asks me if I want to execute this file. Is it safe?
   Yes, it is safe. If you don't trust me, let someone you trust inspect the source code or the released client.
 
+- #### On Windows, the app is blocked by my antivirus. Is it safe?
+  Yes, it's just a false positive due to the app not being by a certified developer. If you don't trust me, let someone you trust inspect the source code or the released client using services like [VirusTotal](http://virustotal.com/).
+
 - #### On Mac, when I launch the app it says that the app is damaged
   The app is not damaged, it's a security feature of macOS. You can follow [Method 4 from this guide](https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/) or any other tutorial for the "App is damaged" warning.
 

@@ -26,7 +26,7 @@ Download from the [main website](https://oghb.github.io/haxball-client/) or from
 
 Then
 
-* if you're on **Windows**, extract the executable from the downloaded archive and run it. No installation needed.
+* if you're on **Windows**, extract the executable from the downloaded archive and run it. No installation needed. If you get a warning from your antivirus, it's a false positive.
 
 * if you're on **macOS**, open the DMG and move the app in your `Applications` folder, then run it. If it says that the app is damaged or can't be opened, [follow Method 4 from this guide](https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/).
   
@@ -37,7 +37,6 @@ Then
 Some suggestions:
 
 - if you want to play with unlimited FPS, type `fps unlock` in the command bar on top and press Enter. This is only needed once.
-- by default, the All-in-one tool automatically hides the NavBar (the bar on top of the client) when you join a room. To avoid this, click the "**⚙️ Add-on**" button in the bottom-right corner of the room list, and deselect "Hide NavBar by default".
 
 ## Known bugs
 
