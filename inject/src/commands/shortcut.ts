@@ -1,5 +1,6 @@
 import { customAlert } from "../alerts"
 import { SubcommandMeta } from "../Command"
+import { COMMAND_BAR_PLACEHOLDER } from "../constants";
 
 const shortcutAdd = (input: string): void => {
     const commandInput = document.getElementById("commandline") as HTMLInputElement;
@@ -12,7 +13,7 @@ const shortcutAdd = (input: string): void => {
                 commandInput.value = "";
                 commandInput.placeholder = "Wrong syntax! Example: shortcut add !c,!claim";
                 setTimeout(() => {
-                    commandInput.placeholder = "Enter a command";
+                    commandInput.placeholder = COMMAND_BAR_PLACEHOLDER;
                 }, 5000);
                 return;
             }
@@ -20,7 +21,7 @@ const shortcutAdd = (input: string): void => {
             if (shortcuts.some((s: [string, string]) => s[0] === newShortcut[0])) {
                 commandInput.placeholder = `Shortcut already exists!`;
                 setTimeout(() => {
-                    commandInput.placeholder = "Enter a command";
+                    commandInput.placeholder = COMMAND_BAR_PLACEHOLDER;
                 }, 4000);
                 return;
             }
@@ -31,7 +32,7 @@ const shortcutAdd = (input: string): void => {
             commandInput.value = "";
             commandInput.placeholder = `New shortcut added: '${newShortcut[0]}' → '${newShortcut[1]}'`;
             setTimeout(() => {
-                commandInput.placeholder = "Enter a command";
+                commandInput.placeholder = COMMAND_BAR_PLACEHOLDER;
             }, 3000);
         })
         .catch(error => {
@@ -56,13 +57,13 @@ const shortcutRemove = (inputShortcut: string): void => {
             if (shortcuts.length == updatedShortcuts.length) {
                 commandInput.placeholder = `Not found! Type 'shortcut list' to check the shortcuts you added`;
                 setTimeout(function () {
-                    commandInput.placeholder = "Enter a command";
+                    commandInput.placeholder = COMMAND_BAR_PLACEHOLDER;
                 }, 4000);
             } else {
                 window.electronAPI.setAppPreference("shortcuts", updatedShortcuts)
                 commandInput.placeholder = `Shortcut removed`;
                 setTimeout(function () {
-                    commandInput.placeholder = "Enter a command";
+                    commandInput.placeholder = COMMAND_BAR_PLACEHOLDER;
                 }, 3000);
             }
         })
@@ -83,7 +84,7 @@ const shortcutList = (input: string = ""): void => {
             if (shortcuts.length == 0) {
                 commandInput.placeholder = `You haven't set any shortcuts`;
                 setTimeout(function () {
-                    commandInput.placeholder = "Enter a command";
+                    commandInput.placeholder = COMMAND_BAR_PLACEHOLDER;
                 }, 3000);
                 return;
             }
@@ -92,7 +93,7 @@ const shortcutList = (input: string = ""): void => {
                 shortcutsString += `'${shortcuts[i][0]}' → '${shortcuts[i][1]}'\n`;
             customAlert("Shortcuts list", shortcutsString)
             
-            commandInput.placeholder = "Enter a command";
+            commandInput.placeholder = COMMAND_BAR_PLACEHOLDER;
         })
         .catch(error => {
             console.error('Failed to load settings:', error);

@@ -1,5 +1,6 @@
 import { customAlert } from "../alerts";
 import { SubcommandMeta } from "../Command";
+import { COMMAND_BAR_PLACEHOLDER } from "../constants";
 import { formatDate } from "../utils";
 
 const noteAdd = (input: string): void => {
@@ -13,7 +14,7 @@ const noteAdd = (input: string): void => {
                 commandInput.value = "";
                 commandInput.placeholder = "Wrong syntax! Example: note add Title,This is an extremely important note";
                 setTimeout(() => {
-                    commandInput.placeholder = "Enter a command";
+                    commandInput.placeholder = COMMAND_BAR_PLACEHOLDER;
                 }, 5000);
                 return;
             }
@@ -28,7 +29,7 @@ const noteAdd = (input: string): void => {
             commandInput.value = "";
             commandInput.placeholder = `New note added: [${notes.length}] ${newNote[0]}`;
             setTimeout(() => {
-                commandInput.placeholder = "Enter a command";
+                commandInput.placeholder = COMMAND_BAR_PLACEHOLDER;
             }, 3000);
         })
         .catch(error => {
@@ -54,7 +55,7 @@ const noteRemove = (input: string): void => {
             notes.splice(index, 1);
             window.electronAPI.setAppPreference("notes", notes)
             setTimeout(function () {
-                commandInput.placeholder = "Enter a command";
+                commandInput.placeholder = COMMAND_BAR_PLACEHOLDER;
             }, 2000);
         })
         .catch(error => {

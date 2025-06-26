@@ -1,5 +1,6 @@
 import { authShowAlert } from "../alerts";
 import { SubcommandMeta } from "../Command";
+import { COMMAND_BAR_PLACEHOLDER } from "../constants";
 
 const authShow = (): void => {
 	const commandInput = document.getElementById("commandline") as HTMLInputElement;
@@ -18,7 +19,7 @@ const authSet = (input: string): void => {
     if (!input.match(/^idkey\..{43}\..{87}/)){
         commandInput.placeholder = `Invalid private key, try copying and pasting again`;
         setTimeout(function () {
-            commandInput.placeholder = "Enter a command";
+            commandInput.placeholder = COMMAND_BAR_PLACEHOLDER;
         }, 3000);
         return;
     }

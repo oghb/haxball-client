@@ -7,3 +7,5 @@ export const URL = {
 	github_issue: "https://github.com/oghb/haxball-client/issues",
 	discord: "https://discord.gg/zDzYamtcfX"
 }
+
+export const COMMAND_BAR_PLACEHOLDER = "Enter a command (press c to hide)"

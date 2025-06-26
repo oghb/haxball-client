@@ -1,4 +1,5 @@
 import { Command } from "../Command";
+import { COMMAND_BAR_PLACEHOLDER } from "../constants";
 import { waitForElement } from "../waitForElement";
 
 export const setupCommandBar = async (): Promise<void> => {
@@ -17,7 +18,7 @@ export const setupCommandBar = async (): Promise<void> => {
     const commandInput = document.createElement("input");
     commandInput.type = "text";
     commandInput.id = "commandline";
-    commandInput.placeholder = "Enter a command";
+    commandInput.placeholder = COMMAND_BAR_PLACEHOLDER;
     commandInput.style.fontSize = "20px";
     commandInput.style.width = "100%"; // Full width
     commandInput.style.padding = "5px 7px";
@@ -180,10 +181,10 @@ export const setupCommandBar = async (): Promise<void> => {
             if (meta && meta.example) {
                 commandInput.placeholder = `Example: ${mainCommand} ${subCommand} ${meta.example}`;
             } else {
-                commandInput.placeholder = "Enter a command";
+                commandInput.placeholder = COMMAND_BAR_PLACEHOLDER;
             }
         } else {
-            commandInput.placeholder = "Enter a command";
+            commandInput.placeholder = COMMAND_BAR_PLACEHOLDER;
         }
     }
 
@@ -247,7 +248,7 @@ export const setupCommandBar = async (): Promise<void> => {
             } else {
                 commandInput.placeholder = `Unknown command: ${mainCommand}`;
                 setTimeout(() => {
-                    commandInput.placeholder = "Enter a command";
+                    commandInput.placeholder = COMMAND_BAR_PLACEHOLDER;
                 }, 3000);
             }
 

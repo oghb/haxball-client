@@ -1,4 +1,5 @@
 import { customAlert } from "./alerts";
+import { COMMAND_BAR_PLACEHOLDER } from "./constants";
 
 interface GeoOverride {
     lat: number;
@@ -904,7 +905,7 @@ const profileNew = async (): Promise<void> => {
     }, 0);
 
     setTimeout(() => {
-        commandInput.placeholder = "Enter a command";
+        commandInput.placeholder = COMMAND_BAR_PLACEHOLDER;
     }, 3000);
 };
 
