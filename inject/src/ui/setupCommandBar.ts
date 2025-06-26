@@ -254,4 +254,19 @@ export const setupCommandBar = async (): Promise<void> => {
             commandInput.value = ""; // Clear after execution
         }
     });
+
+    const gameframe = document.getElementsByClassName('gameframe')[0] as HTMLIFrameElement;
+    gameframe.contentWindow.addEventListener("keydown", (e) => {
+        const target = e.target as HTMLElement;
+
+        const isTyping =
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.isContentEditable;
+
+        if (!isTyping && e.key === "c" && !e.ctrlKey && !e.metaKey) {
+            const isHidden = wrapper.style.display === "none";
+            wrapper.style.display = isHidden ? "flex" : "none";
+        }
+    });
 }
