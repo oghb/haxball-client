@@ -2,6 +2,7 @@
 	"fps_unlock": false,
 	"notes": [],
 	"transp_ui": false,
+	"command_bar_visible": true,
 	"shortcuts": [
 	  ["/e", "/extrapolation "],
 	  ["/a", "/avatar "]
