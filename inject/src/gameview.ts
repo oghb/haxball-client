@@ -43,8 +43,6 @@ export const toggleTransparentUI = async (): Promise<void> => {
         gameframe.contentDocument.getElementsByClassName("sound-button-container")[0].childNodes.forEach(
             (child) => child.style.background = "rgba(26, 33, 37, 0.063)"
         )
-        gameframe.contentDocument.getElementsByClassName("container")[0].style.background = "rgba(26, 33, 37, 0.063)"
-        gameframe.contentDocument.getElementsByClassName("container")[0].style.backdropFilter = "blur(5px)"
         gameframe.contentDocument.querySelectorAll(".dialog button, .room-view>.container button").forEach((button) => button.style.background = "rgba(26, 33, 37, 0.063)")
         gameframe.contentDocument.querySelectorAll(".top-section  > .room-view > .container > .teams > .player-list-view").forEach(
             (list) => list.childNodes[1].style.background = "rgba(26, 33, 37, 0.063)"
@@ -53,6 +51,11 @@ export const toggleTransparentUI = async (): Promise<void> => {
             select.style.background = "rgba(26, 33, 37, 0.063)"
             select.style.border = "0px"
         })
+        
+        const container = gameframe.contentDocument.getElementsByClassName("container")[0] as HTMLElement;
+        container.style.background = "rgba(26, 33, 37, 0.1)"; 
+        container.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.3)"; // shadow around the borders
+        container.style.filter = "drop-shadow(0 0 5px rgba(0, 0, 0, 0.3))"; // drop shadown behind
 
         // add shadow to chat messages
         // gameframe.contentDocument.querySelectorAll('.chatbox-view-contents > .log .log-contents p').forEach(p => { p.style.textShadow = "1px 1px 1px #000, 0px 1px 1px #000;"})
@@ -68,8 +71,6 @@ export const toggleTransparentUI = async (): Promise<void> => {
         gameframe.contentDocument.getElementsByClassName("sound-button-container")[0].childNodes.forEach(
             (child) => child.style.background = ""
         )
-        gameframe.contentDocument.getElementsByClassName("container")[0].style.background = ""
-        gameframe.contentDocument.getElementsByClassName("container")[0].style.backdropFilter = "blur(5px)"
         gameframe.contentDocument.querySelectorAll(".dialog button, .room-view>.container button").forEach((button) => button.style.background = "")
         gameframe.contentDocument.querySelectorAll(".top-section  > .room-view > .container > .teams > .player-list-view").forEach(
             (list) => list.childNodes[1].style.background = ""
@@ -78,6 +79,11 @@ export const toggleTransparentUI = async (): Promise<void> => {
             select.style.background = ""
             select.style.border = "1px solid #111619"
         })
+
+        const container = gameframe.contentDocument.getElementsByClassName("container")[0] as HTMLElement;
+        container.style.background = ""; 
+        container.style.boxShadow = ""; // shadow around the borders
+        container.style.filter = ""; // drop shadown behind
 
         // gameframe.contentDocument.querySelectorAll('.chatbox-view-contents > .log .log-contents p').forEach(p => { p.style.textShadow = ""})
     }
@@ -116,7 +122,7 @@ export const addTranspUIButton = async (): Promise<void> => {
     const enabled = prefs["transp_ui"];
     let transpButton = document.createElement("button") as HTMLButtonElement;
     transpButton.id = "invisui-btn";
-    transpButton.innerHTML = enabled ? "Normal UI" : "Clear UI";
+    transpButton.innerHTML = enabled ? "Default UI" : "Glass UI";
     transpButton.style.background = enabled
         ? "rgba(26, 33, 37, 0.063)"
         : ""
@@ -126,7 +132,7 @@ export const addTranspUIButton = async (): Promise<void> => {
         async () => {
             const prefs = await window.electronAPI.getAppPreferences();
             const newState = !prefs["transp_ui"]
-            transpButton.innerHTML = newState ? "Normal UI" : "Clear UI";
+            transpButton.innerHTML = newState ? "Default UI" : "Glass UI";
 
             await window.electronAPI.setAppPreference("transp_ui", newState);
 
