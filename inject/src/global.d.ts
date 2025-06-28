@@ -10,6 +10,7 @@ declare global {
 			exportPreferencesFile: () => Promise<any>;
 			importPreferencesFile: () => Promise<any>;
 			deletePreferencesFile: () => Promise<any>;
+			getAppVersion: () => Promise<string>;
 		};
 	}
 };

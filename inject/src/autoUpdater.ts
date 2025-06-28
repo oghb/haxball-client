@@ -1,4 +1,4 @@
-import { CURRENT_VERSION, URL } from "./constants";
+import { URL } from "./constants";
 import { newVersionAlert } from "./alerts"
 
 function getOs() {
@@ -39,21 +39,9 @@ async function checkLatestRelease() {
 
 export async function autoUpdater() {
     const latest = await checkLatestRelease();
+    const current_version = `v${await window.electronAPI.getAppVersion()}`;
 
-    if (latest.version !== CURRENT_VERSION) {
-        // const newUpdateNotif = new Notification("New version available!", {
-        //     body:
-        //         "You have → " +
-        //         CURRENT_VERSION +
-        //         "\n🔥Latest → " +
-        //         latest.version +
-        //         "\n\nClick here to check it out!",
-        //     requireInteraction: true
-        // });
-
-        // newUpdateNotif.onclick = () => newVersionAlert(latest);
-        // setTimeout(() => newUpdateNotif.close(), 10 * 1000);
-
+    if (latest.version !== current_version) {
         // add a button to the header
         const rightContainer = document.getElementsByClassName("right-container")[0];
         if (!rightContainer.querySelector(".new-update-header-link")){

@@ -3,6 +3,7 @@ const path = require('path');
 const fs = require('fs');
 const { URL } = require('url');
 const { z } = require('zod');
+const { version } = require('./package.json');
 
 let win;
 
@@ -276,6 +277,10 @@ ipcMain.handle('delete-preferences-file', async (event) => {
     console.error('Error deleting preferences:', error);
     return { success: false };
   }
+})
+
+ipcMain.handle('get-app-version', async (event) => {
+  return version
 })
 
 app.whenReady().then(() => {

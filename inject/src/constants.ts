@@ -1,5 +1,3 @@
-export const CURRENT_VERSION = "v0.4.2";
-
 export const URL = {
 	releases: "https://api.github.com/repos/oghb/haxball-client/releases",
 	website: "https://oghb.github.io/haxball-client/",

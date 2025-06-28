@@ -7,5 +7,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
   notifyReadyToShow: () => ipcRenderer.send('ready-to-show'),
   exportPreferencesFile: () => ipcRenderer.invoke('save-preferences-file'),
   importPreferencesFile: () => ipcRenderer.invoke('import-preferences-file'),
-  deletePreferencesFile: () => ipcRenderer.invoke('delete-preferences-file')
+  deletePreferencesFile: () => ipcRenderer.invoke('delete-preferences-file'),
+  getAppVersion: () => ipcRenderer.invoke('get-app-version')
 });
