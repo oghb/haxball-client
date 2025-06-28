@@ -257,7 +257,16 @@ export const setupCommandBar = async (): Promise<void> => {
     });
 
     const gameframe = document.getElementsByClassName('gameframe')[0] as HTMLIFrameElement;
-    gameframe.contentWindow.addEventListener("keydown", (e) => {
+    
+    const prefs = await window.electronAPI.getAppPreferences();
+    let isVisible = prefs["command_bar_visible"];
+    if (isVisible === undefined){
+        await window.electronAPI.setAppPreference("command_bar_visible", true)
+        isVisible = true
+    }
+    wrapper.style.display = isVisible ? "flex" : "none";
+
+    gameframe.contentWindow.addEventListener("keydown", async (e) => {
         const target = e.target as HTMLElement;
 
         const isTyping =
@@ -266,8 +275,9 @@ export const setupCommandBar = async (): Promise<void> => {
             target.isContentEditable;
 
         if (!isTyping && e.key === "c" && !e.ctrlKey && !e.metaKey) {
-            const isHidden = wrapper.style.display === "none";
-            wrapper.style.display = isHidden ? "flex" : "none";
+            const isVisible = wrapper.style.display === "flex";
+            wrapper.style.display = isVisible ? "none" : "flex";
+            await window.electronAPI.setAppPreference("command_bar_visible", !isVisible)
         }
     });
 }

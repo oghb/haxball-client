@@ -31,6 +31,7 @@ const validatePreferences = (prefs) => {
         time: z.string()
       })), 
       transp_ui: z.boolean(),
+      command_bar_visible: z.boolean().optional(), // for compatibility
       shortcuts: z.array(z.tuple([z.string(), z.string()])),
       profiles: z.array(ProfileSchema)
   });
@@ -83,6 +84,10 @@ if (preferences.fps_unlock) {
   app.commandLine.appendSwitch('disable-frame-rate-limit');
   console.log("FPS unlocked")
 }
+// app.commandLine.appendSwitch('disable-accelerated-2d-canvas');
+// app.commandLine.appendSwitch('enable-gpu-rasterization');
+// app.commandLine.appendSwitch('force-gpu-rasterization');
+
 
 const createWindow = () => {
   const display = screen.getPrimaryDisplay();
