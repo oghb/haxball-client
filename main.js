@@ -32,7 +32,6 @@ const validatePreferences = (prefs) => {
         time: z.string()
       })), 
       transp_ui: z.boolean(),
-      command_bar_visible: z.boolean().optional(), // for compatibility
       shortcuts: z.array(z.tuple([z.string(), z.string()])),
       profiles: z.array(ProfileSchema)
   });
