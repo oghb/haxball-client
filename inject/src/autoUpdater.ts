@@ -1,5 +1,20 @@
+import { closeCustomAlert, customAlert } from "./alerts";
 import { URL } from "./constants";
-import { newVersionAlert } from "./alerts"
+
+const newVersionAlert = (latest): void => {
+    const downloadButton = document.createElement('button');
+    downloadButton.innerText = 'Download now';
+    downloadButton.onclick = () => {
+        console.log('Download clicked');
+        window.location.href = latest.url.standard
+        closeCustomAlert();
+    };
+    customAlert(
+        `Changelog ${latest.version} (${latest.date})`,
+        latest.notes,
+        [downloadButton]
+    )
+}
 
 function getOs() {
     if (navigator.userAgent.indexOf("Windows") !== -1) {

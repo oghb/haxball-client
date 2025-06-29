@@ -1,7 +1,4 @@
-import { URL } from "./constants";
-import { loadProfileToLocalStorage } from "./profiles";
-
-export const customAlert = (title: String, message: String, buttons: Array<HTMLButtonElement> = []): void => {
+export const customAlert = (title: string, message: string | HTMLElement, buttons: Array<HTMLButtonElement> = []): void => {
     // Inject styles only once
     if (!document.getElementById('custom-alert-style')) {
         const style = document.createElement('style');
@@ -132,7 +129,12 @@ export const customAlert = (title: String, message: String, buttons: Array<HTMLB
             <div id="custom-alert-buttons"></div>
         `;
     const messageContainer = dialog.querySelector('#custom-alert-message');
-    messageContainer.innerHTML = message.replace(/\n/g, "<br>");
+    if (typeof message === "string") {
+        messageContainer.innerHTML = message.replace(/\n/g, "<br>");
+    } else {
+        messageContainer.innerHTML = ""; // Clear any existing content
+        messageContainer.appendChild(message);
+    }
     document.body.appendChild(dialog);
 
     // Add buttons
@@ -166,7 +168,7 @@ export const customAlert = (title: String, message: String, buttons: Array<HTMLB
     });
 }
 
-const closeCustomAlert = (): void => {
+export const closeCustomAlert = (): void => {
     const dialog = document.getElementById('custom-alert') as HTMLDialogElement;
     const blurOverlay = document.getElementById('blur-overlay');
 
@@ -191,227 +193,6 @@ const closeCustomAlert = (): void => {
         document.body.style.overflow = ''; // UNLOCK SCROLL
     }, 300); // Matches dialog fade out
 };
-
-export const newVersionAlert = (latest): void => {
-    const downloadButton = document.createElement('button');
-    downloadButton.innerText = 'Download now';
-    downloadButton.onclick = () => {
-        console.log('Download clicked');
-        window.location.href = latest.url.standard
-        closeCustomAlert();
-    };
-    customAlert(
-        `Changelog ${latest.version} (${latest.date})`,
-        latest.notes,
-        [downloadButton]
-    )
-}
-
-export const aboutAlert = (): void => {
-    customAlert(
-        "About",
-        `This app was developed by <b>@og9525</b> to improve the HaxBall experience, while keeping it faithful to the original.
-
-        Unlike similar projects, it is open source and downloadable without any registration.
-
-        Thank you for checking it out!
-
-        Make sure you only download this app from the official website:
-        <a target="_blank" href=${URL.website}>${URL.website}</a>
-
-        Join the official Discord server:
-        <a target="_blank" href=${URL.discord}/>${URL.discord}</a>
-
-        <b>Credits</b>
-        • <a target="_blank" href=https://github.com/electron/electron>Electron</a>, for making this app's creation easy
-        • <a target="_blank" href=https://github.com/xenonsb/Haxball-Room-Extension>All-in-one Tool</a>, for improving HaxBall and open sourcing their code`,
-        []
-    );
-}
-
-export const helpAlert = (): void => {
-    const officialWebsiteButton = document.createElement('button');
-    officialWebsiteButton.innerText = 'Website';
-    officialWebsiteButton.onclick = () => {
-        window.open(URL.website, "_blank");
-    };
-
-    const discordButton = document.createElement('button');
-    discordButton.innerText = 'Discord';
-    discordButton.onclick = () => {
-        window.open(URL.discord, "_blank");
-    };
-
-    customAlert(
-        "Help",
-        `Visit the official website or our Discord server.
-        `,
-        [officialWebsiteButton, discordButton]
-    )
-}
-
-export const fpsAlert = (unlock: boolean) => {
-    const restartButton = document.createElement('button');
-    restartButton.innerText = 'Restart now';
-    restartButton.onclick = () => {
-        window.electronAPI.restartApp();
-    };
-
-    if (unlock){
-        customAlert(
-            "FPS Limit",
-            `<b>FPS unlocked.</b>\n\nThe app will now run without frame rate limits.\n\nRestart the app for changes to apply.`,
-            [restartButton]
-        );
-    } else {
-        customAlert(
-            "FPS Limit",
-            `<b>FPS limit restored.</b>\n\nThe app will now cap FPS to your monitor's refresh rate.\n\nRestart the app for changes to apply.`,
-            [restartButton]
-        );   
-    }
-}
-
-export const authShowAlert = (publicAuth: string, privateKey: string) => {
-    const publicAuthButton = document.createElement('button');
-    publicAuthButton.id = "copy-public-auth-button"
-    publicAuthButton.textContent = 'Copy Public Auth';
-
-    publicAuthButton.addEventListener("click", () => {
-        navigator.clipboard.writeText(publicAuth)
-            .then(() => {
-                console.log("Copied to clipboard!");
-                publicAuthButton.textContent = "Copied to clipboard!";
-                setTimeout(() => publicAuthButton.textContent = "Copy Public Auth", 2000);
-            })
-            .catch(err => {
-                console.error("Failed to copy: ", err);
-            });
-    });
-
-    const privateKeyButton = document.createElement('button');
-    privateKeyButton.id = "copy-private-key-button"
-    privateKeyButton.textContent = 'Copy Private Key';
-
-    privateKeyButton.addEventListener("click", () => {
-        navigator.clipboard.writeText(privateKey)
-            .then(() => {
-                console.log("Copied to clipboard!");
-                privateKeyButton.textContent = "Copied to clipboard!";
-                setTimeout(() => privateKeyButton.textContent = "Copy Private Key", 2000);
-            })
-            .catch(err => {
-                console.error("Failed to copy: ", err);
-            });
-    });
-
-    customAlert(
-        "Auth",
-        `Your public auth is used by room administrators to identify you when you join their room.
-
-        Your private key is only visible to you and can be used to change your public auth. 
-        
-        Be careful! If someone discovered your private key, they could use it to impersonate you.
-
-        <b>Public auth</b>
-        ${publicAuth}
-
-        <b>Private key</b>
-        idkey.${publicAuth}.[hidden]`,
-        [publicAuthButton, privateKeyButton]
-    )
-}
-
-export const resetPreferencesAlert = (): void => {
-    const resetButton = document.createElement('button');
-    resetButton.id = "reset-button"
-    resetButton.textContent = 'Confirm Reset';
-    resetButton.style.backgroundColor = "#b2413b";
-
-    resetButton.addEventListener("click", () => {
-        window.electronAPI.deletePreferencesFile()
-            .then(result => {
-                if (result){
-                    // if preferences deleted, also clear localstorage
-                    localStorage.clear()
-                    customAlert(
-                        "Reset successful", 
-                        "The app will restart in a few seconds (or do it manually)...", 
-                        []
-                    )
-                    setTimeout(() => window.electronAPI.restartApp(), 4000)
-                }
-            })
-    })
-
-    customAlert(
-        "Are you sure?",
-        `This operation will reset the app and delete all your settings.`,
-        [resetButton]
-    )
-}
-
-export const preferencesAlert = (): void => {
-    const exportBackupButton = document.createElement('button');
-    exportBackupButton.id = "export-backup-button"
-    exportBackupButton.textContent = 'Export Backup';
-
-    exportBackupButton.addEventListener("click", () => {
-        window.electronAPI.exportPreferencesFile()
-            .then(result => {
-                if (result.success) {
-                    exportBackupButton.textContent = "Exported!";
-                    setTimeout(() => exportBackupButton.textContent = "Export Backup", 2000);
-                }
-            })
-    });
-
-    const importBackupButton = document.createElement('button');
-    importBackupButton.id = "import-backup-button"
-    importBackupButton.textContent = 'Restore Backup';
-
-    importBackupButton.addEventListener("click", () => {
-        window.electronAPI.importPreferencesFile()
-            .then(result => {
-                if (result.success) {
-                    customAlert(
-                        "Backup restored",
-                        "The app will restart in a few seconds (or do it manually)...",
-                        []
-                    )
-                    loadProfileToLocalStorage("default")
-                    
-                    setTimeout(() => window.electronAPI.restartApp(), 4000);
-                } else {
-                    importBackupButton.textContent = "Invalid backup!";
-                    importBackupButton.disabled = true;
-                    importBackupButton.style.backgroundColor = "#b2413b";
-                    setTimeout(() => {
-                        importBackupButton.textContent = "Restore Backup"
-                        importBackupButton.style.backgroundColor = "#244967";
-                    }, 2000);
-                }
-            })
-    });
-
-    const resetButton = document.createElement('button');
-    resetButton.id = "reset-button"
-    resetButton.textContent = 'Reset All';
-
-    resetButton.addEventListener("click", () => {
-        resetPreferencesAlert();
-    })
-
-    customAlert(
-        "Preferences",
-        `You can export, restore, or reset all your preferences.
-        
-        These preferences include your profiles, shortcuts, and notes.
-        
-        Don't manually edit the preferences file!`,
-        [exportBackupButton, importBackupButton, resetButton]
-    )
-}
 
 // export const firstLaunchAlert = (): void => {
 //     customAlert(
