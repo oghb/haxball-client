@@ -59,7 +59,7 @@ export const resetAuthAlert = (): void => {
 			window.electronAPI.deletePreferencesFile()
 				.then(result => {
 					if (result){
-						localStorage.setItem("player_auth_key", null)
+						localStorage.removeItem("player_auth_key");
 						customAlert(
 							"Reset successful", 
 							"The app will restart in a few seconds (or do it manually)...", 
