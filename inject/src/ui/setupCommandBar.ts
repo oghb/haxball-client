@@ -256,28 +256,21 @@ export const setupCommandBar = async (): Promise<void> => {
         }
     });
 
-    const gameframe = document.getElementsByClassName('gameframe')[0] as HTMLIFrameElement;
+    // hidden by default
+    wrapper.style.display = "none";
     
-    const prefs = await window.electronAPI.getAppPreferences();
-    let isVisible = prefs["command_bar_visible"];
-    if (isVisible === undefined){
-        await window.electronAPI.setAppPreference("command_bar_visible", true)
-        isVisible = true
-    }
-    wrapper.style.display = isVisible ? "flex" : "none";
+    // const gameframe = document.getElementsByClassName('gameframe')[0] as HTMLIFrameElement;
+    // gameframe.contentWindow.addEventListener("keydown", async (e) => {
+    //     const target = e.target as HTMLElement;
 
-    gameframe.contentWindow.addEventListener("keydown", async (e) => {
-        const target = e.target as HTMLElement;
+    //     const isTyping =
+    //         target.tagName === "INPUT" ||
+    //         target.tagName === "TEXTAREA" ||
+    //         target.isContentEditable;
 
-        const isTyping =
-            target.tagName === "INPUT" ||
-            target.tagName === "TEXTAREA" ||
-            target.isContentEditable;
-
-        if (!isTyping && e.key === "c" && !e.ctrlKey && !e.metaKey) {
-            const isVisible = wrapper.style.display === "flex";
-            wrapper.style.display = isVisible ? "none" : "flex";
-            await window.electronAPI.setAppPreference("command_bar_visible", !isVisible)
-        }
-    });
+    //     if (!isTyping && e.key === "c" && !e.ctrlKey && !e.metaKey) {
+    //         const isVisible = wrapper.style.display === "flex";
+    //         wrapper.style.display = isVisible ? "none" : "flex";
+    //     }
+    // });
 }
