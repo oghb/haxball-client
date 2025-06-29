@@ -1,6 +1,52 @@
-import { aboutAlert, helpAlert, preferencesAlert } from "../alerts";
+import { customAlert } from "../alerts";
 import { Profile, profileManage } from "../profiles";
+import { openSettingsAlert } from "../settings";
 import { waitForElement } from "../waitForElement";
+import { URL } from "../constants";
+
+const aboutAlert = (): void => {
+    customAlert(
+        "About",
+        `This app was developed by <b>@og9525</b> to improve the HaxBall experience, while keeping it faithful to the original.
+
+        Unlike similar projects, it is open source and downloadable without any registration.
+
+        Thank you for checking it out!
+
+        Make sure you only download this app from the official website:
+        <a target="_blank" href=${URL.website}>${URL.website}</a>
+
+        Join the official Discord server:
+        <a target="_blank" href=${URL.discord}/>${URL.discord}</a>
+
+        <b>Credits</b>
+        • <a target="_blank" href=https://github.com/electron/electron>Electron</a>, for making this app's creation easy
+        • <a target="_blank" href=https://github.com/xenonsb/Haxball-Room-Extension>All-in-one Tool</a>, for improving HaxBall and open sourcing their code`,
+        []
+    );
+}
+
+export const helpAlert = (): void => {
+    const officialWebsiteButton = document.createElement('button');
+    officialWebsiteButton.innerText = 'Website';
+    officialWebsiteButton.onclick = () => {
+        window.open(URL.website, "_blank");
+    };
+
+    const discordButton = document.createElement('button');
+    discordButton.innerText = 'Discord';
+    discordButton.onclick = () => {
+        window.open(URL.discord, "_blank");
+    };
+
+    customAlert(
+        "Help",
+        `Visit the official website or our Discord server.
+        `,
+        [officialWebsiteButton, discordButton]
+    )
+}
+
 
 export const addAddressBarToHeader = (): void => {
     const centerContainer = document.getElementsByClassName("center-container")[0];
@@ -187,12 +233,12 @@ export const setupCustomHeader = async (): Promise<void> => {
     });
 
     const preferences = document.createElement("a");
-    preferences.textContent = "Preferences";
+    preferences.textContent = "Settings";
     preferences.href = "";
     preferences.style.marginLeft = "15px";
     preferences.addEventListener("click", function (event) {
         event.preventDefault(); // Prevent the link from navigating
-        preferencesAlert();
+        openSettingsAlert();
     });
 
     leftContainer.appendChild(titleSpan);
@@ -223,9 +269,77 @@ export const setupCustomHeader = async (): Promise<void> => {
     });
     rightContainer.appendChild(currentProfileEl);
 
-
     // Append all containers to the header
     header.appendChild(leftContainer);
     header.appendChild(centerContainer);
     header.appendChild(rightContainer);
+
+    localStorage.setItem("header_visible", "true")
+
+    const gameframe = document.getElementsByClassName('gameframe')[0] as HTMLIFrameElement;
+    gameframe.contentWindow.addEventListener("keydown", (e) => {
+        if (e.key.toLowerCase() === "h") {
+            toggleHeaderVisibility();
+        }
+    });
+};
+
+export const toggleHeaderVisibility = (): void => {
+    const header = document.getElementsByClassName("header")[0] as HTMLElement;
+    const existingArrow = document.getElementById("header-toggle-arrow");
+
+    header.style.transition = 'height 0.3s';
+    header.style.overflow = 'hidden'; // Ensure it hides smoothly
+
+    const isVisible = getComputedStyle(header).height !== "0px";
+
+    if (!isVisible) {
+        // Show header
+        localStorage.setItem("header_visible", "true")
+        header.style.height = "35px";
+
+        // Remove arrow if it exists
+        if (existingArrow) {
+            existingArrow.remove();
+        }
+    } else {
+        // Hide header
+        localStorage.setItem("header_visible", "false")
+        header.style.height = "0px";
+
+        // Create arrow (if not already present)
+        if (!existingArrow) {
+            const arrow = document.createElement("div");
+            arrow.id = "header-toggle-arrow";
+            arrow.innerHTML = `
+                <i class="fa fa-arrow-circle-down" aria-hidden="true" style="margin-right: 5px;"></i> Show header
+            `;
+        
+            arrow.style.background = "rgba(26, 33, 37, 0.063)";
+            arrow.style.padding = "6px 10px";
+            arrow.style.borderRadius = "6px";
+            arrow.style.fontSize = "15px";
+            arrow.style.color = "white";
+            arrow.style.opacity = "0.8";
+            arrow.style.cursor = "pointer";
+            arrow.style.userSelect = "none";
+        
+            arrow.style.position = "fixed";
+            arrow.style.top = "5px";
+            arrow.style.left = "8px";
+            arrow.style.zIndex = "9999";
+        
+            // Optional hover effect
+            arrow.addEventListener("mouseenter", () => {
+                arrow.style.opacity = "1";
+            });
+            arrow.addEventListener("mouseleave", () => {
+                arrow.style.opacity = "0.8";
+            });
+        
+            arrow.addEventListener("click", toggleHeaderVisibility);
+        
+            setTimeout(() => {document.body.appendChild(arrow)}, 300)
+        }
+    }
 };

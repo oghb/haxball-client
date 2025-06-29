@@ -95,9 +95,6 @@ const removeUnwantedElements = (gameframe: HTMLIFrameElement): void => {
 	// remove button below esc to hide chat placeholder
 	(gameframe.contentDocument.querySelector(".chatbox-view-contents>.input input[type=text]") as HTMLInputElement).placeholder = "";
 
-	// remove show navbar button
-	gameframe.contentDocument.querySelector("body > div:nth-child(1) > div > div.buttons > button:nth-child(5)").remove();
-
 	// remove togglechat
 	gameframe.contentDocument.getElementById("toggleChat").childNodes[0].remove();
 }

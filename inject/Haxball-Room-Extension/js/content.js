@@ -340,41 +340,41 @@ moduleObserver = new MutationObserver(function(mutations) {
 				
 				settingsWait = waitForElement('[data-hook="settings"]');
 				settingsWait.then(function (settingButton) {
-					navBar = document.getElementsByClassName('header')[0];
-					navBar.style.transition = 'height 0.3s';
-					hideNavBar = document.createElement('button');
+					// navBar = document.getElementsByClassName('header')[0];
+					// navBar.style.transition = 'height 0.3s';
+					// hideNavBar = document.createElement('button');
 
-					// HIDE HIDENAVBAR FEATURE FROM ALL-IN-ONE
-					// by defaulting to false no matter what
-					chrome.storage.local.get({'haxHideNavConfig' : false}, function (items) {
-						items.haxHideNavConfig = false;
+					// // HIDE HIDENAVBAR FEATURE FROM ALL-IN-ONE
+					// // by defaulting to false no matter what
+					// chrome.storage.local.get({'haxHideNavConfig' : false}, function (items) {
+					// 	items.haxHideNavConfig = false;
 						
-						if (items.haxHideNavConfig) {
-							hideNavBar.innerText = 'Show Navbar';
-							navBar.style.height = '0px';
-						}
-						else {
-							navBar.setAttribute('id','nothidden'); 
-							hideNavBar.innerText = 'Hide Navbar';
-							navBar.style.height = '35px';
-						}
-					});
+					// 	if (items.haxHideNavConfig) {
+					// 		hideNavBar.innerText = 'Show Navbar';
+					// 		navBar.style.height = '0px';
+					// 	}
+					// 	else {
+					// 		navBar.setAttribute('id','nothidden'); 
+					// 		hideNavBar.innerText = 'Hide Navbar';
+					// 		navBar.style.height = '35px';
+					// 	}
+					// });
 					
-					hideNavBar.onclick = function () {
-						if (navBar.hasAttribute('id')) { 
-							navBar.removeAttribute('id','nothidden');
-							navBar.style.height = '0px';
-							hideNavBar.innerText = 'Show NavBar';
-							}
-						else { 
-							navBar.style.height = '35px';
-							navBar.setAttribute('id','nothidden'); 
-							hideNavBar.innerText = 'Hide NavBar';
-							}
-					}
+					// hideNavBar.onclick = function () {
+					// 	if (navBar.hasAttribute('id')) { 
+					// 		navBar.removeAttribute('id','nothidden');
+					// 		navBar.style.height = '0px';
+					// 		hideNavBar.innerText = 'Show NavBar';
+					// 		}
+					// 	else { 
+					// 		navBar.style.height = '35px';
+					// 		navBar.setAttribute('id','nothidden'); 
+					// 		hideNavBar.innerText = 'Hide NavBar';
+					// 		}
+					// }
 					
 					addonSettingsPopup('game-view');
-					settingButton.parentNode.appendChild(hideNavBar);
+					// settingButton.parentNode.appendChild(hideNavBar);
 				})
 				
 				chrome.storage.local.get({'haxMuteConfig' : true}, function (items) {
