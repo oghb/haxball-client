@@ -1,6 +1,8 @@
 function showTranslateDisclaimer() {
 	let gameframe = document.documentElement.getElementsByClassName("gameframe")[0];
 
+	return;
+
 	// already exists
 	if (gameframe.contentWindow.document.getElementById('translateDisclaimer')) {
 		return;

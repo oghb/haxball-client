@@ -96,7 +96,7 @@ export const toggleTransparentUI = async (): Promise<void> => {
 }
 
 const removeUnwantedElements = (gameframe: HTMLIFrameElement): void => {
-	gameframe.contentDocument.getElementById("translateDisclaimer").remove();
+	// gameframe.contentDocument.getElementById("translateDisclaimer").remove();
 
 	// remove button below esc to hide chat placeholder
 	(gameframe.contentDocument.querySelector(".chatbox-view-contents>.input input[type=text]") as HTMLInputElement).placeholder = "";

@@ -146,71 +146,71 @@ chatObserver = new MutationObserver( function(mutations) {
 			chatLine.innerHTML = linkify(chatLine.innerHTML);
 		}
 		
-		chrome.storage.local.get("haxChatTranslation", (items) => {
-			if (items.haxChatTranslation) {
-				// translation
-				if (!chatLine.processed) {
-					let chatRowDiv = document.createElement('div');
-					chatRowDiv.className = 'chat-row';
-					chatLine.parentNode.appendChild(chatRowDiv);
-					chatLine.processed = true;
-					chatRowDiv.appendChild(chatLine);
-					chatLine.style.display = 'inline-block';
-					chatLine.style.width = '75%';
+		// chrome.storage.local.get("haxChatTranslation", (items) => {
+		// 	if (items.haxChatTranslation) {
+		// 		// translation
+		// 		if (!chatLine.processed) {
+		// 			let chatRowDiv = document.createElement('div');
+		// 			chatRowDiv.className = 'chat-row';
+		// 			chatLine.parentNode.appendChild(chatRowDiv);
+		// 			chatLine.processed = true;
+		// 			chatRowDiv.appendChild(chatLine);
+		// 			chatLine.style.display = 'inline-block';
+		// 			chatLine.style.width = '75%';
 
-					let translateBtn = document.createElement('button');
-					translateBtn.innerText = 'Translate';
-					translateBtn.className = 'translate-btn';
+		// 			let translateBtn = document.createElement('button');
+		// 			translateBtn.innerText = 'Translate';
+		// 			translateBtn.className = 'translate-btn';
 
-					// style translate btn
-					translateBtn.style.backgroundColor = "#244967";
-					translateBtn.style.color = "#fff";
-					translateBtn.style.padding = "2px 15px";
-					translateBtn.style.margin = "1px";
-					translateBtn.style.border = "0";
-					translateBtn.style.borderRadius = "5px";
-					translateBtn.style.fontFamily = `"Open Sans",sans-serif`;
-					translateBtn.style.fontWeight = `700`;
-					translateBtn.style.fontSize = `15px`;
+		// 			// style translate btn
+		// 			translateBtn.style.backgroundColor = "#244967";
+		// 			translateBtn.style.color = "#fff";
+		// 			translateBtn.style.padding = "2px 15px";
+		// 			translateBtn.style.margin = "1px";
+		// 			translateBtn.style.border = "0";
+		// 			translateBtn.style.borderRadius = "5px";
+		// 			translateBtn.style.fontFamily = `"Open Sans",sans-serif`;
+		// 			translateBtn.style.fontWeight = `700`;
+		// 			translateBtn.style.fontSize = `15px`;
 
-					chatLine.originalChatLine = chatLine.innerText;
-					chatLine.state = 'original';
-					translateBtn.addEventListener('click', function (e) {
-						if (chatLine.state == 'translated') {
-							chatLine.innerText = chatLine.originalChatLine;
-							chatLine.state = 'original';
-							translateBtn.innerText = 'Translate';
-						}
-						else if (chatLine.state == 'original') {
-							if (chatLine.translation) chatLine.innerText = chatLine.translation;
-							else {
-								let senderName;
-								let toBeTranslatedText;
-								if (chatLine.originalChatLine.indexOf(':') > -1) {
-									// player message
-									senderName = chatLine.innerText.split(":")[0];
-									toBeTranslatedText = chatLine.innerText.split(': ').slice(1).join('');
-								} else {
-									// bot message (no sender)
-									senderName = "";
-									toBeTranslatedText = chatLine.innerText;
-								}
-								translate(toBeTranslatedText).then(translationResult => {
-									if (translationResult) {
-										chatLine.innerText = senderName + ': ' + translationResult.translation + ' (translated from: ' + translationResult.lang + ')';
-										chatLine.translation = chatLine.innerText;
-									}
-								});
-							}
-							chatLine.state = 'translated';
-							translateBtn.innerText = 'Show Original';
-						}
-					});
-					chatRowDiv.appendChild(translateBtn);
-				}
+		// 			chatLine.originalChatLine = chatLine.innerText;
+		// 			chatLine.state = 'original';
+		// 			translateBtn.addEventListener('click', function (e) {
+		// 				if (chatLine.state == 'translated') {
+		// 					chatLine.innerText = chatLine.originalChatLine;
+		// 					chatLine.state = 'original';
+		// 					translateBtn.innerText = 'Translate';
+		// 				}
+		// 				else if (chatLine.state == 'original') {
+		// 					if (chatLine.translation) chatLine.innerText = chatLine.translation;
+		// 					else {
+		// 						let senderName;
+		// 						let toBeTranslatedText;
+		// 						if (chatLine.originalChatLine.indexOf(':') > -1) {
+		// 							// player message
+		// 							senderName = chatLine.innerText.split(":")[0];
+		// 							toBeTranslatedText = chatLine.innerText.split(': ').slice(1).join('');
+		// 						} else {
+		// 							// bot message (no sender)
+		// 							senderName = "";
+		// 							toBeTranslatedText = chatLine.innerText;
+		// 						}
+		// 						translate(toBeTranslatedText).then(translationResult => {
+		// 							if (translationResult) {
+		// 								chatLine.innerText = senderName + ': ' + translationResult.translation + ' (translated from: ' + translationResult.lang + ')';
+		// 								chatLine.translation = chatLine.innerText;
+		// 							}
+		// 						});
+		// 					}
+		// 					chatLine.state = 'translated';
+		// 					translateBtn.innerText = 'Show Original';
+		// 				}
+		// 			});
+		// 			chatRowDiv.appendChild(translateBtn);
+		// 		}
 
-			}
-		});
+		// 	}
+		// });
 		
 		
 		// right click to tag
@@ -377,30 +377,30 @@ moduleObserver = new MutationObserver(function(mutations) {
 					// settingButton.parentNode.appendChild(hideNavBar);
 				})
 				
-				chrome.storage.local.get({'haxMuteConfig' : true}, function (items) {
-					if (items.haxMuteConfig) {
-						muteAll = document.createElement('button');
-						muteAll.style.padding = '5px 10px';
-						muteAll.style.width = '80px';
-						muteAll.innerText = 'Mute';
-						muteAll.onclick = function () { 
-							if (muteAllToggle) {
-								muteAllToggle = false;
-								var chats = gameframe.contentWindow.document.querySelector('[data-hook="log"]').getElementsByTagName('p');
-								for (i = 0; i < chats.length; i++) { chats[i].removeAttribute('hidden'); }
-								muteAll.innerText = 'Mute';
-							}
-							else {
-								muteAllToggle = true;
-								muteAll.innerText = 'Unmute';
-							}
-						}
-					var dividerDiv = document.createElement('div');
-					dividerDiv.style = 'width: 5px';
-					chatInput.parentNode.appendChild(dividerDiv);
-					chatInput.parentNode.insertBefore(muteAll,chatInput);
-					}
-				});
+				// chrome.storage.local.get({'haxMuteConfig' : true}, function (items) {
+				// 	if (items.haxMuteConfig) {
+				// 		muteAll = document.createElement('button');
+				// 		muteAll.style.padding = '5px 10px';
+				// 		muteAll.style.width = '80px';
+				// 		muteAll.innerText = 'Mute';
+				// 		muteAll.onclick = function () { 
+				// 			if (muteAllToggle) {
+				// 				muteAllToggle = false;
+				// 				var chats = gameframe.contentWindow.document.querySelector('[data-hook="log"]').getElementsByTagName('p');
+				// 				for (i = 0; i < chats.length; i++) { chats[i].removeAttribute('hidden'); }
+				// 				muteAll.innerText = 'Mute';
+				// 			}
+				// 			else {
+				// 				muteAllToggle = true;
+				// 				muteAll.innerText = 'Unmute';
+				// 			}
+				// 		}
+				// 	var dividerDiv = document.createElement('div');
+				// 	dividerDiv.style = 'width: 5px';
+				// 	chatInput.parentNode.appendChild(dividerDiv);
+				// 	chatInput.parentNode.insertBefore(muteAll,chatInput);
+				// 	}
+				// });
 				
 				chrome.storage.local.get({'haxShortcutConfig' : false}, function (items) {
 					if (items.haxShortcutConfig) {
