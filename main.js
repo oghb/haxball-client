@@ -183,6 +183,14 @@ const createWindow = () => {
     return { action: 'deny' }; // We handle both cases manually
   });
 
+  // make sure the app closes even if player in a room
+  win.webContents.on('will-prevent-unload', (event) => {
+    event.preventDefault();
+  });
+  win.on('close', (e) => {
+    mainWindow = null;
+  });
+
   return win;
 }
 
