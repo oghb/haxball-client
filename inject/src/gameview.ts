@@ -34,7 +34,6 @@ export const toggleTransparentUI = async (): Promise<void> => {
         // gameframe.contentDocument.getElementsByClassName("game-view chat-bg-full")[0].style.cssText = "--chat-opacity: 0.063;"
         gameframe.contentDocument.getElementsByClassName("game-view")[0].style.cssText = "--chat-opacity: 0.063;"
         gameframe.contentDocument.querySelector(".chatbox-view-contents>.input input[type=text]").style.backgroundColor = "rgba(26, 33, 37, 0.063)"
-        gameframe.contentDocument.querySelector(".chatbox-view-contents>.input>button").style.background = "rgba(26, 33, 37, 0.063)"
         gameframe.contentDocument.getElementsByClassName("bar")[0].style.background = "rgba(26, 33, 37, 0.063)"
         gameframe.contentDocument.querySelectorAll(".game-view > .buttons")[0].style.background = "rgba(26, 33, 37, 0.063)"
         gameframe.contentDocument.querySelectorAll(".game-view > .buttons")[0].childNodes.forEach(
@@ -51,11 +50,16 @@ export const toggleTransparentUI = async (): Promise<void> => {
             select.style.background = "rgba(26, 33, 37, 0.063)"
             select.style.border = "0px"
         })
-        
+
         const container = gameframe.contentDocument.getElementsByClassName("container")[0] as HTMLElement;
-        container.style.background = "rgba(26, 33, 37, 0.1)"; 
-        container.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.3)"; // shadow around the borders
-        container.style.filter = "drop-shadow(0 0 5px rgba(0, 0, 0, 0.3))"; // drop shadown behind
+        container.style.background = "rgba(26, 33, 37, 0.1)";
+        container.style.border = "1px solid rgba(255, 255, 255, 0.25)";
+        container.style.borderRadius = "8px";
+        container.style.boxShadow = `
+            inset 0 0 2px rgba(255, 255, 255, 0.35),  /* stronger inner glow */
+            0 0 0 1px rgba(255, 255, 255, 0.1),       /* crisper outer outline */
+            0 0 6px rgba(255, 255, 255, 0.08)         /* subtle surrounding shimmer */
+        `;
 
         // add shadow to chat messages
         // gameframe.contentDocument.querySelectorAll('.chatbox-view-contents > .log .log-contents p').forEach(p => { p.style.textShadow = "1px 1px 1px #000, 0px 1px 1px #000;"})
@@ -81,9 +85,11 @@ export const toggleTransparentUI = async (): Promise<void> => {
         })
 
         const container = gameframe.contentDocument.getElementsByClassName("container")[0] as HTMLElement;
-        container.style.background = ""; 
-        container.style.boxShadow = ""; // shadow around the borders
-        container.style.filter = ""; // drop shadown behind
+        container.style.background = "";
+        container.style.border = "";
+        container.style.borderRadius = "";
+        container.style.boxShadow = "";
+        container.style.filter = "";
 
         // gameframe.contentDocument.querySelectorAll('.chatbox-view-contents > .log .log-contents p').forEach(p => { p.style.textShadow = ""})
     }
