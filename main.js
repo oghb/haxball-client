@@ -174,7 +174,7 @@ const createWindow = () => {
     const parsedUrl = new URL(url);
     const isInternal = parsedUrl.hostname.endsWith('haxball.com');
 
-    if (isInternal) {
+    if (isInternal & url !== "https://haxball.com/playerauth") {
       createWindow(url);
     } else {
       shell.openExternal(url);
