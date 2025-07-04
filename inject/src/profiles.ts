@@ -101,22 +101,6 @@ export const exportCurrentProfile = (): Promise<void> => {
         });
 }
 
-export const initPlayerAuth = (profileId: string): void => {
-	window.electronAPI.getAppPreferences()
-        .then(prefs => {
-            const profiles: Array<Profile> = prefs["profiles"]
-            const profileIdx = profiles.findIndex(p => p.id === profileId)
-            if (profiles[profileIdx]["player_auth_key"] === null){
-                profiles[profileIdx]["player_auth_key"] = localStorage.getItem("player_auth_key")
-                console.log('Updating auth');
-                window.electronAPI.setAppPreference("profiles", profiles)
-            }
-        })
-		.catch(error => {
-            console.error('Failed to load settings:', error);
-        });
-}
-
 export const removeProfiles = (profileIds: string[]): Promise<void> => {
 	return window.electronAPI.getAppPreferences()
         .then(prefs => {
@@ -800,11 +784,11 @@ const profileNew = async (): Promise<void> => {
         'Auth',
         ['New Identity', 'Current Identity'],
         'New Identity',
-        (selected) => {
+        async (selected) => {
             if (selected === 'Current Identity') {
                 newProfile.player_auth_key = localStorage.getItem("player_auth_key");
             } else {
-                newProfile.player_auth_key = null;
+                newProfile.player_auth_key = await window.electronAPI.generatePlayerAuthKey();
             }
         }
     );
@@ -848,8 +832,8 @@ const profileNew = async (): Promise<void> => {
 
         profiles.push(newProfile);
 
-        // if we create this new profile before even closing the app the first time, 
-        // we leave the "default" profile with player_name: null
+        // if we created this new profile before even closing the app the first time, 
+        // we would leave the "default" profile with player_name: null
         // so before saving the new profile, we make sure to also update default
         // with the current nickname being used
         const defaultProfileIdx = profiles.findIndex(p => p.id === "default");

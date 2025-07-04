@@ -11,6 +11,7 @@ declare global {
 			importPreferencesFile: () => Promise<any>;
 			deletePreferencesFile: () => Promise<any>;
 			getAppVersion: () => Promise<string>;
+			generatePlayerAuthKey: () => Promise<string>;
 		};
 	}
 };

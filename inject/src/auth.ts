@@ -1,5 +1,6 @@
 import { customAlert } from "./alerts";
 import { createButton } from "./utils";
+import { Profile } from "./profiles"
 
 export const authShowAlert = (publicAuth: string, privateKey: string) => {
 	const publicAuthButton = document.createElement('button');
@@ -52,29 +53,37 @@ export const authShowAlert = (publicAuth: string, privateKey: string) => {
 }
 
 export const resetAuthAlert = (): void => {
-	const resetButton = createButton(
+	const resetAuthButton = createButton(
 		"Confirm Reset",
 		"#b2413b", "#D04D46",
-		() => {
-			window.electronAPI.deletePreferencesFile()
-				.then(result => {
-					if (result){
-						localStorage.removeItem("player_auth_key");
-						customAlert(
-							"Reset successful", 
-							"The app will restart in a few seconds (or do it manually)...", 
-							[]
-						)
-						setTimeout(() => window.electronAPI.restartApp(), 4000)
-					}
-				})
+		async () => {
+			const prefs = await window.electronAPI.getAppPreferences();
+			const profiles = prefs["profiles"];
+			const newAuth = await window.electronAPI.generatePlayerAuthKey();
+
+			const currentProfileIdx = profiles.findIndex(
+				(p: Profile) => p.id === localStorage.getItem("current_profile")
+			);
+			if (currentProfileIdx !== -1) {
+				profiles[currentProfileIdx].player_auth_key = newAuth;
+			}
+
+			await window.electronAPI.setAppPreference('profiles', profiles);
+			localStorage.setItem("player_auth_key", newAuth);
+
+			customAlert(
+				"Reset successful", 
+				"The page will reload in a few seconds.", 
+				[]
+			)
+			setTimeout(() => window.location.reload(), 4000)
 		}
 	)
 
 	customAlert(
 		"Are you sure?",
 		`By resetting your auth you may lose your identity in public rooms.`,
-		[resetButton]
+		[resetAuthButton]
 	)
 }
 
@@ -158,11 +167,11 @@ export const authNewDialog = (): void => {
 		const idkey = idkeyInput.value.trim();
 		localStorage.setItem("player_auth_key", idkey);
 		customAlert(
-			"Changed Auth", 
-			"The app will restart in a few seconds (or do it manually)...", 
+			"Auth changed", 
+			"The page will reload in a few seconds.", 
 			[]
 		)
-		setTimeout(() => window.electronAPI.restartApp(), 4000)
+		setTimeout(() => window.location.reload(), 4000)
 	})
 
 	// === Alert setup ===

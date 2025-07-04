@@ -8,5 +8,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
   exportPreferencesFile: () => ipcRenderer.invoke('save-preferences-file'),
   importPreferencesFile: () => ipcRenderer.invoke('import-preferences-file'),
   deletePreferencesFile: () => ipcRenderer.invoke('delete-preferences-file'),
-  getAppVersion: () => ipcRenderer.invoke('get-app-version')
+  getAppVersion: () => ipcRenderer.invoke('get-app-version'),
+  generatePlayerAuthKey: () => ipcRenderer.invoke('generate-player-auth-key')
 });

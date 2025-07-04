@@ -2,7 +2,7 @@
 import { waitForElement } from "./waitForElement";
 import { setupUIElements } from "./ui/setupUIElements"
 import { handleGameView } from "./handleview";
-import { exportCurrentProfile, initPlayerAuth, loadProfileToLocalStorage, Profile } from "./profiles";
+import { exportCurrentProfile, loadProfileToLocalStorage, Profile } from "./profiles";
 
 async function init() {    
     // remove ads, modify header, add command bar
@@ -35,13 +35,6 @@ async function init() {
         }
         location.reload();
         return;
-    }
-
-    // if we're switching to a brand new profile after creation,
-    // we need to retrieve the newly created auth 
-    // and save it to preferences
-    if (currentProfile.player_auth_key === null){
-        initPlayerAuth(currentProfile.id);
     }
 
     // finally show window to user

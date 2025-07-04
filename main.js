@@ -4,6 +4,7 @@ const fs = require('fs');
 const { URL } = require('url');
 const { z } = require('zod');
 const { version } = require('./package.json');
+const { generateKeyPairSync } = require('crypto');
 
 let win;
 
@@ -289,6 +290,19 @@ ipcMain.handle('delete-preferences-file', async (event) => {
 ipcMain.handle('get-app-version', async (event) => {
   return version
 })
+
+ipcMain.handle('generate-player-auth-key', async (event) => {
+  const { privateKey } = generateKeyPairSync('ec', {
+    namedCurve: 'prime256v1',
+    publicKeyEncoding: { format: 'jwk' },
+    privateKeyEncoding: { format: 'jwk' },
+  });
+
+  const idkey = `idkey.${privateKey.x}.${privateKey.y}.${privateKey.d}`;
+
+  return idkey
+})
+
 
 app.whenReady().then(() => {
   win = createWindow();
