@@ -319,7 +319,7 @@ ipcMain.on('update-discord-rpc', (_event, details) => {
     startTimestamp: Date.now(),
     buttons: [
       {
-          label: 'Download the client',
+          label: 'Download Client',
           url:'https://oghb.github.io/haxball-client/'
       },
       {
