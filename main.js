@@ -5,8 +5,15 @@ const { URL } = require('url');
 const { z } = require('zod');
 const { version } = require('./package.json');
 const { generateKeyPairSync } = require('crypto');
+const DiscordRPC = require ("discord-rpc");
 
 let win;
+const rpcClientId = "1391027232352501841";
+const rpc = new DiscordRPC.Client({ transport: 'ipc' });
+rpc.on('ready', () => {
+	console.log('Discord RPC ready');
+});
+
 
 const validatePreferences = (prefs) => {
   const ProfileSchema = z.object({
@@ -34,7 +41,8 @@ const validatePreferences = (prefs) => {
       })), 
       transp_ui: z.boolean(),
       shortcuts: z.array(z.tuple([z.string(), z.string()])),
-      profiles: z.array(ProfileSchema)
+      profiles: z.array(ProfileSchema),
+      discord_rpc: z.boolean().optional()
   });
 
   try {
@@ -303,9 +311,41 @@ ipcMain.handle('generate-player-auth-key', async (event) => {
   return idkey
 })
 
+ipcMain.on('update-discord-rpc', (_event, details) => {
+  const activity = {
+    details: details,
+    largeImageKey: 'client-logo',
+    largeImageText: 'HaxBall Client by og',
+    startTimestamp: Date.now(),
+    buttons: [
+      {
+          label: 'Download the client',
+          url:'https://oghb.github.io/haxball-client/'
+      },
+      {
+          label: 'Join Discord',
+          url:'https://discord.gg/zDzYamtcfX'
+      }
+    ]
+  }
+
+  rpc.setActivity(activity).catch((err) => {
+    console.error('Discord RPC Error: Not logged in');
+  });
+});
 
 app.whenReady().then(() => {
   win = createWindow();
+
+  const preferencesPath = path.join(app.getPath('userData'), 'preferences.json')
+  const fileContent = fs.readFileSync(preferencesPath, 'utf-8');
+  const data = JSON.parse(fileContent);
+
+  const enableRPC = data["discord_rpc"] ?? true;
+
+  if (enableRPC){
+    rpc.login({ clientId: rpcClientId });
+  }
 });
 
 app.on('window-all-closed', () => {

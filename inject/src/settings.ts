@@ -125,7 +125,6 @@ export const resetPreferencesAlert = (): void => {
 
 export const openSettingsAlert = async (): Promise<void> => {
 	const prefs = await window.electronAPI.getAppPreferences();
-	const currentFpsSetting = prefs["fps_unlock"] ? "Unlimited" : "Default";
 
 	// -- General Section --
 	const generalSection = document.createElement('div');
@@ -137,11 +136,12 @@ export const openSettingsAlert = async (): Promise<void> => {
 	generalHeader.style.marginBottom = '10px';
 
 	const generalNote = document.createElement('div');
-	generalNote.textContent = "You must restart the app to apply the new settings!";
+	generalNote.textContent = "You must restart the app before these settings are applied!";
 	generalNote.style.fontSize = '13px';
 	generalNote.style.marginBottom = '15px';
 	generalNote.style.color = '#ccc';
 
+	const currentFpsSetting = prefs["fps_unlock"] ? "Unlimited" : "Default";
 	const fpsRow = createToggleRow(
 		'FPS', 
 		['Default', 'Unlimited'], 
@@ -152,9 +152,27 @@ export const openSettingsAlert = async (): Promise<void> => {
 		}
 	);
 
+	// because discord_rpc was introduced after 0.4.0
+	// here we just make sure that if preferences.json doesn't have discord_rpc
+	// then we consider it Enabled
+	const currentRPCSetting = prefs.hasOwnProperty("discord_rpc")
+		? prefs["discord_rpc"] ? "Enabled" : "Disabled"
+		: "Enabled";
+
+	const discordRPCRow = createToggleRow(
+		'Discord Rich Presence', 
+		['Enabled', 'Disabled'], 
+		currentRPCSetting, 
+		(selected) => {
+			const newRPCSetting = (selected === "Enabled") ? true : false;
+			window.electronAPI.setAppPreference("discord_rpc", newRPCSetting);
+		}
+	);
+
 	generalSection.appendChild(generalHeader);
 	generalSection.appendChild(generalNote);
 	generalSection.appendChild(fpsRow);
+	generalSection.appendChild(discordRPCRow);
 	generalSection.appendChild(createDivider());
 
 	// -- Shortcuts Section --

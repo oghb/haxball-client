@@ -12,6 +12,7 @@ declare global {
 			deletePreferencesFile: () => Promise<any>;
 			getAppVersion: () => Promise<string>;
 			generatePlayerAuthKey: () => Promise<string>;
+			updateDiscordRPC: (details: string) => void;
 		};
 	}
 };
