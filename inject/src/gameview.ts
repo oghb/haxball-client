@@ -1,24 +1,28 @@
 import { waitForElement } from "./waitForElement";
+import { emojiShortcuts } from "./emojis";
 
-const addShortcutListener = (gameframe: HTMLIFrameElement): void => {
+const addShortcutListener = async (gameframe: HTMLIFrameElement): Promise<void> => {
 	const chatInput = gameframe.contentDocument.querySelector('[data-hook="input"]') as HTMLInputElement;
-	
-	chatInput.addEventListener("keyup", function () {
-        window.electronAPI.getAppPreferences()
-            .then(prefs => {          
-                const shortcuts = prefs["shortcuts"];
-                for (let i = 0; i < shortcuts.length; i++) {
-                    if (chatInput.value === shortcuts[i][0]) {
-                        chatInput.value = shortcuts[i][1];
-                        return;
-                    }
-                }
-            })
-            .catch(error => {
-                console.error('Failed to load settings:', error);
-            });
+	const prefs = await window.electronAPI.getAppPreferences();
+	const shortcutTuples: [string, string][] = prefs["shortcuts"];
+	const shortcutMap = new Map(shortcutTuples);
+
+	const emojiRegex = /:[a-zA-Z0-9_]+:/g;
+
+	chatInput.addEventListener("keyup", () => {
+		let text = chatInput.value;
+
+		// Expand shortcut only if the entire input matches
+		if (shortcutMap.has(text)) {
+			text = shortcutMap.get(text)!;
+		}
+
+		// Replace all matching emoji patterns
+		text = text.replace(emojiRegex, match => emojiShortcuts[match] || match);
+
+		chatInput.value = text;
 	});
-}
+};
 
 export const toggleTransparentUI = async (): Promise<void> => {
     const gameframe = document.getElementsByClassName("gameframe")[0] as HTMLIFrameElement;
