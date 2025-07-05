@@ -1,10 +1,9 @@
 {
   "name": "haxball-client",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "main": "main.js",
   "private": true,
   "scripts": {
-    "start": "electron .",
     "build:ts": "esbuild inject/src/inject.ts --bundle --outfile=inject/inject.js --format=iife --minify",
     "build:mac": "electron-builder --mac",
     "build:win-x64": "electron-builder --win --x64",
@@ -13,7 +12,7 @@
     "build:linux-appimage": "electron-builder --linux AppImage --x64",
     "build:linux-deb": "electron-builder --linux deb --x64",
     "build": "npm run build:ts && sh build.sh",
-    "test": "npm run build && ./dist/mac-universal/HaxBall\\ Client.app/Contents/MacOS/HaxBall\\ Client"
+    "test": "npm run build:mac && ./dist/mac-universal/HaxBall\\ Client.app/Contents/MacOS/HaxBall\\ Client"
   },
   "keywords": [
     "haxball",
@@ -25,7 +24,7 @@
   "email": "73192436+oghb@users.noreply.github.com",
   "description": "",
   "devDependencies": {
-    "electron": "23.3.13",
+    "electron": "18.2.0",
     "electron-builder": "25.1.8",
     "esbuild": "0.25.3"
   },
@@ -76,6 +75,7 @@
     }
   },
   "dependencies": {
+    "discord-rpc": "^4.0.1",
     "zod": "^3.24.3"
   }
 }

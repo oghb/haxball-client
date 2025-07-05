@@ -1,5 +1,5 @@
 # Frequently Asked Questions (FAQ)
-> last update of this page: June 2025 
+> last update of this page: July 2025 
 
 ## General
 
@@ -44,10 +44,10 @@
 ## About its features
  
 - #### How can I play with unlimited FPS?
-  Type `fps unlock` in the command bar, press Enter, and restart the app.
+  In the header, go to Settings and you'll find the option. Then restart the app.
 
 - #### After I join a room, the header of the app disappears. How do I get it back?
-  When you leave the room, press CTRL + R (on Windows/Linux) or CMD + R (on Mac) to refresh the page. If you want to keep it visible at all times, enter the Add-on Settings and uncheck "Hide NavBar by default".
+  The header automatically hides when you join a room and re-appears when you leave it. If you want to manually show/hide it, you can press the `h` key.
 
 - #### When I press the button to show my Favorite rooms, the room list appears empty. Why?
   You either haven't set any favorite rooms or need to scroll up the room list.
@@ -64,7 +64,7 @@
   This is unusual and may also be due to other factors unrelated to the app. If it's systematic, [open an issue](https://github.com/oghb/haxball-client/issues) here on GitHub.
 
 - #### The game doesn't feel fluid or feels different from haxball.com
-  This is unusual and may also be due to other factors unrelated to the app. Try unlocking the FPS to see if performance improves. If it doesn't, discuss with other users on our [Discord server](https://discord.gg/zDzYamtcfX) or [open an issue](https://github.com/oghb/haxball-client/issues) here on GitHub.
+  This is unusual and may also be due to other factors unrelated to the app. Try setting unlimited FPS to see if performance improves. If it doesn't, discuss with other users on our [Discord server](https://discord.gg/zDzYamtcfX) or [open an issue](https://github.com/oghb/haxball-client/issues) here on GitHub.
   
 - #### Why do I get lower FPS than using a browser?
   This is unusual and may also be due to other factors unrelated to the app. If you experience a large decrease of FPS, discuss with other users on our [Discord server](https://discord.gg/zDzYamtcfX) or [open an issue](https://github.com/oghb/haxball-client/issues) here on GitHub.
