@@ -1,6 +1,7 @@
 import { customAlert } from "./alerts";
 import { authNewDialog, authShowAlert, resetAuthAlert } from "./auth";
 import { loadProfileToLocalStorage } from "./profiles";
+import { shortcutListDialog, shortcutNewDialog } from "./shortcuts";
 import { createButton } from "./utils";
 
 const createToggleRow = (
@@ -156,6 +157,42 @@ export const openSettingsAlert = async (): Promise<void> => {
 	generalSection.appendChild(fpsRow);
 	generalSection.appendChild(createDivider());
 
+	// -- Shortcuts Section --
+	const shortcutsSection = document.createElement('div');
+
+	const shortcutsHeader = document.createElement('div');
+	shortcutsHeader.textContent = "Shortcuts";
+	shortcutsHeader.style.fontSize = '18px';
+	shortcutsHeader.style.fontWeight = 'bold';
+	shortcutsHeader.style.marginBottom = '10px';
+
+	const shortcutsMessage = document.createElement('div');
+	shortcutsMessage.textContent = 'Shortcuts let you type frequent commands, messages, or emojis, by automatically expanding text written in chat.';
+	shortcutsMessage.style.fontSize = '13px';
+	shortcutsMessage.style.marginBottom = '10px';
+	shortcutsMessage.style.lineHeight = '1.4';
+	shortcutsMessage.style.color = '#ccc';
+
+	const shortcutsActionRow = document.createElement('div');
+	shortcutsActionRow.style.display = 'flex';
+	shortcutsActionRow.style.justifyContent = 'space-between';
+	shortcutsActionRow.style.gap = '10px';
+
+	const createShortcutButton = createButton("Create new shortcut", "#244967", "#3b5d82", () => {
+		shortcutNewDialog();
+	})
+	const viewShortcutsButton = createButton("View shortcuts", "#244967", "#3b5d82", () => {
+		shortcutListDialog();
+	})
+
+	shortcutsActionRow.appendChild(createShortcutButton);
+	shortcutsActionRow.appendChild(viewShortcutsButton);
+
+	shortcutsSection.appendChild(shortcutsHeader);
+	shortcutsSection.appendChild(shortcutsMessage);
+	shortcutsSection.appendChild(shortcutsActionRow);
+	shortcutsSection.appendChild(createDivider());
+
 	// -- Auth Section --
 	const authSection = document.createElement('div');
 
@@ -194,7 +231,6 @@ export const openSettingsAlert = async (): Promise<void> => {
 	authActionRow.appendChild(changeAuthButton);
 	authActionRow.appendChild(resetAuthButton);
 
-	// You can add other content here later.
 	authSection.appendChild(authHeader);
 	authSection.appendChild(authMessage);
 	authSection.appendChild(authActionRow);
@@ -266,6 +302,7 @@ export const openSettingsAlert = async (): Promise<void> => {
 	// -- Combine All Sections --
 	const container = document.createElement('div');
 	container.appendChild(generalSection);
+	container.appendChild(shortcutsSection);
 	container.appendChild(authSection);
 	container.appendChild(backupSection);
 
